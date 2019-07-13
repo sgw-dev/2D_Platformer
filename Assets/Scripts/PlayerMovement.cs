@@ -2,220 +2,186 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-/* Parker
- * 
- * Setup:
- *  attach to player
- *  create 4 empty objects that children to player
- *  add 2d box collider to each child
- *  resize colliders
- *  check is trigger
- * 
- * Notes:
- *  commented numbers are values I used
- * 
- */
+[RequireComponent(typeof(CharacterMovement))]
+public class PlayerMovement : MonoBehaviour {
 
-public class PlayerMovement : MonoBehaviour 
-{
-    private Rigidbody2D rb;
+    public float maxSpeed;//3-5
+    public float groundSpeed;//5-8
+    public float sprintSpeed;//8-12
+    public float wallClimb;//4-8
+    public float airControl;//3
 
-    //offset x -.09
-    //size x .005, y .16
-    public Collider2D leftCollider;
-
-    //offset x .09
-    //size x .005, y .16
-    public Collider2D rightCollider;
-
-    //offset y -.09
-    //size x .16, y .005
-    public Collider2D groundCollider;
-    public Collider2D interactCollider;
-
-    public float maxSpeed; //5
-    public float speedx; //5
-    public float jumpPower; //500
-    public float wallJumpPower; //250
-
-    public int maxNumOfJumps;
+    public float gravity;//-10
+    public float wallGravity;//-1 - -3
+    public float jumpSpeed;//8-12
+    public int maxNumOfJumps;//2
     private int numOfJumps;
+    public bool stopXOnJump;//true
 
-    private bool onGround;
-    private bool onWall;
-    private bool inAir = true;
+    public string sprintButton;
+    private bool sprinting;
 
-    public string tagOfGround;
-    public float onWallDrag; //6
-    public float normalDrag; //0
+    private Vector2 input;
 
+    public Vector3 velocity;//leave alone
+
+    //subobject with a collider
+    public Collider2D interactCollider;
     public string interactKey;
 
-    public void Start()
+    CharacterMovement controller;
+
+    void Start()
     {
-        rb = GetComponent<Rigidbody2D>();
-        if (!rb.freezeRotation)
+        controller = GetComponent<CharacterMovement>();
+    }
+
+    private void FixedUpdate()
+    {
+        input = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
+        isSprinting();
+        velocityX(input.x);
+        velocityY();
+        controller.inputMove(velocity * Time.deltaTime);
+        interact();
+    }
+
+    //test if sprinting
+    private void isSprinting()
+    {
+        if (Input.GetKey(sprintButton) && controller.sides.bot)
         {
-            rb.freezeRotation = true;
+            sprinting = true;
+        }
+        else
+        {
+            sprinting = false;
         }
     }
 
-    public void FixedUpdate()
+    //if on ground then velocity x = groundspeed or sprintspeed
+    //else velocity += aircontrol
+    private void velocityX(float dir)
     {
-        playerState();
-        playerMovement();
-        if (Input.GetKeyDown(interactKey))
+        if (controller.sides.bot)
         {
-            interact();
-        }
-        if (Input.GetKeyUp(interactKey))
-        {
-            interact();
-        }
-    }
-
-    //check which drag to use and reset jumps when on ground
-    private void playerState()
-    {
-        if (onWall)
-        {
-            rb.drag = onWallDrag;
-        }
-        else if (rb.velocity.y == 0)
-        {
-            onGround = true;
-            onWall = false;
-            inAir = false;
+            if (sprinting)
+            {
+                velocity.x = dir * sprintSpeed;
+            }
+            else
+            {
+                velocity.x = dir * groundSpeed;
+            }
             numOfJumps = maxNumOfJumps;
         }
         else
         {
-            rb.drag = normalDrag;
+            velocity.x += airSpeedX(dir * airControl * Time.deltaTime);
         }
     }
 
-    //enable/disable interact collider
-    public void interact()
+    //if air speed is greater than maxspeed then slow down velocity x to max speed
+    private float airSpeedX(float v)
     {
-        interactCollider.enabled = !interactCollider.enabled;
-    }
-
-    //create vector then check how to use it and clamps speed
-    public void playerMovement()
-    {
-        Vector2 v2 = clampSpeed(new Vector2(playerMovementX(), playerMovementY()));
-        if (onGround)
+        if (Mathf.Abs(velocity.x) > maxSpeed)
         {
-            rb.velocity = v2;
-        }
-        else
-        {
-            rb.AddForce(v2);
-        }
-    }
-
-    //clamps speed
-    private Vector2 clampSpeed(Vector2 v)
-    {
-        if(Mathf.Abs(rb.velocity.x) > maxSpeed)
-        {
-            return new Vector2(0, v.y);
+            if (Mathf.Sign(v) == Mathf.Sign(velocity.x))
+            {
+                v = 0;
+            }
+            v += (maxSpeed - Mathf.Abs(velocity.x)) * Mathf.Sign(velocity.x) * Time.deltaTime;
         }
         return v;
     }
 
-    //returns speed for x and rotates object
-    private float playerMovementX()
+    private void velocityY()
     {
-        if (Input.GetKey("a"))
+        //velocity y = 0 if on ground or ceiling
+        if (controller.sides.bot || controller.sides.top)
         {
-            faceLeft();
-            return -speedx;
+            velocity.y = 0;
         }
-        if (Input.GetKey("d"))
+
+        //when sprinting up to wall, climbs wall(not a jump)
+        if (sprinting && (controller.sides.left || controller.sides.right))
         {
-            faceRight();
-            return speedx;
+            velocity = Vector3.up * wallClimb;
         }
-        return 0;
-    }
 
-    private void faceLeft()
-    {
-        transform.eulerAngles = new Vector3(0, 180, 0);
-    }
-
-    private void faceRight()
-    {
-        transform.eulerAngles = new Vector3(0, 0, 0);
-    }
-
-    //return speed for y
-    private float playerMovementY()
-    {
-        if (Input.GetKeyDown("space"))
+        //jump
+        else if (Input.GetKeyDown("space"))
         {
-            if (onWall)
-            {
-                return wallJump();
-            }
-            else if (numOfJumps > 0)
-            {
-                return jump();
-            }            
+            jump();
         }
-        return 0;
-    }
 
-    //jump in direction opposite of direction player is facing
-    private float wallJump()
-    {
-        rb.velocity = Vector2.zero;
-        if (transform.rotation.y != 0)
+        //allows player to drop through platform
+        if (input.y < 0)
         {
-            rb.AddForce(new Vector2(wallJumpPower, jumpPower));
+            controller.sides.dropTroughPlatform = true;
         }
         else
         {
-            rb.AddForce(new Vector2(-wallJumpPower, jumpPower));
+            controller.sides.dropTroughPlatform = false;
         }
-        return .1f;
+
+        //add gravity
+        velocity.y += (getGravity() * Time.deltaTime);
     }
 
-    private float jump()
+    private void jump()
     {
-        rb.velocity = new Vector2(rb.velocity.x, 0);
-        onGround = false;
-        numOfJumps--;
-        return jumpPower;
-    }
-
-    private void OnCollisionExit2D(Collision2D collision)
-    {
-        onGround = false;
-        onWall = false;
-        inAir = true;
-    }
-
-    //first check if on ground then check if on wall and not ground
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        if (collision.gameObject.CompareTag(tagOfGround))
+        //if on ground normal jump
+        if (controller.sides.bot)
         {
-            if (groundCollider.IsTouching(collision.collider))
-            {
-                onGround = true;
-                onWall = false;
-                inAir = false;
-            }
-            else if ((leftCollider.IsTouching(collision.collider) ||
-                rightCollider.IsTouching(collision.collider)) && 
-                !onGround)
-            {
-                onGround = false;
-                onWall = true;
-                inAir = false;
-            }
+            numOfJumps--;
+            velocity = new Vector2(input.x, 1) * jumpSpeed;
         }
+
+        //if on wall can jump opposite of wall(dosen't count as jump)
+        else if ((controller.sides.left && input.x > 0) ||
+            (controller.sides.right && input.x < 0))
+        {
+            velocity = new Vector2(input.x, input.y) * jumpSpeed;
+        }
+
+        //else special jump
+        else if (numOfJumps > 0)
+        {
+            velocity = eightDirJump();
+        }
+    }
+
+    //allows jumps in 8 directions (N, NE, E, SE, S, SW, W, NW)
+    private Vector2 eightDirJump()
+    {
+        numOfJumps--;
+        if (input.x != 0 || input.y != 0)
+        {
+            return new Vector2(input.x, input.y) * jumpSpeed;
+        }
+        return Vector2.up * jumpSpeed;
+    }
+
+    //determine which gravity to use (wall or normal)
+    private float getGravity()
+    {
+        if ((controller.sides.right || controller.sides.left) && velocity.y < 0)
+        {
+            return wallGravity;
+        }
+        else
+        {
+            return gravity;
+        }
+    }
+
+    public void interact()
+    {
+        if (Input.GetKey(interactKey))
+        {
+            interactCollider.enabled = true;
+        }
+        else interactCollider.enabled = false;
     }
 }
