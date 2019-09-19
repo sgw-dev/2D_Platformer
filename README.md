@@ -1,5 +1,5 @@
-# 2D_Platformer
+# Scripts
 
-All work should be done on personal branches.
+Put your completed scripts in here to be added to the working copy of the game
 
-Merging to development requires 1 approved pull request.
+Remeber, each stript must also have a screen shot detailing how it is placed in the scene
