@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class UIElementManager : MonoBehaviour
 {
@@ -22,5 +23,8 @@ public class UIElementManager : MonoBehaviour
     void Update()
     {
 
+    }
+    public void loadLevelSelect() {
+        SceneManager.LoadScene("LevelSelect", LoadSceneMode.Single);
     }
 }  

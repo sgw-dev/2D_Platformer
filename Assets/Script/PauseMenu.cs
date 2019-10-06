@@ -15,9 +15,11 @@ public class PauseMenu : MonoBehaviour
 
     //Determines if game is paused
     public bool isPaused;
+    public bool isInv;
 
     //The visual pause menu
     public GameObject pauseMenuCanvas;
+    public GameObject invMenuCanvas;
 
     //pause function
     void Update()
@@ -39,6 +41,23 @@ public class PauseMenu : MonoBehaviour
         {
             isPaused = !isPaused;
         }
+        //if paused show pause menu and stop all game movement
+        if (isInv)
+        {
+            invMenuCanvas.SetActive(true);
+            Time.timeScale = 0f;
+        }
+        //if not paused hide pause menu and resume all game movement
+        else
+        {
+            invMenuCanvas.SetActive(false);
+            Time.timeScale = 1f;
+        }
+
+        if (Input.GetKeyDown(KeyCode.I))
+        {
+            isInv = !isInv;
+        }
     }
 
     //resumes game
@@ -56,6 +75,10 @@ public class PauseMenu : MonoBehaviour
     //Takes you to main menu
     public void Quit()
     {
+        Application.Quit();
+    }
+    public void main()
+    {
         UnityEngine.SceneManagement.SceneManager.LoadScene(mainMenu);
     }
 
@@ -63,5 +86,27 @@ public class PauseMenu : MonoBehaviour
     public void LoadCurrentScene()
     {
         UnityEngine.SceneManagement.SceneManager.LoadScene(startLevel);
+    }
+    public void openPause() {
+        pauseMenuCanvas.SetActive(true);
+        Time.timeScale = 0f;
+        isPaused = !isPaused;
+    }
+    public void closePause() {
+        pauseMenuCanvas.SetActive(false);
+        Time.timeScale = 1f;
+        isPaused = !isPaused;
+    }
+    public void openInv()
+    {
+        invMenuCanvas.SetActive(true);
+        Time.timeScale = 0f;
+        isInv = !isInv;
+    }
+    public void closeInv()
+    {
+        invMenuCanvas.SetActive(false);
+        Time.timeScale = 1f;
+        isInv = !isInv;
     }
 }
