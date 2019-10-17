@@ -3219,7 +3219,7 @@ MonoBehaviour:
     m_Bits: 1024
   playerPosition: {fileID: 1546849453}
   jumpPower: 4000
-  speedX: 400
+  speedX: 300
   maxSpeedX: 3
   searchDistance: 8
   sr: {fileID: 0}
