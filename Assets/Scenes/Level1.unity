@@ -494,14 +494,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 164230094}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5afe1d52cb1271c40b49860eb56dad3a, type: 3}
+  m_Script: {fileID: 11500000, guid: 67b30d42509ae3c49969565a74aae1bd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   InvMenu: {fileID: 1833970757}
   BoxesPanel: {fileID: 1012820334}
   Slots: []
   isFull: 
-  itemSlotImage: {fileID: 1430589732369365008, guid: b540dc0980ea770478bcab3c3fd63c86,
+  itemSlotImage: {fileID: 1430589732369365008, guid: 05f373478f3378c48bec0075f13034d8,
     type: 3}
 --- !u!58 &164230097
 CircleCollider2D:
@@ -5204,7 +5204,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   LOOT_TABLE:
-  - {fileID: 2761777734963861250, guid: ce9a9967972a03e40acb6eaa568b2119, type: 3}
+  - {fileID: 2761777734963861250, guid: 2267f4cab49566349bb65475fa030fec, type: 3}
   tospawn: {fileID: 1589126419}
 --- !u!58 &1589126421
 CircleCollider2D:
