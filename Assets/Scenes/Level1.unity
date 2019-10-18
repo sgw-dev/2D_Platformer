@@ -453,6 +453,72 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 96791713}
   m_CullTransparentMesh: 0
+--- !u!1 &164230094
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 164230095}
+  - component: {fileID: 164230096}
+  - component: {fileID: 164230097}
+  m_Layer: 11
+  m_Name: Inventory
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &164230095
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 164230094}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1546849453}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &164230096
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 164230094}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5afe1d52cb1271c40b49860eb56dad3a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  InvMenu: {fileID: 1833970757}
+  BoxesPanel: {fileID: 1012820334}
+  Slots: []
+  isFull: 
+  itemSlotImage: {fileID: 1430589732369365008, guid: b540dc0980ea770478bcab3c3fd63c86,
+    type: 3}
+--- !u!58 &164230097
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 164230094}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 2.49
 --- !u!1 &177475209
 GameObject:
   m_ObjectHideFlags: 0
@@ -1417,7 +1483,7 @@ MonoBehaviour:
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
   m_Interactable: 1
-  m_TargetGraphic: {fileID: 300401821}
+  m_TargetGraphic: {fileID: 1833970759}
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
@@ -4976,6 +5042,7 @@ Transform:
   - {fileID: 1871655960}
   - {fileID: 201664632}
   - {fileID: 49066457}
+  - {fileID: 164230095}
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -5137,7 +5204,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   LOOT_TABLE:
-  - {fileID: 6768382181846481774, guid: 9678af6a446ef9047826906f215303bb, type: 3}
+  - {fileID: 2761777734963861250, guid: ce9a9967972a03e40acb6eaa568b2119, type: 3}
   tospawn: {fileID: 1589126419}
 --- !u!58 &1589126421
 CircleCollider2D:
