@@ -6,10 +6,9 @@ public class CameraFollow : MonoBehaviour
 {
     //Author: Spencer Burke
 
-    public GameObject target; //The thing the camera is following   must be assigned
     public GameObject stageObject; //The stage the player is on    must be assigned
 
-    private Transform targetTrans; //that thing's transform
+    public Transform targetTrans; //that thing's transform
     private float targetX; //the target's x position
     private float targetY; //the target's y position
     private Camera cam; //The camera component of the camera object
@@ -22,11 +21,14 @@ public class CameraFollow : MonoBehaviour
     private float bottomBound;
     private float topBound;
 
+    public Transform bottomLeft;
+    public Transform topRight;
+
     // Use this for initialization
     void Start()
     {
         //get the target's transform
-        targetTrans = target.transform;
+        //targetTrans = target.transform;
         //get the camera component on the camera gameobject
         cam = this.GetComponent<Camera>();
         //get the sprite component of the stage
@@ -36,10 +38,10 @@ public class CameraFollow : MonoBehaviour
         camHorzExtent = cam.aspect * camVertExtent;
         //adjust where the camera can travel by modifying the bounds of the stage accounting for the
         //    width and height of the camera
-        leftBound = stage.bounds.min.x + camHorzExtent;
-        rightBound = stage.bounds.max.x - camHorzExtent;
-        bottomBound = stage.bounds.min.y + camVertExtent;
-        topBound = stage.bounds.max.y - camVertExtent;
+        leftBound = bottomLeft.position.x + camHorzExtent;
+        rightBound = topRight.position.x - camHorzExtent;
+        bottomBound = bottomLeft.position.y + camVertExtent;
+        topBound = topRight.position.y - camVertExtent;
 
         
     }

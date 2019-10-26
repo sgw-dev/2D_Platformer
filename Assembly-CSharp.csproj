@@ -60,6 +60,8 @@
      <Compile Include="Assets\Script\CharacterStatsTEXT.cs" />
      <Compile Include="Assets\Script\EnemyPathing.cs" />
      <Compile Include="Assets\Script\Interaction.cs" />
+     <Compile Include="Assets\Script\Inventory.cs" />
+     <Compile Include="Assets\Script\Items.cs" />
      <Compile Include="Assets\Script\MainMenu.cs" />
      <Compile Include="Assets\Script\MovingPlateform.cs" />
      <Compile Include="Assets\Script\Patrolling.cs" />
@@ -69,6 +71,7 @@
      <Compile Include="Assets\Script\PlayerStats.cs" />
      <Compile Include="Assets\Script\RayCastController.cs" />
      <Compile Include="Assets\Script\SlimeMovement.cs" />
+     <Compile Include="Assets\Script\Slot.cs" />
      <Compile Include="Assets\Script\UIElementManager.cs" />
  <Reference Include="Unity.Timeline.Editor">
  <HintPath>D:/Desktop/Unity Programs/2D_Platformer/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>
