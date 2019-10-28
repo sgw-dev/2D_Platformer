@@ -8,6 +8,7 @@ TagManager:
   - InteractableObj
   - Item
   - PlayerGrounder
+  - Enemy
   layers:
   - Default
   - TransparentFX
