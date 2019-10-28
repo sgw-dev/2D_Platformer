@@ -14,6 +14,8 @@ public class Player : MonoBehaviour
     public float attackTime;
     private float attackTimer = 0.0f;
     public Collider2D attackCollider;
+    public Animator playerAnim;
+    private bool running = false;
 
     public GameObject stage;
     public GameObject bottom;
@@ -70,6 +72,7 @@ public class Player : MonoBehaviour
                 //flip the sprite to face right
                 this.GetComponent<SpriteRenderer>().flipX = false;
             }
+            playerAnim.SetBool("running", true);
         }
         //if D pressed
         if (Input.GetAxisRaw("Horizontal") > 0.0f )
@@ -82,6 +85,7 @@ public class Player : MonoBehaviour
                 //flip the sprite to face right
                 this.GetComponent<SpriteRenderer>().flipX = false;
             }
+            playerAnim.SetBool("running", true);
         }
         //if A pressed and sprint
         if (Input.GetAxisRaw("Horizontal") < 0.0f && Input.GetButton("Fire3")
@@ -96,6 +100,7 @@ public class Player : MonoBehaviour
                 //flip the sprite to face left
                 this.GetComponent<SpriteRenderer>().flipX = true;
             }
+            playerAnim.SetBool("running", true);
         }
         //if A pressed
         if (Input.GetAxisRaw("Horizontal") < 0.0f)
@@ -109,8 +114,11 @@ public class Player : MonoBehaviour
                 //flip the sprite to face left
                 this.GetComponent<SpriteRenderer>().flipX = true;
             }
+            playerAnim.SetBool("running", true);
         }
-        
+        if (rb.velocity.x == 0.0f) {
+            playerAnim.SetBool("running", false); 
+        }
         //if jump pressed
         if (Input.GetButtonDown("Jump"))
         {
@@ -153,7 +161,7 @@ public class Player : MonoBehaviour
                 if (colliders[i].tag.CompareTo("Enemy") == 0) {
                     if (!names.Contains(colliders[i].name))
                     {
-                        colliders[i].SendMessage("applyDamage", 1);
+                        colliders[i].SendMessage("applyDamage", 1.0f);
                         names.Add(colliders[i].name);
                     }
                 }

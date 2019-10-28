@@ -4,19 +4,22 @@ using UnityEngine;
 
 public class EnemyHealth : MonoBehaviour{
 
-    public int maxHealth;
-    private int health;
+    public float maxHealth;
+    private float health;
+
+    //public float weakness;
 
     public GameObject healthbar;
     private float healthWidth;
-    private float healthScale;
+    private float maxWidth;
 
     // Start is called before the first frame update
     void Start()
     {
+        //maxHealth = healthbar.transform.localScale.x;
         health = maxHealth;
-        healthScale = healthbar.transform.localScale.x;
-        healthWidth = healthScale;
+        maxWidth = healthbar.transform.localScale.x;
+        healthWidth = maxWidth;
     }
 
     // Update is called once per frame
@@ -24,15 +27,17 @@ public class EnemyHealth : MonoBehaviour{
     {
         
     }
-    public void applyDamage(int damage) {
+    public void applyDamage(float damage) {
+
+        //damage = damage * weakness;
         health -= damage;
         if (health <= 0)
         {
             die();
         }
-        float ratio = (float)damage / healthWidth;
-        healthScale = healthbar.transform.localScale.x;
-        healthbar.transform.localScale = new Vector3 (healthScale - (healthWidth*ratio), healthbar.transform.localScale.y, 1.0f);
+        float ratio = maxWidth / maxHealth;
+        float width = healthbar.transform.localScale.x;
+        healthbar.transform.localScale = new Vector3 (width - (ratio*damage), healthbar.transform.localScale.y, 1.0f);
 
     }
     public void die() {
