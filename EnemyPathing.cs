@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -6,7 +6,7 @@ public class EnemyPathing : MonoBehaviour
 {
     /*
      * By: Parker Allen
-     * Ver: 1.0
+     * Ver: 1.1
      * 
      * Notes:
      * target, waypoint and point will all be called point, unless
@@ -19,6 +19,7 @@ public class EnemyPathing : MonoBehaviour
      * Setup:
      * to create path for the enemy create empty objects and put the transforms
      * in to the points list
+     * go to "Edit" > "Project Settings" > "Physics2D" and uncheck SlimeLayer by SlimeLayer
      * 
      * collisionMask = layer of the ground
      * playerPosition = transform of the player
@@ -52,6 +53,7 @@ public class EnemyPathing : MonoBehaviour
 
     //max jump height of object
     private float jumpHeight;
+    private float jumpTime;
 
     //max number of jumps
     private int maxNumOfJumps;
@@ -75,6 +77,7 @@ public class EnemyPathing : MonoBehaviour
         maxNumOfJumps = 1;
         gravity = rb.gravityScale * Physics2D.gravity.magnitude;
         float v0 = jumpPower / rb.mass;
+        jumpTime = v0 / gravity;
         jumpHeight = (v0 * v0) / (2 * gravity);
     }
 
@@ -82,7 +85,7 @@ public class EnemyPathing : MonoBehaviour
     public Vector2 getWaypoint()
     {
         hitWaypoint();
-        if(target != Vector2.zero)
+        if (target != Vector2.zero)
         {
             return target;
         }
@@ -105,7 +108,7 @@ public class EnemyPathing : MonoBehaviour
     //checks if object hits point
     private bool withinBound(Vector2 p)
     {
-        if(Mathf.Abs(transform.position.x - p.x) < bound.size.x / 2 && Mathf.Abs(transform.position.y - p.y) < bound.size.y / 2)
+        if (Mathf.Abs(transform.position.x - p.x) < bound.size.x / 2 && Mathf.Abs(transform.position.y - p.y) < bound.size.y / 2)
         {
             return true;
         }
@@ -141,7 +144,7 @@ public class EnemyPathing : MonoBehaviour
     private Vector2[] setWaypoints(List<Transform> p)
     {
         Vector2[] rtn = new Vector2[p.Count];
-        for(int i = 0; i < p.Count; i++)
+        for (int i = 0; i < p.Count; i++)
         {
             rtn[i] = TtoV2(p[i]);
         }
@@ -151,11 +154,13 @@ public class EnemyPathing : MonoBehaviour
     //cast raydown to see if on ground if true the reset number of jumps
     public void checkOnGround()
     {
-        for(int i = 0; i < 3; i++)
+        for (int i = 0; i < 3; i++)
         {
-            float x = bound.min.x + i * bound.size.x;
+            float x = transform.position.x - i * (bound.size.x / 2) + (bound.size.x / 2);
             Vector2 rayOrgin = new Vector2(x, transform.position.y - bound.size.y / 2);
             RaycastHit2D hit = Physics2D.Raycast(rayOrgin, Vector2.down, .11f, collisionMask);
+            //Debug.DrawRay(rayOrgin, Vector2.down * .11f, Color.red);
+
             if (hit)
             {
                 numOfJumps = maxNumOfJumps;
@@ -209,10 +214,13 @@ public class EnemyPathing : MonoBehaviour
         RaycastHit2D hit = Physics2D.Raycast(point, Vector2.down, 5, collisionMask);
         if (hit)
         {
-            float time = Mathf.Abs(Vector3.Distance(point, transform.position)) / maxSpeedX;
-            float y = transform.position.y + jumpHeight + .5f * gravity * (time * time);
-            if (y > point.y && numOfJumps > 0)
+            float t = jumpTime;
+            t += Mathf.Sqrt(2 * (point.y - (transform.position.y + jumpHeight)) / -gravity);
+
+            bool reach = transform.position.x + t * maxSpeedX * Time.deltaTime > hit.collider.bounds.min.x;
+            if (reach && numOfJumps > 0)
             {
+                //Debug.DrawRay(transform.position, Vector3.right * t * maxSpeedX * Time.deltaTime, Color.red, 5);
                 return 2;
             }
         }
