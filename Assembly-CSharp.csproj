@@ -76,6 +76,7 @@
     <Compile Include="Assets\Script\SlimeMovement.cs" />
     <Compile Include="Assets\Script\Slot.cs" />
     <Compile Include="Assets\Script\UIElementManager.cs" />
+    <Compile Include="Assets\Script\Wizard.cs" />
     <Reference Include="Unity.Timeline.Editor">
       <HintPath>D:/Desktop/Unity Programs/2D_Platformer/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>
     </Reference>

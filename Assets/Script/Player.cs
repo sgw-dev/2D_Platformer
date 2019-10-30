@@ -116,7 +116,7 @@ public class Player : MonoBehaviour
             }
             playerAnim.SetBool("running", true);
         }
-        if (rb.velocity.x == 0.0f) {
+        if (Input.GetButtonUp("Horizontal")) {
             playerAnim.SetBool("running", false); 
         }
         //if jump pressed
