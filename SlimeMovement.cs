@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -6,13 +6,14 @@ public class SlimeMovement : EnemyPathing
 {
     /*
      * By: Parker Allen
-     * Ver: 1.0
+     * Ver: 1.1
      * 
      * Setup:
      * 
-     * jumpPower = 3000 to 4000
-     * speedX = 300 to 400
-     * maxSpeedX = 2 to 4
+     * jumpPower = 6000
+     * smallerjump = 1500
+     * speedX = 2000
+     * maxSpeedX = 14
      * searchdistance = 10?
      * 
      * Rigidbody:
@@ -24,66 +25,56 @@ public class SlimeMovement : EnemyPathing
      * the other with sticky material
      */
 
-    // where the enemy will head next
-    private Vector2 point;
 
-    // direction the enmy will go
-    private Vector3 direction;
+    public int timeBetJump;     //time between when it lands and jumps
+    private int counter;        //counter to keep track of time
+
+    public float smallerjump;   //a jump that move less horizontally
+
+    /**************************************************************************************************/
     void FixedUpdate()
     {
-        //check if object is on ground
-        this.checkOnGround();
-
-        //sets point
-        point = getWaypoint();
-
-        //sets the direction
-        setDirection();
-
-        //int to say if enemy should not move, move and/or jump
-        int moveType = checkForWall(direction) * checkForHole(direction, point);
-
-        //move and/or jump
-        tryMoving(moveType);
-    }
-
-    //set the direction based on where the point is compared to enemy's position
-    private void setDirection()
-    {
-        direction = (transform.position.x < point.x) ? Vector2.right : Vector2.left;
-    }
-
-    //move if the int is not 0
-    //jumps if int is greater than 1
-    private void tryMoving(int i)
-    {
-        if (i > 1)
+        if (checkOnGround())                //check if object is on ground
         {
-            jump();
+            counter++;                      //add to counter
         }
-        if (i > 0)
+
+        if(counter > timeBetJump)
         {
-            move();
+            counter = 0;                    //reset counter
+
+            getWaypoint();                  //sets next point
+
+            setDirection();                 //sets the direction
+
+            int moveType = checkForWall(bound.size.x / 2) * checkForHole(maxSpeedX * jumpTime * Time.deltaTime);        //int to tell if slime can jump
+            int smallJump = checkForHole(maxSpeedX * jumpTime * Time.deltaTime / 2);                                    //int to tell if slime can do a smaller jump
+
+            tryMoving(moveType, smallJump);     //try moving
         }
     }
 
-    //jump up and subtract from number of jumps
-    private void jump()
+    /**************************************************************************************************/
+    //decides whether to jump, smaller jump, or change points
+    private void tryMoving(int i, int sm)
     {
-        numOfJumps--;
-        rb.AddForce(Vector2.up * jumpPower);
-    }
-
-    //moves left or right
-    private void move()
-    {
-        if(Mathf.Abs(rb.velocity.x) < maxSpeedX)
+        if (i == 1)                             //normal jump
         {
-            rb.AddForce(direction * speedX);
+            Jump(Vector2.up * jumpPower);
+            Move(speedX);
         }
-        sr.flipX = direction.x > 1;
+        else if(sm == 1)                        //smaller jump
+        {
+            Jump(Vector2.up * jumpPower);
+            Move(smallerjump);
+        }
+        else                                    //change points
+        {
+            nextPoint();
+        }
     }
 
+    /**************************************************************************************************/
     //displays where the point is for debugging purposes
     private void displayPoint(Vector2 p)
     {
