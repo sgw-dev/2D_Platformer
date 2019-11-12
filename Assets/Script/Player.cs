@@ -45,14 +45,19 @@ public class Player : MonoBehaviour
 
     // Update is called once per frame
 
-    void FixedUpdate() {
+    /*void FixedUpdate() {
         RaycastHit2D hit = Physics2D.Raycast(bottom.transform.position, Vector2.down, checkDistance, collisionMask);
         if (hit.collider != null) {
             numJumps = 1;
         }
-    }
-    void Update()
+    }*/
+    void FixedUpdate()
     {
+        RaycastHit2D hit = Physics2D.Raycast(bottom.transform.position, Vector2.down, checkDistance, collisionMask);
+        if (hit.collider != null)
+        {
+            numJumps = 1;
+        }
 
         if (Input.GetButtonDown("Fire3")) {
             Debug.Log("Fire3"); 
