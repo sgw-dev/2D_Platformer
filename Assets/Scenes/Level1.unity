@@ -1157,6 +1157,7 @@ GameObject:
   - component: {fileID: 424483469}
   - component: {fileID: 424483468}
   - component: {fileID: 424483467}
+  - component: {fileID: 424483471}
   m_Layer: 12
   m_Name: Owl
   m_TagString: Untagged
@@ -1258,6 +1259,45 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 12
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &424483471
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 424483466}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4d004e59b66b624e9047ce8d5dce4a9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  collisionMask:
+    serializedVersion: 2
+    m_Bits: 0
+  layerMask: 0
+  playerPosition: {fileID: 0}
+  rb: {fileID: 0}
+  bound:
+    m_Center: {x: 0, y: 0, z: 0}
+    m_Extent: {x: 0, y: 0, z: 0}
+  jumpPower: 0
+  jumpTime: 0
+  speedX: 0
+  maxSpeedX: 0
+  points: []
+  searchDistance: 0
+  target: {x: 0, y: 0}
+  waypoints: []
+  wpPointer: 0
+  point: {x: 0, y: 0}
+  searchAngle: 0
+  degBetweenSearches: 0
+  searchDistanceWall: 0
+  minNumOfSearches: 0
+  perch: {x: 0, y: 0, z: 0}
+  sit: 0
+  sprite: {fileID: 0}
+  needToAvoid: 0
 --- !u!4 &452170599 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8801550999985750888, guid: 029e5f36da7f3e34e9c90e79fa02074d,
@@ -2082,7 +2122,9 @@ MonoBehaviour:
   collisionMask:
     serializedVersion: 2
     m_Bits: 1024
+  layerMask: 0
   playerPosition: {fileID: 1546849453}
+  rb: {fileID: 0}
   bound:
     m_Center: {x: 0, y: 0, z: 0}
     m_Extent: {x: 0, y: 0, z: 0}
@@ -2093,7 +2135,11 @@ MonoBehaviour:
   points:
   - {fileID: 1804794992}
   - {fileID: 1541644767}
-  searchDistance: 10
+  searchDistance: 30
+  target: {x: 0, y: 0}
+  waypoints: []
+  wpPointer: 0
+  point: {x: 0, y: 0}
   timeBetJump: 0
   smallerjump: 1500
 --- !u!212 &900247329
@@ -2152,7 +2198,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 900247324}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -3.21, y: -4.89, z: 0}
+  m_LocalPosition: {x: -22.64, y: -4.78, z: 0}
   m_LocalScale: {x: 1.5, y: 1.2, z: 1}
   m_Children:
   - {fileID: 1804794992}
@@ -5209,7 +5255,7 @@ MonoBehaviour:
     type: 3}
   m_PrefabInstance: {fileID: 5002397086063779677}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 2111706298}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 02b8af133dd1c0a46bbf2ab8a5087c32, type: 3}
@@ -5294,6 +5340,24 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &2111706298 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5002397085170350537, guid: 6efde0b35fe07354a844c46941ae94e0,
+    type: 3}
+  m_PrefabInstance: {fileID: 5002397086063779677}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &2111706300
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2111706298}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d3eeb0383440a3d46af742ddcc68a3e2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &62364057405144967
 PrefabInstance:
   m_ObjectHideFlags: 0

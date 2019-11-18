@@ -26,11 +26,11 @@ public class EnemyPathing : MonoBehaviour
      */
 
     public LayerMask collisionMask;     //collision mask for ground
-    private int layerMask;              //all layers except its own layer
+    [HideInInspector] public int layerMask;              //all layers except its own layer
 
     public Transform playerPosition;
     private SpriteRenderer sr;
-    private Rigidbody2D rb;
+    [HideInInspector] public Rigidbody2D rb;
     [HideInInspector] public Bounds bound;      //bounds of the first Collider
 
     public float jumpPower;         //force used to go up
@@ -47,10 +47,10 @@ public class EnemyPathing : MonoBehaviour
 
     public List<Transform> points = new List<Transform>();      //list of waypoints enemy will follow
     public float searchDistance;    //distance enemy will search for player
-    private Vector2 target;         //player's position
-    private Vector2[] waypoints;    //points positions
-    private int wpPointer = 0;      //saves the place in waypoints array
-    private Vector2 point;          //where the enemy will head next
+    [HideInInspector] public Vector2 target;         //player's position
+    [HideInInspector] public Vector2[] waypoints;    //points positions
+    [HideInInspector] public int wpPointer = 0;      //saves the place in waypoints array
+    public Vector2 point;          //where the enemy will head next
 
     /*******************************************************************************************************************/
     public void Start()
@@ -75,7 +75,6 @@ public class EnemyPathing : MonoBehaviour
     //nextpoint to move to
     public void getWaypoint()
     {
-        hitWaypoint();
         if (target != Vector2.zero)                 //check if it has a target
         {
             point = target;                         //move to player
@@ -88,7 +87,7 @@ public class EnemyPathing : MonoBehaviour
 
     /*******************************************************************************************************************/
     //if the object reachs a point sets the next point
-    private void hitWaypoint()
+    public void hitWaypoint()
     {
         if (!lineOfSight() && withinBound(target))      //check line of sight and on target
         {
@@ -102,7 +101,7 @@ public class EnemyPathing : MonoBehaviour
 
     /*******************************************************************************************************************/
     //checks if object hits point
-    private bool withinBound(Vector2 p)
+    public bool withinBound(Vector2 p)
     {
         if (Mathf.Abs(transform.position.x - p.x) < bound.size.x / 2 && Mathf.Abs(transform.position.y - p.y) < bound.size.y / 2)
         {
@@ -141,7 +140,7 @@ public class EnemyPathing : MonoBehaviour
 
     /*******************************************************************************************************************/
     //transform points to Vector2 waypoints
-    private Vector2[] setWaypoints(List<Transform> p)
+    public Vector2[] setWaypoints(List<Transform> p)
     {
         Vector2[] rtn = new Vector2[p.Count];
         for (int i = 0; i < p.Count; i++)
@@ -207,7 +206,7 @@ public class EnemyPathing : MonoBehaviour
     {
         Vector2 rayOrigin = transform.position + direction * distance;                                  //ray origin left or right at a distance from object
         RaycastHit2D hit = Physics2D.Raycast(rayOrigin, Vector2.down, jumpHeight, collisionMask);       //cast ray down from orign
-        //Debug.DrawRay(rayOrigin, Vector2.down * jumpHeight, Color.green);
+        Debug.DrawRay(rayOrigin, Vector2.down * jumpHeight, Color.green, 3);
 
         if (hit)
         {
