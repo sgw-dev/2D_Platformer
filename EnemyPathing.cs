@@ -6,7 +6,7 @@ public class EnemyPathing : MonoBehaviour
 {
     /*
      * By: Parker Allen
-     * Ver: 1.2
+     * Ver: 1.2.1
      * 
      * Notes:
      * target, waypoint and point will all be called point, unless
@@ -29,7 +29,7 @@ public class EnemyPathing : MonoBehaviour
     [HideInInspector] public int layerMask;              //all layers except its own layer
 
     public Transform playerPosition;
-    private SpriteRenderer sr;
+    [HideInInspector] public SpriteRenderer sr;
     [HideInInspector] public Rigidbody2D rb;
     [HideInInspector] public Bounds bound;      //bounds of the first Collider
 
@@ -43,14 +43,14 @@ public class EnemyPathing : MonoBehaviour
 
     public float speedX;            //force used to go left or right
     public float maxSpeedX;         //used for estimating distances
-    private Vector3 direction;      // direction the enmy will go
+    [HideInInspector] public Vector3 direction;      // direction the enmy will go
 
     public List<Transform> points = new List<Transform>();      //list of waypoints enemy will follow
     public float searchDistance;    //distance enemy will search for player
     [HideInInspector] public Vector2 target;         //player's position
     [HideInInspector] public Vector2[] waypoints;    //points positions
     [HideInInspector] public int wpPointer = 0;      //saves the place in waypoints array
-    public Vector2 point;          //where the enemy will head next
+    [HideInInspector] public Vector2 point;          //where the enemy will head next
 
     /*******************************************************************************************************************/
     public void Start()
@@ -103,7 +103,7 @@ public class EnemyPathing : MonoBehaviour
     //checks if object hits point
     public bool withinBound(Vector2 p)
     {
-        if (Mathf.Abs(transform.position.x - p.x) < bound.size.x / 2 && Mathf.Abs(transform.position.y - p.y) < bound.size.y / 2)
+        if (Vector2.Distance(transform.position, p) < bound.size.x / 2)
         {
             return true;
         }
@@ -159,7 +159,7 @@ public class EnemyPathing : MonoBehaviour
             float x = transform.position.x - i * (bound.size.x / 2) + (bound.size.x / 2);           //used to get left, right and center of object
             Vector2 rayOrgin = new Vector2(x, transform.position.y - bound.size.y / 2);             //ray orgin at bottom left, bottom center and bottom right
             RaycastHit2D hit = Physics2D.Raycast(rayOrgin, Vector2.down, .11f, collisionMask);      //raycast down
-            //Debug.DrawRay(rayOrgin, Vector2.down * .11f, Color.red);
+            //Debug.DrawRay(rayOrgin, Vector2.down, Color.red);
 
             if (hit)
             {
@@ -171,7 +171,7 @@ public class EnemyPathing : MonoBehaviour
     }
 
     /*******************************************************************************************************************/
-    //checks a distance for a wall
+    //checks a distance for a wall 1 = no wall, 2 = can jump over wall, and 0 = cna't move forward
     public int checkForWall(float distance)
     {
         Vector2 rayOrigin = transform.position + direction * bound.size.x / 2;                      //ray origin at the right or left side of object
@@ -201,12 +201,12 @@ public class EnemyPathing : MonoBehaviour
     }
 
     /*******************************************************************************************************************/
-    //checks if hole infront of object
+    //checks if hole infront of object 1 = no hole, 2 = can jump over hole, and 0 = can't move forward
     public int checkForHole(float distance)
     {
         Vector2 rayOrigin = transform.position + direction * distance;                                  //ray origin left or right at a distance from object
         RaycastHit2D hit = Physics2D.Raycast(rayOrigin, Vector2.down, jumpHeight, collisionMask);       //cast ray down from orign
-        Debug.DrawRay(rayOrigin, Vector2.down * jumpHeight, Color.green, 3);
+        //Debug.DrawRay(rayOrigin, Vector2.down * jumpHeight, Color.green, 3);
 
         if (hit)
         {
@@ -251,14 +251,14 @@ public class EnemyPathing : MonoBehaviour
     }
 
     /*******************************************************************************************************************/
-    //moves left or right at a rate given
-    public void Move(float move)
+    //moves left or right at a rate given, unless velcity is over given max
+    public void Move(float move, float max)
     {
-        if (Mathf.Abs(rb.velocity.x) < maxSpeedX)       //can't add more force one it is above max
+        if (Mathf.Abs(rb.velocity.x) < max)       //can't add more force one it is above max
         {
             rb.AddForce(direction * move);
         }
-        sr.flipX = direction.x > 1;                     //change sprites direction
+        sr.flipX = direction.x < 0;                     //change sprites direction
     }
 
     /*******************************************************************************************************************/
