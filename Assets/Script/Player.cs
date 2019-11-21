@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Player : MonoBehaviour
 {
@@ -13,9 +14,17 @@ public class Player : MonoBehaviour
     public float verticalSpeed;//how strong you jumps are
     public float attackTime;
     private float attackTimer = 0.0f;
-    public Collider2D attackCollider;
+    public CircleCollider2D attackCollider;
     public Animator playerAnim;
     private bool running = false;
+
+    public float maxHealth;
+    private float health;
+    public Slider healthbar;
+    private float healthWidth;
+    private float maxWidth;
+
+    public GameObject attackVisual;
 
     public GameObject stage;
     public GameObject bottom;
@@ -29,7 +38,7 @@ public class Player : MonoBehaviour
     public LayerMask hitMask;
 
     public float checkDistance;
-    private int numJumps = 1;
+    public int numJumps = 2;
     public float horizSpeed;
 
     // Start is called before the first frame update
@@ -41,31 +50,18 @@ public class Player : MonoBehaviour
         bottomT = bottom.GetComponent<Transform>();
         rightT = right.GetComponent<Transform>();
         leftT = left.GetComponent<Transform>();
+
+        healthbar = GameObject.Find("Canvas/HealthBar").GetComponent<Slider>();
+        
+        health = maxHealth;
+        maxWidth = healthbar.maxValue;
+        healthWidth = maxWidth;
+
     }
 
-    // Update is called once per frame
-
-    /*void FixedUpdate() {
-        RaycastHit2D hit = Physics2D.Raycast(bottom.transform.position, Vector2.down, checkDistance, collisionMask);
-        if (hit.collider != null) {
-            numJumps = 1;
-        }
-    }*/
     void FixedUpdate()
     {
-        RaycastHit2D hit = Physics2D.Raycast(bottom.transform.position, Vector2.down, checkDistance, collisionMask);
-        if (hit.collider != null)
-        {
-            numJumps = 1;
-        }
-
-        if (Input.GetButtonDown("Fire3")) {
-            Debug.Log("Fire3"); 
-        }/*
-        if (Input.GetButtonUp("Fire3"))
-        {
-            maxSpeed -= sprint;
-        }*/
+        
         //if D pressed and sprint
         if (Input.GetAxisRaw("Horizontal") >0.0f && Input.GetButton("Fire3")
             || Input.GetButton("Fire3") && Input.GetAxisRaw("Horizontal") > 0.0f) {
@@ -80,7 +76,7 @@ public class Player : MonoBehaviour
             playerAnim.SetBool("running", true);
         }
         //if D pressed
-        if (Input.GetAxisRaw("Horizontal") > 0.0f )
+        else if (Input.GetAxisRaw("Horizontal") > 0.0f )
         {
             //if the current x velocity is less that the max alowed
             if (rb.velocity.x < maxSpeed)
@@ -93,7 +89,7 @@ public class Player : MonoBehaviour
             playerAnim.SetBool("running", true);
         }
         //if A pressed and sprint
-        if (Input.GetAxisRaw("Horizontal") < 0.0f && Input.GetButton("Fire3")
+        else if (Input.GetAxisRaw("Horizontal") < 0.0f && Input.GetButton("Fire3")
             || Input.GetButton("Fire3") && Input.GetAxisRaw("Horizontal") <  0.0f)
         {
             //is the current x velocity is greater than negative max alowed
@@ -108,7 +104,7 @@ public class Player : MonoBehaviour
             playerAnim.SetBool("running", true);
         }
         //if A pressed
-        if (Input.GetAxisRaw("Horizontal") < 0.0f)
+        else if (Input.GetAxisRaw("Horizontal") < 0.0f)
         {
             //is the current x velocity is greater than negative max alowed
             //this is becuase you can be going fast backwards too
@@ -121,38 +117,58 @@ public class Player : MonoBehaviour
             }
             playerAnim.SetBool("running", true);
         }
-        if (Input.GetButtonUp("Horizontal")) {
+        else {
             playerAnim.SetBool("running", false); 
         }
-        //if jump pressed
-        if (Input.GetButtonDown("Jump"))
-        {
-            //add force up
-            if (checkRight()) {
-                rb.AddForce(new Vector2(-(horizSpeed * 10), horizSpeed*5.5f));
-            } else if (checkLeft())
-            {
-                rb.AddForce(new Vector2((horizSpeed * 10), horizSpeed*5.5f));
-            }
-            else if (numJumps > 0) {
-                rb.AddForce(new Vector2(0.0f, verticalSpeed*10));
-                numJumps--;
-            }
-        }
+        
         attackTimer += Time.deltaTime;
+        //hides attack animation
+        if (attackTimer > .25f && attackVisual.activeSelf == true) {
+            attackVisual.SetActive(false);
+        }
         //if Fire1 pressed
         if (Input.GetButtonDown("Fire1"))
         {           
             if (attackTimer > attackTime)
             {
                 attack();
+                //Attack animation
+                Debug.DrawLine(this.transform.position, new Vector3(this.transform.position.x + attackCollider.radius, this.transform.position.y, this.transform.position.z), Color.red, .25f);
+                //Debug.DrawRay(this.transform.position, Vector3.right, Color.red, 1f);
                 //Debug.Log("Attacked");
                 attackTimer = 0.0f;
             }          
         }
 
     }
+    public void Update() {
+        if (checkBottom())
+        {
+            numJumps = 2;
+        }
+        //if jump pressed
+        if (Input.GetButtonDown("Jump"))
+        {
+            //add force up
+
+            if (checkRight())
+            {
+                rb.AddForce(new Vector2(-(horizSpeed * 10), horizSpeed * 5.5f));
+            }
+            else if (checkLeft())
+            {
+                rb.AddForce(new Vector2((horizSpeed * 10), horizSpeed * 5.5f));
+            }
+            else if (numJumps > 0)
+            {
+                rb.AddForce(new Vector2(0.0f, verticalSpeed * 10));
+                numJumps--;
+            }
+        }
+    }
+    
     private void attack() {
+        //Debug.DrawRay(this.transform.position, Vector3.right, Color.red, .25df);
         Collider2D myCollider = attackCollider;
         int numColliders = 10;
         Collider2D[] colliders = new Collider2D[numColliders];
@@ -196,5 +212,41 @@ public class Player : MonoBehaviour
         {
             return false;
         }
+    }
+    public bool checkBottom()
+    {
+        Collider2D myCollider = bottom.GetComponent<Collider2D>();
+        int numColliders = 10;
+        Collider2D[] colliders = new Collider2D[numColliders];
+        ArrayList names = new ArrayList();
+        ContactFilter2D contactFilter = new ContactFilter2D();
+        contactFilter.layerMask = hitMask;
+        // Set you filters here according to https://docs.unity3d.com/ScriptReference/ContactFilter2D.html
+        int colliderCount = myCollider.OverlapCollider(contactFilter, colliders);
+        for (int i = 0; i < numColliders; i++)
+        {
+            if (colliders[i] != null)
+            {
+                if (colliders[i].tag.CompareTo("Stage") == 0)
+                {
+                    return true;
+                }
+
+            }
+        }
+        return false;
+    }
+    public void applyDamage(float damage) {
+        health -= damage;
+        if (health <= 0)
+        {
+            die();
+        }
+        float ratio = maxWidth / maxHealth;
+        float width = healthbar.value;
+        healthbar.value = width - (ratio * damage);
+    }
+    public void die() {
+
     }
 }

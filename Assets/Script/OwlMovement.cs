@@ -9,6 +9,8 @@ public class OwlMovement : FlyingEnemyPathing
 
     public void FixedUpdate()
     {
+        /*throws "The same field name is serialized multiple times in the class or its parent class. 
+         * This is not supported: Base(OwlMovement) direction" error*/
         rb.velocity = direction = Vector2.zero;
         //direction = Avoid();
         if (!needToAvoid)
@@ -32,5 +34,6 @@ public class OwlMovement : FlyingEnemyPathing
         }
         LockRotation();
         Debug.DrawLine(transform.position, direction, Color.cyan);
+        
     }
 }
