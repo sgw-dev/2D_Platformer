@@ -6,15 +6,16 @@ public class SlimeMovement : EnemyPathing
 {
     /*
      * By: Parker Allen
-     * Ver: 1.1
+     * Ver: 1.1.1
      * 
      * Setup:
      * 
      * jumpPower = 6000
-     * smallerjump = 1500
+     * smallerjump = 1000
      * speedX = 2000
-     * maxSpeedX = 14
-     * searchdistance = 10?
+     * maxSpeedX = 8
+     * searchdistance = 8
+     * timeBetJump = 60
      * 
      * Rigidbody:
      * mass = 10
@@ -43,6 +44,8 @@ public class SlimeMovement : EnemyPathing
         {
             counter = 0;                    //reset counter
 
+            hitWaypoint();
+
             getWaypoint();                  //sets next point
 
             setDirection();                 //sets the direction
@@ -61,12 +64,12 @@ public class SlimeMovement : EnemyPathing
         if (i == 1)                             //normal jump
         {
             Jump(Vector2.up * jumpPower);
-            Move(speedX);
+            Move(speedX, maxSpeedX);
         }
         else if (sm == 1)                        //smaller jump
         {
             Jump(Vector2.up * jumpPower);
-            Move(smallerjump);
+            Move(smallerjump, maxSpeedX);
         }
         else                                    //change points
         {
