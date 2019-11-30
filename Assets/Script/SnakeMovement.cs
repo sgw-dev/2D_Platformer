@@ -26,7 +26,7 @@ public class SnakeMovement : EnemyPathing
 
     public GameObject wraithOfTheToothSpittingSnake;        //projectile
     public Transform toothOrigin;                           //place where projectile spawns
-    public SpriteRenderer sr;                               //sprite of head
+    public SpriteRenderer head;                               //sprite of head
 
     public int spitRate;                                    //time between each shoot
     private int counter;                                    //counter for time
@@ -35,7 +35,7 @@ public class SnakeMovement : EnemyPathing
 
     void Update()
     {
-        sr.flipX = transform.position.x < playerPosition.position.x;        //flips the sprite
+        head.flipX = transform.position.x < playerPosition.position.x;        //flips the sprite
         if (counter >= spitRate && SnakeSight())
         {
             Spit();                                                         //Shoot projectile
@@ -56,8 +56,8 @@ public class SnakeMovement : EnemyPathing
 
         if (hit && hit.transform.CompareTag(playerPosition.tag))                                        //raycast hit player
         {
-            base.target = hit.point;                                                                    //set target to players position
-            return true;                                                                                //enemy does have line of sight on player
+            target = hit.point;                                                                    //set target to players position
+            return true;                                                                          //enemy does have line of sight on player
         }
         return false;
     }
