@@ -2070,7 +2070,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 815737679}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -0.68, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1325495788}
@@ -2296,7 +2296,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 900247324}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -22.64, y: -4.78, z: 0}
+  m_LocalPosition: {x: -5.81, y: -4.78, z: 0}
   m_LocalScale: {x: 1.5, y: 1.2, z: 1}
   m_Children:
   - {fileID: 1804794992}
@@ -3627,8 +3627,8 @@ MonoBehaviour:
   maxSpeedX: 5
   direction: {x: 0, y: 0, z: 0}
   points:
-  - {fileID: 883737627}
   - {fileID: 815737680}
+  - {fileID: 883737627}
   searchDistance: 8
   target: {x: 0, y: 0}
   waypoints: []
@@ -4363,8 +4363,14 @@ MonoBehaviour:
   wraithOfTheToothSpittingSnake: {fileID: 2361083404395447382, guid: 43f0c462c3b34eb4b8e1703238915221,
     type: 3}
   toothOrigin: {fileID: 196914061}
-  sr: {fileID: 1348795899}
+  head: {fileID: 1348795899}
+  anim: {fileID: 0}
+  mask:
+    serializedVersion: 2
+    m_Bits: 2048
+  waitTime: 60
   spitRate: 120
+  counter: 0
 --- !u!1 &1541348959
 GameObject:
   m_ObjectHideFlags: 0
@@ -5871,6 +5877,11 @@ PrefabInstance:
         type: 3}
       propertyPath: stage
       value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 432554867773838982, guid: 4f13c8119275def44a5170c0d5582ef5,
+        type: 3}
+      propertyPath: interactMask.m_Bits
+      value: 2048
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4f13c8119275def44a5170c0d5582ef5, type: 3}

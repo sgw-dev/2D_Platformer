@@ -42,7 +42,7 @@ public class OwlMovement : FlyingEnemyPathing
     public float diveSpeed;             //speed of dive
     public float diveTime;              //duration of dive
 
-    private Vector2 direction;      //direction to move
+    private Vector2 owlDirection;      //direction to move
     private bool diving, sitting;            //if diving or sitting
 
     /*******************************************************************************************************************/
@@ -51,18 +51,19 @@ public class OwlMovement : FlyingEnemyPathing
     {
         if (!diving)
         {
-            rb.velocity = direction = Vector2.zero;     //zeros the rigidbodies velocity
+            owlDirection = Vector2.zero;
+            rb.velocity = owlDirection;     //zeros the rigidbodies velocity
             if (lineOfSight())                              //can see player?
             {
                 PrepareToDive();                            //prepares to dive
             }
             else if (perch != Vector3.zero)                 //has perch?
             {
-                direction = Perch();                        //direction = call to perch
+                owlDirection = Perch();                        //direction = call to perch
             }
-            if (direction != Vector2.zero)                  //direction is not 0
+            if (owlDirection != Vector2.zero)                  //direction is not 0
             {
-                Move(direction, jumpPower);                 //move direction
+                Move(owlDirection, jumpPower);                 //move direction
             }
             else
             {
@@ -87,7 +88,7 @@ public class OwlMovement : FlyingEnemyPathing
         }
         else
         {
-            direction = point;                  //move to position to dive from
+            owlDirection = point;                  //move to position to dive from
         }
     }
 
