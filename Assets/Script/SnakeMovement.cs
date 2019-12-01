@@ -82,9 +82,8 @@ public class SnakeMovement : EnemyPathing
         }
         if (hit && hit.transform.CompareTag(playerPosition.tag))                                        //raycast hit player
         {
-            base.target = hit.point;                                                                    //set target to players position
-            return true;                                                                                //enemy does have line of sight on player
-
+            target = hit.point;                                                                    //set target to players position
+            return true;                                                                          //enemy does have line of sight on player
         }
         return false;
     }
