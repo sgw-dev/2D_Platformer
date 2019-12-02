@@ -28,9 +28,9 @@ public class SnakeMovement : EnemyPathing
     public Transform toothOrigin;                           //place where projectile spawns
     public SpriteRenderer head;                               //sprite of head
 
-    public Animator anim;                                  //Spencer: Sanke head animator
-    public LayerMask mask;
-    public float waitTime;
+    private Animator anim;                                  //Spencer: Sanke head animator
+    private LayerMask mask;
+    private float waitTime;
     private bool canAttack = false;
 
     public int spitRate;                                    //time between each shoot
@@ -39,6 +39,8 @@ public class SnakeMovement : EnemyPathing
     //Spencer: Add start function to set anim variable
     void Start() {
         anim = GameObject.Find("Snake/Head").GetComponent<Animator>();
+        mask = LayerMask.GetMask("PlayerLayer");
+        waitTime = 45f;
     }
 
     /**************************************************************************************************/
@@ -50,18 +52,22 @@ public class SnakeMovement : EnemyPathing
         if (counter >= spitRate )
         {
             //starts the animation
-            if (!canAttack) {
+            if (!canAttack)
+            {
                 canAttack = true;
                 anim.SetTrigger("Attack");
                 counter++;
             }
             //waits until the animation is over then attack
-            else if(counter >= (spitRate + waitTime) && SnakeSight())
+            else if (counter >= (spitRate + waitTime) && SnakeSight())
             {
                 canAttack = false;
                 Spit();                                                         //Shoot projectile
             }
-            counter++;
+            else if (counter < (spitRate + waitTime)) {
+                counter++;
+            }
+            
         }
         else if(counter < spitRate)
         {
@@ -78,7 +84,7 @@ public class SnakeMovement : EnemyPathing
         RaycastHit2D hit = Physics2D.Raycast(transform.position, dir, searchDistance, mask);      //raycast to target
         Debug.DrawRay(transform.position, dir * searchDistance, Color.black);
         if (hit) {
-            Debug.Log("See You");
+            
         }
         if (hit && hit.transform.CompareTag(playerPosition.tag))                                        //raycast hit player
         {
