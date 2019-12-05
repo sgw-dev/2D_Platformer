@@ -120,6 +120,12 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!58 &49133681 stripped
+CircleCollider2D:
+  m_CorrespondingSourceObject: {fileID: 432554867773838983, guid: 4f13c8119275def44a5170c0d5582ef5,
+    type: 3}
+  m_PrefabInstance: {fileID: 432554867038722612}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &53873935
 GameObject:
   m_ObjectHideFlags: 0
@@ -7930,6 +7936,11 @@ PrefabInstance:
       propertyPath: interactMask.m_Bits
       value: 2048
       objectReference: {fileID: 0}
+    - target: {fileID: 432554867773838982, guid: 4f13c8119275def44a5170c0d5582ef5,
+        type: 3}
+      propertyPath: interactCollider
+      value: 
+      objectReference: {fileID: 49133681}
     - target: {fileID: 432554867773839000, guid: 4f13c8119275def44a5170c0d5582ef5,
         type: 3}
       propertyPath: m_Enabled
