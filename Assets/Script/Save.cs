@@ -10,7 +10,9 @@ public class Save : MonoBehaviour {
 	
 	string _f;
 
-	private int[] items;
+
+	[Tooltip("ITEMS HERE")]
+	public int[] items;
 	private int[] stats;
 
 	void Update() {
@@ -40,7 +42,7 @@ public class Save : MonoBehaviour {
 	}
 
 	string PlayerStats() {
-		return "STATS";
+		return "STATS :\t";
 	}
 
 	string PlayerInventory() {
@@ -56,7 +58,7 @@ public class Save : MonoBehaviour {
 			}
 		}
 
-		return "INVENTORY\n"+itemsininv;
+		return "INVENTORY :\t"+itemsininv;
 	}
 
 	void Start() {
@@ -66,7 +68,7 @@ public class Save : MonoBehaviour {
 
 	public void SaveData() {
 		System.IO.StreamWriter file = new System.IO.StreamWriter(_f);
-		file.Write(PlayerStats()+"\n"+PlayerInventory()+"\n");
+		file.Write(PlayerStats()+"\n"+PlayerInventory());
 		file.Close();
 	}
 
@@ -83,8 +85,8 @@ public class Save : MonoBehaviour {
 		}
 		
 		string input ;//= file.ReadLine();
-		string itemstring=null;
-		List<int> items=null;
+		string itemstring="";
+		List<int> items = new List<int>();
 		
 		try{
 			while( (input = file.ReadLine()) != null ) {
@@ -92,26 +94,22 @@ public class Save : MonoBehaviour {
 					//next line contains stats
 				}
 				if (input.Contains("INVENTORY")) {
-					//next line has items
-					itemstring = file.ReadLine();
+					//items
+					itemstring = input.Split(':')[1];
 				}
 			}
-			//STATS FETCHED HERE
-				//nothing yet
-			///ITEMS FETCHED BELOW HERE
-			//short circuit here hopefully
-			if (itemstring!=null && itemstring.Length!=0) {
-				items = new List<int>();
-			}
-			string[] s = itemstring.Split('\t');
-			for (int i = 0 ; i < s.Length ; i++) {
+		
+			string[] _is = itemstring.Split('\t');
+
+			for (int i = 0 ; i < _is.Length ; i++) {
 				try{
-					int n = Int32.Parse(s[i]);
+					int n = Int32.Parse(_is[i]);
 					items.Add(n);
 				} catch(Exception e) {
 					//just catching bad parses here
 				}
 			}
+
 		} catch (Exception e) {
 			Debug.LogError("BAD SAVE FILE");
 			Debug.LogError(e.Message);
