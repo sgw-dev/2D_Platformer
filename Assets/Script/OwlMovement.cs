@@ -45,12 +45,23 @@ public class OwlMovement : FlyingEnemyPathing
     private Vector2 owlDirection;      //direction to move
     private bool diving, sitting;            //if diving or sitting
 
+    //Spencer
+    private Animator anim;
+    private SpriteRenderer OwlSprite;
+
     /*******************************************************************************************************************/
 
+    //Spencer
+    public void Start() {
+        base.Start();
+        anim = this.GetComponentInChildren<Animator>();
+        OwlSprite = this.GetComponentInChildren<SpriteRenderer>();
+    }
     public void FixedUpdate()
     {
         if (!diving)
         {
+            anim.SetBool("See", true);
             owlDirection = Vector2.zero;
             rb.velocity = owlDirection;     //zeros the rigidbodies velocity
             if (lineOfSight())                              //can see player?
@@ -68,6 +79,7 @@ public class OwlMovement : FlyingEnemyPathing
             else
             {
                 sitting = true;                             //Sit!
+                anim.SetBool("See", false);
             }
         }
         LockRotation();                                     //lock the rotation
@@ -84,6 +96,14 @@ public class OwlMovement : FlyingEnemyPathing
 
         if (withinBound(point))
         {
+            //checks if player is on the right or left to flip sprite
+            if ((playerPosition.position.x - transform.position.x) > 0)
+            {
+                OwlSprite.flipX = true;
+            }
+            else {
+                OwlSprite.flipX = false;
+            }
             StartCoroutine(DiveAttack());       //DIVE! DIVE! DIVE!
         }
         else
@@ -96,10 +116,12 @@ public class OwlMovement : FlyingEnemyPathing
 
     IEnumerator DiveAttack()
     {
+        anim.SetBool("Attack", true);
         Move(target, diveSpeed);                        //move to target at dive speed
         diving = true;                                  //it is diving
         yield return new WaitForSeconds(diveTime);      //wait
         diving = false;                                 //not diving
+        anim.SetBool("Attack", false);
         StopCoroutine(DiveAttack());                    //end Coroutine
     }
 }

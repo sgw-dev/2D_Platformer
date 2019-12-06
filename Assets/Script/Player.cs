@@ -11,7 +11,7 @@ public class Player : MonoBehaviour
     public float speed; //how much force is added each time
     public float maxSpeed; //how fast you are alowed to go
     public float sprint;
-    public float verticalSpeed;//how strong you jumps are
+    public float verticalSpeed;//how strong your jumps are
     public float attackTime;
     private float attackTimer = 0.0f;
     public CircleCollider2D attackCollider;
