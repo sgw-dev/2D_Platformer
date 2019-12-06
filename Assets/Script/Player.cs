@@ -11,7 +11,7 @@ public class Player : MonoBehaviour
     public float speed; //how much force is added each time
     public float maxSpeed; //how fast you are alowed to go
     public float sprint;
-    public float verticalSpeed;//how strong you jumps are
+    public float verticalSpeed;//how strong your jumps are
     public float attackTime;
     private float attackTimer = 0.0f;
     public CircleCollider2D attackCollider;
@@ -25,6 +25,7 @@ public class Player : MonoBehaviour
     private float maxWidth;
 
     public GameObject attackVisual;
+    private bool attacking = false;
 
     public GameObject stage;
     public GameObject bottom;
@@ -41,6 +42,12 @@ public class Player : MonoBehaviour
     public int numJumps = 2;
     public float horizSpeed;
 
+    public float attackSpeed;
+    public GameObject arm;
+    public GameObject body;
+    private bool facingRight = true;
+    private float armPos;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -52,6 +59,11 @@ public class Player : MonoBehaviour
         leftT = left.GetComponent<Transform>();
 
         healthbar = GameObject.Find("Canvas/HealthBar").GetComponent<Slider>();
+        arm = GameObject.Find("Arm");
+        arm.SetActive(false);
+        armPos = arm.transform.localPosition.x;
+        body = GameObject.Find("Character/Body");
+        body.GetComponent<Renderer>().enabled = false;
 
         health = maxHealth;
         maxWidth = healthbar.maxValue;
@@ -73,6 +85,11 @@ public class Player : MonoBehaviour
                 rb.AddForce(new Vector2(speed, 0.0f));
                 //flip the sprite to face right
                 this.GetComponent<SpriteRenderer>().flipX = false;
+                body.GetComponent<SpriteRenderer>().flipX = false;
+                if (!facingRight) {
+                    flipArm(true);
+                    facingRight = true;
+                }
             }
             playerAnim.SetBool("running", true);
         }
@@ -86,6 +103,12 @@ public class Player : MonoBehaviour
                 rb.AddForce(new Vector2(speed, 0.0f));
                 //flip the sprite to face right
                 this.GetComponent<SpriteRenderer>().flipX = false;
+                body.GetComponent<SpriteRenderer>().flipX = false;
+                if (!facingRight)
+                {
+                    flipArm(true);
+                    facingRight = true;
+                }
             }
             playerAnim.SetBool("running", true);
         }
@@ -101,6 +124,13 @@ public class Player : MonoBehaviour
                 rb.AddForce(new Vector2(-speed, 0.0f));
                 //flip the sprite to face left
                 this.GetComponent<SpriteRenderer>().flipX = true;
+                body.GetComponent<SpriteRenderer>().flipX = true;
+                if (facingRight)
+                {
+                    flipArm(false);
+                    facingRight = false;
+                }
+
             }
             playerAnim.SetBool("running", true);
         }
@@ -115,6 +145,12 @@ public class Player : MonoBehaviour
                 rb.AddForce(new Vector2(-speed, 0.0f));
                 //flip the sprite to face left
                 this.GetComponent<SpriteRenderer>().flipX = true;
+                body.GetComponent<SpriteRenderer>().flipX = true;
+                if (facingRight)
+                {
+                    flipArm(false);
+                    facingRight = false;
+                }
             }
             playerAnim.SetBool("running", true);
         }
@@ -123,6 +159,11 @@ public class Player : MonoBehaviour
             playerAnim.SetBool("running", false);
         }
 
+        
+
+    }
+    public void Update()
+    {
         attackTimer += Time.deltaTime;
         //hides attack animation
         /*if (attackTimer > .25f && attackVisual.activeSelf == true)
@@ -136,16 +177,12 @@ public class Player : MonoBehaviour
             {
                 attack();
                 //Attack animation
-                Debug.DrawLine(this.transform.position, new Vector3(this.transform.position.x + attackCollider.radius, this.transform.position.y, this.transform.position.z), Color.red, .25f);
+                //Debug.DrawLine(this.transform.position, new Vector3(this.transform.position.x + attackCollider.radius, this.transform.position.y, this.transform.position.z), Color.red, .25f);
                 //Debug.DrawRay(this.transform.position, Vector3.right, Color.red, 1f);
                 //Debug.Log("Attacked");
                 attackTimer = 0.0f;
             }
         }
-
-    }
-    public void Update()
-    {
         if (checkBottom())
         {
             numJumps = 2;
@@ -170,9 +207,22 @@ public class Player : MonoBehaviour
             }
         }
     }
-
+    private void flipArm(bool faceRight) {
+        //flip arm
+        if (faceRight)
+        {
+            arm.transform.localPosition = new Vector3(armPos, arm.transform.localPosition.y, arm.transform.localPosition.z);
+            arm.transform.localScale = new Vector3(-arm.transform.localScale.x, arm.transform.localScale.y, arm.transform.localScale.z);
+        }
+        else {
+            arm.transform.localPosition = new Vector3(0.0f, arm.transform.localPosition.y, arm.transform.localPosition.z);
+            arm.transform.localScale = new Vector3(-arm.transform.localScale.x, arm.transform.localScale.y, arm.transform.localScale.z);
+        }
+    }
     private void attack()
     {
+        Debug.Log("Attack");
+        StartCoroutine(attackAnimation());
         //Debug.DrawRay(this.transform.position, Vector3.right, Color.red, .25df);
         Collider2D myCollider = attackCollider;
         int numColliders = 10;
@@ -198,30 +248,57 @@ public class Player : MonoBehaviour
             }
         }
     }
+    IEnumerator attackAnimation()
+    {
+        playerAnim.speed = 0;
+        this.gameObject.GetComponent<Renderer>().enabled = false;
+        body.GetComponent<Renderer>().enabled = true;
+        arm.SetActive(true);
+        if (facingRight)
+        {
+            arm.transform.Rotate(new Vector3(0, 0, 135));
+            yield return new WaitForSeconds(.1f);
+            float step = 45;
+            for (float i = 135; i >= 45f; i -= step)
+            {
+                arm.transform.Rotate(new Vector3(0, 0, -step));
+                yield return new WaitForSeconds(attackSpeed);
+            }
+        }
+        else {
+            arm.transform.Rotate(new Vector3(0, 0, -135));
+            yield return new WaitForSeconds(.1f);
+            float step = 45;
+            for (float i = -135; i <= -45f; i += step)
+            {
+                arm.transform.Rotate(new Vector3(0, 0, step));
+                yield return new WaitForSeconds(attackSpeed);
+            }
+        }
+        
+        arm.SetActive(false);
+        body.GetComponent<Renderer>().enabled = false;
+        arm.transform.eulerAngles = new Vector3(0, 0, 0);
+        this.gameObject.GetComponent<Renderer>().enabled = true;
+        playerAnim.speed = 1;
+        StopCoroutine(attackAnimation());
+    }
 
     public bool checkRight()
     {
         RaycastHit2D hit = Physics2D.Raycast(rightT.transform.position, Vector2.right, checkDistance, collisionMask);
         if (hit.collider != null)
-        {
-            return true;
-        }
+        { return true; }
         else
-        {
-            return false;
-        }
+        { return false; }
     }
     public bool checkLeft()
     {
         RaycastHit2D hit = Physics2D.Raycast(leftT.transform.position, Vector2.left, checkDistance, collisionMask);
         if (hit.collider != null)
-        {
-            return true;
-        }
+        { return true; }
         else
-        {
-            return false;
-        }
+        { return false; }
     }
     public bool checkBottom()
     {

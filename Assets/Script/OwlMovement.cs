@@ -42,31 +42,44 @@ public class OwlMovement : FlyingEnemyPathing
     public float diveSpeed;             //speed of dive
     public float diveTime;              //duration of dive
 
-    private Vector2 direction;      //direction to move
+    private Vector2 owlDirection;      //direction to move
     private bool diving, sitting;            //if diving or sitting
+
+    //Spencer
+    private Animator anim;
+    private SpriteRenderer OwlSprite;
 
     /*******************************************************************************************************************/
 
+    //Spencer
+    public void Start() {
+        base.Start();
+        anim = this.GetComponentInChildren<Animator>();
+        OwlSprite = this.GetComponentInChildren<SpriteRenderer>();
+    }
     public void FixedUpdate()
     {
         if (!diving)
         {
-            rb.velocity = direction = Vector2.zero;     //zeros the rigidbodies velocity
+            anim.SetBool("See", true);
+            owlDirection = Vector2.zero;
+            rb.velocity = owlDirection;     //zeros the rigidbodies velocity
             if (lineOfSight())                              //can see player?
             {
                 PrepareToDive();                            //prepares to dive
             }
             else if (perch != Vector3.zero)                 //has perch?
             {
-                direction = Perch();                        //direction = call to perch
+                owlDirection = Perch();                        //direction = call to perch
             }
-            if (direction != Vector2.zero)                  //direction is not 0
+            if (owlDirection != Vector2.zero)                  //direction is not 0
             {
-                Move(direction, jumpPower);                 //move direction
+                Move(owlDirection, jumpPower);                 //move direction
             }
             else
             {
                 sitting = true;                             //Sit!
+                anim.SetBool("See", false);
             }
         }
         LockRotation();                                     //lock the rotation
@@ -83,11 +96,19 @@ public class OwlMovement : FlyingEnemyPathing
 
         if (withinBound(point))
         {
+            //checks if player is on the right or left to flip sprite
+            if ((playerPosition.position.x - transform.position.x) > 0)
+            {
+                OwlSprite.flipX = true;
+            }
+            else {
+                OwlSprite.flipX = false;
+            }
             StartCoroutine(DiveAttack());       //DIVE! DIVE! DIVE!
         }
         else
         {
-            direction = point;                  //move to position to dive from
+            owlDirection = point;                  //move to position to dive from
         }
     }
 
@@ -95,10 +116,12 @@ public class OwlMovement : FlyingEnemyPathing
 
     IEnumerator DiveAttack()
     {
+        anim.SetBool("Attack", true);
         Move(target, diveSpeed);                        //move to target at dive speed
         diving = true;                                  //it is diving
         yield return new WaitForSeconds(diveTime);      //wait
         diving = false;                                 //not diving
+        anim.SetBool("Attack", false);
         StopCoroutine(DiveAttack());                    //end Coroutine
     }
 }

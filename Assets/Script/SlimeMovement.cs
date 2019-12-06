@@ -32,12 +32,22 @@ public class SlimeMovement : EnemyPathing
 
     public float smallerjump;   //a jump that move less horizontally
 
+    //Spencer
+    private Animator anim;
+
     /**************************************************************************************************/
+
+    //Spencer
+    public void Start() {
+        base.Start();
+        anim = this.GetComponent<Animator>();
+    }
     void FixedUpdate()
     {
         if (checkOnGround())                //check if object is on ground
         {
             counter++;                      //add to counter
+            anim.SetTrigger("Ground");
         }
 
         if (counter > timeBetJump)
@@ -63,11 +73,13 @@ public class SlimeMovement : EnemyPathing
     {
         if (i == 1)                             //normal jump
         {
+            anim.SetTrigger("Jump");
             Jump(Vector2.up * jumpPower);
             Move(speedX, maxSpeedX);
         }
         else if (sm == 1)                        //smaller jump
         {
+            anim.SetTrigger("Jump");
             Jump(Vector2.up * jumpPower);
             Move(smallerjump, maxSpeedX);
         }

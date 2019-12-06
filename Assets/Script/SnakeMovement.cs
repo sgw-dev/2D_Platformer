@@ -26,19 +26,48 @@ public class SnakeMovement : EnemyPathing
 
     public GameObject wraithOfTheToothSpittingSnake;        //projectile
     public Transform toothOrigin;                           //place where projectile spawns
-    public SpriteRenderer sr;                               //sprite of head
+    public SpriteRenderer head;                               //sprite of head
+
+    private Animator anim;                                  //Spencer: Sanke head animator
+    private LayerMask mask;
+    private float waitTime;
+    private bool canAttack = false;
 
     public int spitRate;                                    //time between each shoot
-    private int counter;                                    //counter for time
+    public int counter;                                    //counter for time
+
+    //Spencer: Add start function to set anim variable
+    void Start() {
+        anim = GameObject.Find("Snake/Head").GetComponent<Animator>();
+        mask = LayerMask.GetMask("PlayerLayer");
+        waitTime = 45f;
+    }
 
     /**************************************************************************************************/
 
     void Update()
     {
-        sr.flipX = transform.position.x < playerPosition.position.x;        //flips the sprite
-        if (counter >= spitRate && SnakeSight())
+        head.flipX = transform.position.x < playerPosition.position.x;        //flips the sprite
+        //goes up to the wait time
+        if (counter >= spitRate )
         {
-            Spit();                                                         //Shoot projectile
+            //starts the animation
+            if (!canAttack)
+            {
+                canAttack = true;
+                anim.SetTrigger("Attack");
+                counter++;
+            }
+            //waits until the animation is over then attack
+            else if (counter >= (spitRate + waitTime) && SnakeSight())
+            {
+                canAttack = false;
+                Spit();                                                         //Shoot projectile
+            }
+            else if (counter < (spitRate + waitTime)) {
+                counter++;
+            }
+            
         }
         else if(counter < spitRate)
         {
@@ -51,13 +80,16 @@ public class SnakeMovement : EnemyPathing
     private bool SnakeSight()
     {
         Vector2 dir = (playerPosition.position - transform.position).normalized;                            //direction to player
-        RaycastHit2D hit = Physics2D.Raycast(transform.position, dir, searchDistance, base.layerMask);      //raycast to target
-        //Debug.DrawRay(transform.position, dir * searchDistance, Color.black);
-
+                                                                   //Spencer: changed to mask, wasn't seeing the player
+        RaycastHit2D hit = Physics2D.Raycast(transform.position, dir, searchDistance, mask);      //raycast to target
+        Debug.DrawRay(transform.position, dir * searchDistance, Color.black);
+        if (hit) {
+            
+        }
         if (hit && hit.transform.CompareTag(playerPosition.tag))                                        //raycast hit player
         {
-            base.target = hit.point;                                                                    //set target to players position
-            return true;                                                                                //enemy does have line of sight on player
+            target = hit.point;                                                                    //set target to players position
+            return true;                                                                          //enemy does have line of sight on player
         }
         return false;
     }
@@ -66,11 +98,13 @@ public class SnakeMovement : EnemyPathing
     //shoot teeth at the player
     private void Spit()
     {
-        counter = 0;
+        
 
+        counter = 0;
         Vector2 dir = (target - (Vector2)transform.position).normalized;                            //direction to player
         float angle = Vector3.SignedAngle(Vector3.up, dir, Vector3.forward);                        //converts vector to an angle
 
         Instantiate(wraithOfTheToothSpittingSnake, toothOrigin.position, Quaternion.Euler(0, 0, angle));    //Spawn projectile
     }
+
 }
