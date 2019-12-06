@@ -14,11 +14,11 @@ public class FlyingEnemyPathing : EnemyPathing
      *      Set sprite to that child
      */
 
-    public float searchAngle;                   //angle to search
-    public float degBetweenSearches;            //angle between searches
-    public float searchDistanceWall;            //distance to search for wall
-    public int minNumOfSearches;                //min searches for wall
-    [HideInInspector] public bool needToAvoid;  //bool if need to avoid wall
+    [HideInInspector] public float searchAngle;                   //angle to search
+    [HideInInspector] public float degBetweenSearches;            //angle between searches
+    [HideInInspector] public float searchDistanceWall;            //distance to search for wall
+    [HideInInspector] public int minNumOfSearches;                //min searches for wall
+    [HideInInspector] public bool needToAvoid;                    //bool if need to avoid wall
 
     public Vector3 perch;                       //Position where enemy will sit
     public bool sit;                            //if enemy is sitting

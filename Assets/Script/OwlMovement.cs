@@ -38,14 +38,30 @@ public class OwlMovement : FlyingEnemyPathing
      *  1 2DBoxCollider
      */
 
-    public Vector2 divePosition;        //distance from the player to dive from
-    public float diveSpeed;             //speed of dive
-    public float diveTime;              //duration of dive
+    private Vector2 divePosition;        //distance from the player to dive from
+    private float diveSpeed;             //speed of dive
+    private float diveTime;              //duration of dive
 
     private Vector2 direction;      //direction to move
     private bool diving, sitting;            //if diving or sitting
 
     /*******************************************************************************************************************/
+
+    public void Start()
+    {
+        EnemyStart();
+        jumpPower = 200;
+        searchDistance = 10;
+        searchAngle = 270;
+        degBetweenSearches = 5;
+        searchDistanceWall = 1;
+        minNumOfSearches = 1;
+        divePosition = new Vector2(8, 2);
+        diveSpeed = 500;
+        diveTime = 1;
+    }
+
+    /**************************************************************************************************/
 
     public void FixedUpdate()
     {

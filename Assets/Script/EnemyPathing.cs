@@ -33,7 +33,7 @@ public class EnemyPathing : MonoBehaviour
     [HideInInspector] public Rigidbody2D rb;
     [HideInInspector] public Bounds bound;      //bounds of the first Collider
 
-    public float jumpPower;         //force used to go up
+    [HideInInspector] public float jumpPower;         //force used to go up
     private float gravity;          //gravity on object
     private float jumpHeight;       //max height of jump
     [HideInInspector] public float jumpTime;    //time to reach max height in jump
@@ -41,19 +41,21 @@ public class EnemyPathing : MonoBehaviour
     private int maxNumOfJumps;      //max number of jumps
     private int numOfJumps;         //max jump height of object
 
-    public float speedX;            //force used to go left or right
-    public float maxSpeedX;         //used for estimating distances
+    [HideInInspector] public float speedX;            //force used to go left or right
+    [HideInInspector] public float maxSpeedX;         //used for estimating distances
     [HideInInspector] public Vector3 direction;      // direction the enmy will go
 
     public List<Transform> points = new List<Transform>();      //list of waypoints enemy will follow
-    public float searchDistance;    //distance enemy will search for player
+    [HideInInspector] public float searchDistance;                     //distance enemy will search for player
     [HideInInspector] public Vector2 target;         //player's position
     [HideInInspector] public Vector2[] waypoints;    //points positions
     [HideInInspector] public int wpPointer = 0;      //saves the place in waypoints array
     [HideInInspector] public Vector2 point;          //where the enemy will head next
 
+    private int wanderCounter;                       //count down to turn around
+
     /*******************************************************************************************************************/
-    public void Start()
+    public void EnemyStart()
     {
         rb = GetComponent<Rigidbody2D>();                           //rigidbody
         sr = GetComponent<SpriteRenderer>();                        //spritrenderer
@@ -273,5 +275,18 @@ public class EnemyPathing : MonoBehaviour
     private Vector2 TtoV2(Transform t)
     {
         return new Vector2(t.position.x, t.position.y);
+    }
+
+    public void WanderRandomly()
+    {
+        if(wanderCounter > 0)
+        {
+            wanderCounter--;                                //count down
+        }
+        else if(wanderCounter <= 0)
+        {
+            direction = direction * Random.Range(-1, 2);    //random direction to go
+            wanderCounter = Random.Range(0, 3) * 60;        //random time before changing direction
+        }
     }
 }

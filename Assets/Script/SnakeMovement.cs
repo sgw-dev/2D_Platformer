@@ -9,7 +9,7 @@ public class SnakeMovement : EnemyPathing
      * Version: 1.0
      * 
      * Setup:
-     *  sr = sprite renderer of head
+     *  head = sprite renderer of head
      *  search distance = 10
      *  wraith of the tooth spitting snake = prefab of projectile
      *  tooth origin = empty child object's
@@ -28,8 +28,17 @@ public class SnakeMovement : EnemyPathing
     public Transform toothOrigin;                           //place where projectile spawns
     public SpriteRenderer head;                               //sprite of head
 
-    public int spitRate;                                    //time between each shoot
+    private int spitRate;                                    //time between each shoot
     private int counter;                                    //counter for time
+
+    /**************************************************************************************************/
+
+    public void Start()
+    {
+        searchDistance = 10;
+        spitRate = 120;
+        EnemyStart();
+    }
 
     /**************************************************************************************************/
 
