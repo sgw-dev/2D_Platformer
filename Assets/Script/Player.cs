@@ -14,7 +14,7 @@ public class Player : MonoBehaviour
     public float verticalSpeed;//how strong your jumps are
     public float attackTime;
     private float attackTimer = 0.0f;
-    public CircleCollider2D attackCollider;
+    public CapsuleCollider2D attackCollider;
     public Animator playerAnim;
     private bool running = false;
 
@@ -48,6 +48,8 @@ public class Player : MonoBehaviour
     private bool facingRight = true;
     private float armPos;
 
+    public ContactFilter2D filter;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -57,6 +59,8 @@ public class Player : MonoBehaviour
         bottomT = bottom.GetComponent<Transform>();
         rightT = right.GetComponent<Transform>();
         leftT = left.GetComponent<Transform>();
+
+        attackCollider = this.GetComponentInChildren<CapsuleCollider2D>();
 
         healthbar = GameObject.Find("Canvas/HealthBar").GetComponent<Slider>();
         arm = GameObject.Find("Arm");
@@ -221,7 +225,6 @@ public class Player : MonoBehaviour
     }
     private void attack()
     {
-        Debug.Log("Attack");
         StartCoroutine(attackAnimation());
         //Debug.DrawRay(this.transform.position, Vector3.right, Color.red, .25df);
         Collider2D myCollider = attackCollider;
@@ -230,6 +233,7 @@ public class Player : MonoBehaviour
         ArrayList names = new ArrayList();
         ContactFilter2D contactFilter = new ContactFilter2D();
         contactFilter.layerMask = hitMask;
+        contactFilter.useTriggers = true;
         // Set you filters here according to https://docs.unity3d.com/ScriptReference/ContactFilter2D.html
         int colliderCount = myCollider.OverlapCollider(contactFilter, colliders);
         for (int i = 0; i < numColliders; i++)

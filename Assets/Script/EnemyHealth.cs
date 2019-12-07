@@ -13,10 +13,10 @@ public class EnemyHealth : MonoBehaviour{
     private float healthWidth;
     private float maxWidth;
 
+
     // Start is called before the first frame update
     void Start()
     {
-        //maxHealth = healthbar.transform.localScale.x;
         health = maxHealth;
         maxWidth = healthbar.transform.localScale.x;
         healthWidth = maxWidth;
@@ -25,7 +25,6 @@ public class EnemyHealth : MonoBehaviour{
     // Update is called once per frame
     void Update()
     {
-        
     }
     public void applyDamage(float damage) {
 
