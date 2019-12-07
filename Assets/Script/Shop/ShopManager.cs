@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -17,12 +18,21 @@ public class ShopManager : MonoBehaviour
     }
 
 
-    private void Start()
+    private void Awake()
     {
         //Let main ShopManager be called as `ShopManager.main`
         if(isMain)
         {
             main = this;
+        }
+    }
+
+    public event Action onItemsUpdate;
+    void ItemsUpdated()
+    {
+        if(onItemsUpdate != null)
+        {
+            onItemsUpdate();
         }
     }
 
@@ -57,6 +67,7 @@ public class ShopManager : MonoBehaviour
     public void AddItemToShop(ShopItem item)
     {
         items_for_sale.Add(item);
+        ItemsUpdated();
     }
 
     //Given an item object, buy that item
@@ -66,7 +77,9 @@ public class ShopManager : MonoBehaviour
         {
             //Remove item from shop and add to inventory
             items_for_sale.Remove(item);
+            Debug.Log("Bought item: " + item.name);
             AddItemToInventory(item);
+            ItemsUpdated();
             return true;
         }
         return false;
@@ -78,9 +91,7 @@ public class ShopManager : MonoBehaviour
         if(items_for_sale.Count > slot) //If list is large enough for slot to exists
         {
             ShopItem item = items_for_sale[slot]; //Get item from slot
-            items_for_sale.Remove(item); //Remove item from shop
-            AddItemToInventory(item); //Add item to inventory
-            return true;
+            return PurchaseItem(item);
         }
         return false;
     }
@@ -96,6 +107,7 @@ public class ShopManager : MonoBehaviour
         public float secValue;
         public string description;
         public Sprite icon;
+        public int cost;
     }
 
     //Simple function to export the values from the item behaviour -> struct
