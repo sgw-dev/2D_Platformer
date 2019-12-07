@@ -5,19 +5,36 @@ using UnityEngine.UI;
 public class ShopGui : MonoBehaviour
 {
     public Transform contentContainer;
+    public Text moneyText;
     public GameObject slotPrefab;
-    // Start is called before the first frame update
+
+
+    bool showSelf = true;
+    void ToggleShop()
+    {
+        showSelf = !showSelf;
+        transform.GetChild(0).gameObject.SetActive(showSelf);
+        OnShopUpdate();
+    }
+
     void Start()
     {
         ShopManager.main.onItemsUpdate += OnShopUpdate;
-        OnShopUpdate();
+        ToggleShop();
     }
 
     void OnShopUpdate()
     {
         ClearGui();
         CreateSlots();
+        UpdateCurrentMoney();
     }
+    
+    void UpdateCurrentMoney()
+    {
+        moneyText.text = ShopManager.main.money.ToString();
+    }
+
 
     void ClearGui()
     {
@@ -95,17 +112,22 @@ public class ShopGui : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        
 
         //Debug Press `K` to add test item to shop
         if (Application.isEditor)
         {
+            if(Input.GetKeyDown(KeyCode.L))
+            {
+                ToggleShop();
+            }
             if(Input.GetKeyDown(KeyCode.K))
             {
                 ShopManager.ShopItem item = new ShopManager.ShopItem();
                 item.ID = 5;
                 item.name = "Test Item";
                 item.type = "DevType";
-                item.cost = 200;
+                item.cost = 5;
                 ShopManager.main.AddItemToShop(item);
                 Debug.Log("Added " + item.name + " to shop");
                 

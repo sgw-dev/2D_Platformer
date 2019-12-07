@@ -9,6 +9,8 @@ public class ShopManager : MonoBehaviour
     public static ShopManager main;
     private List<ShopItem> items_for_sale = new List<ShopItem>();
 
+    public int money = 100; //This can be later replaced my pointing at a different variable
+
     public List<ShopItem> purchasable_items
     {
         get
@@ -75,12 +77,17 @@ public class ShopManager : MonoBehaviour
     {
         if(items_for_sale.Contains(item)) //If item in shop
         {
-            //Remove item from shop and add to inventory
-            items_for_sale.Remove(item);
-            Debug.Log("Bought item: " + item.name);
-            AddItemToInventory(item);
-            ItemsUpdated();
-            return true;
+            if(item.cost <= money)
+            {
+                //Remove item from shop and add to inventory
+                items_for_sale.Remove(item);
+                money -= item.cost;
+
+                Debug.Log("Bought item: " + item.name);
+                AddItemToInventory(item);
+                ItemsUpdated();
+                return true;
+            }
         }
         return false;
     }
