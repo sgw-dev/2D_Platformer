@@ -30,6 +30,16 @@ public class ShopManager : MonoBehaviour
     }
 
     public event Action onItemsUpdate;
+    public event Action onToggleGui;
+
+    public void ToggleGui()
+    {
+        if(onToggleGui != null)
+        {
+            onToggleGui();
+        }
+    }
+
     void ItemsUpdated()
     {
         if(onItemsUpdate != null)

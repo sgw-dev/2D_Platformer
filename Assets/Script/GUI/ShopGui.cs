@@ -10,7 +10,7 @@ public class ShopGui : MonoBehaviour
 
 
     bool showSelf = true;
-    void ToggleShop()
+    public void ToggleShop()
     {
         showSelf = !showSelf;
         transform.GetChild(0).gameObject.SetActive(showSelf);
@@ -20,6 +20,7 @@ public class ShopGui : MonoBehaviour
     void Start()
     {
         ShopManager.main.onItemsUpdate += OnShopUpdate;
+        ShopManager.main.onToggleGui += ToggleShop;
         ToggleShop();
     }
 
@@ -117,10 +118,6 @@ public class ShopGui : MonoBehaviour
         //Debug Press `K` to add test item to shop
         if (Application.isEditor)
         {
-            if(Input.GetKeyDown(KeyCode.L))
-            {
-                ToggleShop();
-            }
             if(Input.GetKeyDown(KeyCode.K))
             {
                 ShopManager.ShopItem item = new ShopManager.ShopItem();
