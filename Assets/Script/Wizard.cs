@@ -6,6 +6,7 @@ public class Wizard : MonoBehaviour
 {
     public void talkToPlayer() {
         Debug.Log("Wizard!!");
+        Player.main.ToggleFrozen();
         ShopManager.main.ToggleGui();
     }
 }

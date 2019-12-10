@@ -7,11 +7,13 @@ public class Player : MonoBehaviour
 {
     //Author: Spencer Burke
 
+    public static Player main;
     private Rigidbody2D rb;//the rigid body attached to the gameobject
     public float speed; //how much force is added each time
     public float maxSpeed; //how fast you are alowed to go
     public float sprint;
     public float verticalSpeed;//how strong your jumps are
+    public bool frozen = false;
     public float attackTime;
     private float attackTimer = 0.0f;
     public CircleCollider2D attackCollider;
@@ -48,6 +50,12 @@ public class Player : MonoBehaviour
     private bool facingRight = true;
     private float armPos;
 
+    private void Awake()
+    {
+        //Let main Player be called as `Player.main`
+        main = this;
+    }
+
     // Start is called before the first frame update
     void Start()
     {
@@ -71,7 +79,21 @@ public class Player : MonoBehaviour
 
     }
 
+    public void ToggleFrozen()
+    {
+        frozen = !frozen;
+    }
+
     void FixedUpdate()
+    {
+        if(!frozen)
+        {
+            Movement();
+        }
+    }
+
+    // Manages player horizontal movement
+    void Movement()
     {
 
         //if D pressed and sprint
@@ -188,7 +210,7 @@ public class Player : MonoBehaviour
             numJumps = 2;
         }
         //if jump pressed
-        if (Input.GetButtonDown("Jump"))
+        if (Input.GetButtonDown("Jump") & !frozen)
         {
             //add force up
 
