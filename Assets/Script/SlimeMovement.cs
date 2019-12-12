@@ -39,7 +39,8 @@ public class SlimeMovement : EnemyPathing
         EnemyStart();
         jumpPower = 6000;
         smallerjump = 1000;
-        speedX = 8;
+        speedX = 2000;
+        maxSpeedX = 8;
         searchDistance = 8;
         timeBetJump = 60;
     }

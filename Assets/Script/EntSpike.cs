@@ -14,12 +14,14 @@ public class EntSpike : MonoBehaviour
      */
 
     private Animator animator;  //Animator of object
+    private Collider2D hitBox;
 
     /**************************************************************************************************/
 
     public void Start()
     {
         animator = GetComponentInChildren<Animator>();  //set the animator
+        hitBox = GetComponent<BoxCollider2D>();
         StartCoroutine(Animate());      //start coroutine for Animate
     }
 
@@ -41,6 +43,7 @@ public class EntSpike : MonoBehaviour
     IEnumerator Animate()
     {
         yield return new WaitForSeconds(1);     //wait
+        hitBox.enabled = false;
         animator.SetBool("Out", true);          //do out animation
         StopCoroutine(Animate());               //stop coroutine
     }

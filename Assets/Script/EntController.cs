@@ -148,7 +148,7 @@ public class EntController : MonoBehaviour
         RaycastHit2D hit = Physics2D.Raycast(rayOrigin, Vector2.down, 10, collisionMask);   //raycast
         if (hit)
         {
-            Vector2 spikeOrigin = hit.point + Vector2.up * 1.75f;                                               //origin for spike
+            Vector2 spikeOrigin = hit.point + Vector2.up * 1.25f;                                               //origin for spike
             EntSpike temp = Instantiate(spike, spikeOrigin, transform.rotation).GetComponent<EntSpike>();       //instantiate spike
             StartCoroutine(temp.SpawnNextSpike(4, direction * 3));                                              //start coroutine to spawn 4 spike 3 apart
         }
@@ -179,7 +179,7 @@ public class EntController : MonoBehaviour
     IEnumerator SpikeCoolDown()
     {
         spikeCoolDown = true;                   //spike on cooldown
-        yield return new WaitForSeconds(25);    //wait 25s
+        yield return new WaitForSeconds(45);    //wait 25s
         spikeCoolDown = false;                  //spike off cooldown
         StopCoroutine(SpikeCoolDown());         //stop coroutine
     }
