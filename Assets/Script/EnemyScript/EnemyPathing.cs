@@ -34,8 +34,8 @@ public class EnemyPathing : MonoBehaviour
     [HideInInspector] public Bounds bound;      //bounds of the first Collider
 
     [HideInInspector] public float jumpPower;         //force used to go up
-    private float gravity;          //gravity on object
-    private float jumpHeight;       //max height of jump
+    [HideInInspector] public float gravity;          //gravity on object
+    [HideInInspector] public float jumpHeight;       //max height of jump
     [HideInInspector] public float jumpTime;    //time to reach max height in jump
 
     private int maxNumOfJumps;      //max number of jumps

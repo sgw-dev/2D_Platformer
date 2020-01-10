@@ -6,15 +6,13 @@ public class Skeleton : MonoBehaviour
 {
     /*
      * By: Parker Allen
-     * Version: 1.0
+     * Version: 1.1
      * 
      * Setup:
      *  pivotPoint is the transform of a game object
-     *  childSkeleton is a list of skeletons that are connected to it
      */
 
     public Transform pivotPoint;            //point the object rotates around
-    public List<Skeleton> childSkeleton;    //skeletons that children of this
     private float angle;                    //angle that object is rotated
     private int flip;                       //-1 or 1 flip angle to negative
 
@@ -27,34 +25,20 @@ public class Skeleton : MonoBehaviour
 
     /**************************************************************************************************/
     //rotates object around a point
-    public void RotateSkeleton(bool rc)
+    public void RotateSkeleton()
     {
         if (angle != 0)
         {
-            transform.RotateAround(pivotPoint.position, Vector3.forward, angle);    //rotates object around a point by a angle
-            if (rc)
-            {
-                foreach (var child in childSkeleton)
-                {
-                    child.CounterRotation(-angle);          //only rotate object not the children
-                }
-            }
+            transform.RotateAround(pivotPoint.position, Vector3.forward, angle * flip);    //rotates object around a point by a angle
         }
-    }
-
-    /**************************************************************************************************/
-    //counters the parents rotation
-    public void CounterRotation(float a)
-    {
-        transform.RotateAround(pivotPoint.position, Vector3.forward, a);    //rotates object around a point by a angle
     }
 
     /**************************************************************************************************/
     //sets the angle to rotate
     public void setAngle(float t, float end)
     {
-        float currAngle = transform.eulerAngles.z;                      //gets the current rotation between 0 and 360
+        float currAngle = transform.localEulerAngles.z;                 //gets the current rotation between 0 and 360
         currAngle = (currAngle > 180) ? currAngle - 360 : currAngle;    //this lets the rotation be between -180 and 180
-        angle = (end - currAngle) / t * Time.deltaTime * flip;          //the angle to move based on diference in angle over time and flip
+        angle = (end - currAngle) / t / 60;                             //the angle to move based on diference in angle over time and flip
     }
 }
