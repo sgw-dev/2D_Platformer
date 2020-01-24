@@ -37,7 +37,7 @@ public class EntMovement : BossPathing
 
     public void TryAttacking()
     {
-        if (seedAttack.canUse || spikeAttack.canUse && Vector3.Distance(playerPosition.position, transform.position) < seedAttack.range)
+        if ((seedAttack.canUse || spikeAttack.canUse) && Vector3.Distance(playerPosition.position, transform.position) < seedAttack.range)
         {
             if (seedAttack.canUse)
             {

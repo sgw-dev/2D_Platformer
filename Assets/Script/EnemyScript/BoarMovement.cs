@@ -36,14 +36,11 @@ public class BoarMovement : EnemyPathing
     private Animator anim;
 
     /**************************************************************************************************/
-    public void Start() {
-        base.Start();
-        anim = this.GetComponent<Animator>();
-    }
 
     public void Start()
     {
         EnemyStart();
+        anim = this.GetComponent<Animator>();
         jumpPower = 100;
         speedX = 500;
         maxSpeedX = 5;
