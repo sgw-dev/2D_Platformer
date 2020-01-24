@@ -5,7 +5,7 @@ using UnityEngine;
 public class Items : MonoBehaviour
 {
     public int ID;
-    public string name;
+    public string itemName;
     public string type;
     public string subType;
     public float value;
@@ -19,7 +19,7 @@ public class Items : MonoBehaviour
     public void newItems(string s) {
         string[] parts = s.Split('\t');
         ID = int.Parse(parts[0]);
-        name = parts[1];
+        itemName = parts[1];
         type = parts[2];
         subType = parts[3];
         value = float.Parse(parts[4]);

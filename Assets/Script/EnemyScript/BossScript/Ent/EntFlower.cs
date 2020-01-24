@@ -38,14 +38,14 @@ public class EntFlower : MonoBehaviour
     public void RotateToPlayer()
     {
         float angle = Vector3.SignedAngle(transform.position - eS.getPPos().position, transform.up, Vector3.forward);       //calulates the angle
-        transform.RotateAround(pivot.position, Vector3.forward, angle * Time.deltaTime);                                    //rotates to angle around a point
+        transform.RotateAround(pivot.position, Vector3.forward, angle * Time.deltaTime * .8f);                                    //rotates to angle around a point
     }
 
     /**************************************************************************************************/
     //fires a laser
     IEnumerator ShootLaser()
     {
-        yield return new WaitForSeconds(1.5f);                                              //wait to charge
+        yield return new WaitForSeconds(2);                                              //wait to charge
         Instantiate(laser, transform.position + transform.up * .1f, transform.rotation);    //fire the laser
         yield return new WaitForSeconds(.2f);                                               //wait to wilt
         gameObject.SetActive(false);                                                        //deactivate this

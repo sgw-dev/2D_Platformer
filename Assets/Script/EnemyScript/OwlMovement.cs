@@ -53,7 +53,7 @@ public class OwlMovement : FlyingEnemyPathing
 
     //Spencer
     public void Start() {
-        base.Start();
+        EnemyStart();
         anim = this.GetComponentInChildren<Animator>();
         OwlSprite = this.GetComponentInChildren<SpriteRenderer>();
     }

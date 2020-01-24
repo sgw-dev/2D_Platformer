@@ -27,11 +27,30 @@ public class BoarMovement : EnemyPathing
      *      gravity = 1
      */
 
-    public float chargeDistance;                    //distance boar will charge
-    public float chargeSpeed, maxChargeSpeed;       //acceleration and max speed for charging
-    public float restTime, perpareTime;             //time for resting and preparing
+    private float chargeDistance;                    //distance boar will charge
+    private float chargeSpeed, maxChargeSpeed;       //acceleration and max speed for charging
+    private float restTime, perpareTime;             //time for resting and preparing
 
     private bool resting, charging, preparing;      //the state of boar
+    //Spencer
+    private Animator anim;
+
+    /**************************************************************************************************/
+
+    public void Start()
+    {
+        EnemyStart();
+        anim = this.GetComponent<Animator>();
+        jumpPower = 100;
+        speedX = 500;
+        maxSpeedX = 5;
+        searchDistance = 8;
+        chargeDistance = 10;
+        chargeSpeed = 1000;
+        maxChargeSpeed = 10;
+        restTime = 1;
+        perpareTime = 1;
+    }
 
     /**************************************************************************************************/
 
@@ -94,12 +113,14 @@ public class BoarMovement : EnemyPathing
     //pause before charging
     IEnumerator Prepare()
     {
+        anim.SetTrigger("GetReady");
         preparing = true;                                               //preparing
         sr.flipX = direction.x < 0;                                     //change sprites direction
         yield return new WaitForSeconds(perpareTime);                   //wait
         preparing = false;                                              //not preparing
         point = transform.position + (direction * chargeDistance);      //set place to charge to
         charging = true;                                                //charging
+        anim.SetBool("Attack", true);
         StopCoroutine(Prepare());                                       //end coroutine
     }
 
@@ -107,6 +128,7 @@ public class BoarMovement : EnemyPathing
     //rest after charging
     IEnumerator Rest()
     {
+        anim.SetBool("Attack", false);
         charging = false;                               //not charging
         resting = true;                                 //resting
         yield return new WaitForSeconds(restTime);      //wait

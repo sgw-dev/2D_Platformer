@@ -39,7 +39,7 @@ public class SlimeMovement : EnemyPathing
 
     //Spencer
     public void Start() {
-        base.Start();
+        EnemyStart();
         anim = this.GetComponent<Animator>();
     }
     void FixedUpdate()
