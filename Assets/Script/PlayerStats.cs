@@ -6,6 +6,7 @@ using UnityEngine;
  *	Class to stoe player values
  * 
  */
+[System.Serializable]
 public class PlayerStats
 {
 
@@ -41,5 +42,5 @@ public class PlayerStats
         currentHealth -= amount;
     }
 
-
+	public string ToString(){ return level+" "+maxHealth+" "+currentHealth+" "+experience; }
 }
