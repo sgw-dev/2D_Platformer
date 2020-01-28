@@ -8,7 +8,7 @@ using UnityEngine;
  */
 public class PlayerSave : MonoBehaviour {
 
-	public string savefilename = "CharacterInventory";
+	public string savefilename = "CharacterSave";
 	string _f;
 
 	public int[] items;
