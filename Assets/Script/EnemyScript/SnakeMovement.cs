@@ -41,6 +41,9 @@ public class SnakeMovement : EnemyPathing
         anim = GameObject.Find("Snake/Head").GetComponent<Animator>();
         mask = LayerMask.GetMask("PlayerLayer");
         waitTime = 45f;
+        searchDistance = 10;
+        spitRate = 120;
+        EnemyStart();
     }
 
     /**************************************************************************************************/

@@ -56,6 +56,15 @@ public class OwlMovement : FlyingEnemyPathing
         EnemyStart();
         anim = this.GetComponentInChildren<Animator>();
         OwlSprite = this.GetComponentInChildren<SpriteRenderer>();
+        jumpPower = 200;
+        searchDistance = 10;
+        searchAngle = 270;
+        degBetweenSearches = 5;
+        searchDistanceWall = 1;
+        minNumOfSearches = 1;
+        divePosition = new Vector2(8, 2);
+        diveSpeed = 500;
+        diveTime = 1;
     }
     public void FixedUpdate()
     {

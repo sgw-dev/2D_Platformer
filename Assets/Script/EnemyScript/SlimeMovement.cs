@@ -41,6 +41,12 @@ public class SlimeMovement : EnemyPathing
     public void Start() {
         EnemyStart();
         anim = this.GetComponent<Animator>();
+        jumpPower = 6000;
+        smallerjump = 1000;
+        speedX = 2000;
+        maxSpeedX = 8;
+        searchDistance = 8;
+        timeBetJump = 60;
     }
     void FixedUpdate()
     {
