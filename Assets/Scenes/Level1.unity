@@ -1463,10 +1463,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 424483470}
-  - component: {fileID: 424483473}
   - component: {fileID: 424483467}
   - component: {fileID: 424483472}
   - component: {fileID: 424483471}
+  - component: {fileID: 424483468}
   m_Layer: 12
   m_Name: Owl
   m_TagString: Enemy
@@ -1488,6 +1488,52 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHealth: 3
   healthbar: {fileID: 328117141}
+--- !u!114 &424483468
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 424483466}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dbf34121364a5074bb697f9c4289e04f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  collisionMask:
+    serializedVersion: 2
+    m_Bits: 1024
+  layerMask: 0
+  playerPosition: {fileID: 1546849453}
+  sr: {fileID: 0}
+  rb: {fileID: 0}
+  bound:
+    m_Center: {x: 0, y: 0, z: 0}
+    m_Extent: {x: 0, y: 0, z: 0}
+  jumpPower: 0
+  gravity: 0
+  jumpHeight: 0
+  jumpTime: 0
+  speedX: 0
+  maxSpeedX: 0
+  direction: {x: 0, y: 0, z: 0}
+  points: []
+  searchDistance: 0
+  target: {x: 0, y: 0}
+  waypoints: []
+  wpPointer: 0
+  point: {x: 0, y: 0}
+  searchAngle: 0
+  degBetweenSearches: 0
+  searchDistanceWall: 0
+  minNumOfSearches: 0
+  needToAvoid: 0
+  perch: {x: -6, y: -0.75, z: 0}
+  sit: 0
+  sprite: {fileID: 2037284904}
+  divePosition: {x: 0, y: 0}
+  diveSpeed: 0
+  diveTime: 0
 --- !u!4 &424483470
 Transform:
   m_ObjectHideFlags: 0
@@ -1550,59 +1596,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.9, y: 0.6}
   m_EdgeRadius: 0
---- !u!114 &424483473
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 424483466}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f21bd515bbd3fc54db8e81d40b30fe08, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  collisionMask:
-    m_Bits: 1024
-  layerMask: 0
-  playerPosition: {fileID: 1546849453}
-  sr: {fileID: 0}
-  rb: {fileID: 0}
-  bound:
-    m_Center: {x: 0, y: 0, z: 0}
-    m_Extent: {x: 0, y: 0, z: 0}
-  jumpPower: 200
-  gravity: 0
-  jumpHeight: 0
-  jumpTime: 0
-  maxNumOfJumps: 0
-  numOfJumps: 0
-  speedX: 5
-  maxSpeedX: 5
-  direction: {x: 0, y: 0, z: 0}
-  points: []
-  searchDistance: 10
-  target: {x: 0, y: 0}
-  waypoints: []
-  wpPointer: 0
-  point: {x: 0, y: 0}
-  wanderCounter: 0
-  searchAngle: 270
-  degBetweenSearches: 5
-  searchDistanceWall: 1
-  minNumOfSearches: 1
-  needToAvoid: 0
-  perch: {x: -20, y: -2, z: 0}
-  sit: 0
-  sprite: {fileID: 2037284904}
-  divePosition: {x: 8, y: 2}
-  diveSpeed: 500
-  diveTime: 1
-  owlDirection: {x: 0, y: 0}
-  diving: 0
-  sitting: 0
-  anim: {fileID: 0}
-  OwlSprite: {fileID: 0}
 --- !u!4 &452170599 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8801550999985750888, guid: 029e5f36da7f3e34e9c90e79fa02074d,
@@ -2908,10 +2901,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 900247324}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: db8e4c9ec1098504eb4094b606c7dbb3, type: 3}
+  m_Script: {fileID: 11500000, guid: c56c75e5151a9a843b9a509403e5eda5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   collisionMask:
+    serializedVersion: 2
     m_Bits: 1024
   layerMask: 0
   playerPosition: {fileID: 1546849453}
@@ -2920,28 +2914,23 @@ MonoBehaviour:
   bound:
     m_Center: {x: 0, y: 0, z: 0}
     m_Extent: {x: 0, y: 0, z: 0}
-  jumpPower: 6000
+  jumpPower: 0
   gravity: 0
   jumpHeight: 0
   jumpTime: 0
-  maxNumOfJumps: 0
-  numOfJumps: 0
-  speedX: 2000
-  maxSpeedX: 8
+  speedX: 0
+  maxSpeedX: 0
   direction: {x: 0, y: 0, z: 0}
   points:
   - {fileID: 1804794992}
   - {fileID: 1541644767}
-  searchDistance: 8
+  searchDistance: 0
   target: {x: 0, y: 0}
   waypoints: []
   wpPointer: 0
   point: {x: 0, y: 0}
-  wanderCounter: 0
   timeBetJump: 60
-  counter: 0
-  smallerjump: 1000
-  anim: {fileID: 0}
+  smallerjump: 150000
 --- !u!212 &900247329
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -3432,6 +3421,12 @@ PolygonCollider2D:
       - {x: -2.1300125, y: -0.041701317}
       - {x: -0.39094925, y: -0.035407066}
       - {x: 1.2701378, y: 0.08110142}
+--- !u!58 &1055339177 stripped
+CircleCollider2D:
+  m_CorrespondingSourceObject: {fileID: 432554866883979749, guid: 4f13c8119275def44a5170c0d5582ef5,
+    type: 3}
+  m_PrefabInstance: {fileID: 432554867038722612}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1073342437
 GameObject:
   m_ObjectHideFlags: 0
@@ -5041,10 +5036,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 1512620523}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 856b262c159371747a2d9e35150f3a87, type: 3}
+  m_Script: {fileID: 11500000, guid: d32fd7a395d39744888bd2bc6ed6f0cb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   collisionMask:
+    serializedVersion: 2
     m_Bits: 1024
   layerMask: 0
   playerPosition: {fileID: 1546849453}
@@ -5057,28 +5053,20 @@ MonoBehaviour:
   gravity: 0
   jumpHeight: 0
   jumpTime: 0
-  maxNumOfJumps: 0
-  numOfJumps: 0
   speedX: 0
   maxSpeedX: 0
   direction: {x: 0, y: 0, z: 0}
   points: []
-  searchDistance: 10
+  searchDistance: 0
   target: {x: 0, y: 0}
   waypoints: []
   wpPointer: 0
   point: {x: 0, y: 0}
-  wanderCounter: 0
   wraithOfTheToothSpittingSnake: {fileID: 2361083404395447382, guid: 43f0c462c3b34eb4b8e1703238915221,
     type: 3}
   toothOrigin: {fileID: 196914061}
   head: {fileID: 1348795899}
-  anim: {fileID: 0}
-  mask:
-    m_Bits: 0
-  waitTime: 0
-  canAttack: 0
-  spitRate: 120
+  spitRate: 0
   counter: 0
 --- !u!114 &1512620528
 MonoBehaviour:
@@ -6807,6 +6795,11 @@ PrefabInstance:
       propertyPath: interactMask.m_Bits
       value: 2048
       objectReference: {fileID: 0}
+    - target: {fileID: 432554867773838982, guid: 4f13c8119275def44a5170c0d5582ef5,
+        type: 3}
+      propertyPath: interactCollider
+      value: 
+      objectReference: {fileID: 1055339177}
     - target: {fileID: 432554867773839000, guid: 4f13c8119275def44a5170c0d5582ef5,
         type: 3}
       propertyPath: m_Enabled
