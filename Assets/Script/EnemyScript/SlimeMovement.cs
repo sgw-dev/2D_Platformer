@@ -39,7 +39,7 @@ public class SlimeMovement : EnemyPathing
 
     //Spencer
     public void Start() {
-        EnemyStart();
+        
         anim = this.GetComponent<Animator>();
         jumpPower = 6000;
         smallerjump = 1000;
@@ -47,6 +47,7 @@ public class SlimeMovement : EnemyPathing
         maxSpeedX = 8;
         searchDistance = 8;
         timeBetJump = 60;
+        EnemyStart();
     }
     void FixedUpdate()
     {
