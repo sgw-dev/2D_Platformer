@@ -34,6 +34,10 @@ public class SlimeMovement : EnemyPathing
 
     //Spencer
     private Animator anim;
+    private bool attackFlag = true;
+    private int attackTimer;
+    private int attackTime = 100;
+
 
     /**************************************************************************************************/
 
@@ -51,6 +55,16 @@ public class SlimeMovement : EnemyPathing
     }
     void FixedUpdate()
     {
+        if (attackTimer >= attackTime)
+        {
+            attackTimer = 0;
+            attackFlag = true;
+        }
+        else
+        {
+            attackTimer++;
+        }
+
         if (checkOnGround())                //check if object is on ground
         {
             counter++;                      //add to counter
@@ -106,4 +120,14 @@ public class SlimeMovement : EnemyPathing
     {
         Debug.DrawRay(p, Vector2.down, Color.green);
     }
+    void OnTriggerStay2D(Collider2D other)
+    {
+        if (other.CompareTag("Player") && attackFlag)
+        {
+            other.SendMessage("applyDamage", 1f);
+            attackFlag = false;
+        }
+    }
+    
+
 }
