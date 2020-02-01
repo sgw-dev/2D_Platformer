@@ -409,6 +409,16 @@ PrefabInstance:
       propertyPath: m_Name
       value: OverLord
       objectReference: {fileID: 0}
+    - target: {fileID: 5002397085170350536, guid: 6efde0b35fe07354a844c46941ae94e0,
+        type: 3}
+      propertyPath: invMenuCanvas
+      value: 
+      objectReference: {fileID: 96945072}
+    - target: {fileID: 5002397085170350536, guid: 6efde0b35fe07354a844c46941ae94e0,
+        type: 3}
+      propertyPath: pauseMenuCanvas
+      value: 
+      objectReference: {fileID: 586842502}
     - target: {fileID: 5002397085170350539, guid: 6efde0b35fe07354a844c46941ae94e0,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -464,16 +474,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 5002397085170350536, guid: 6efde0b35fe07354a844c46941ae94e0,
-        type: 3}
-      propertyPath: invMenuCanvas
-      value: 
-      objectReference: {fileID: 96945072}
-    - target: {fileID: 5002397085170350536, guid: 6efde0b35fe07354a844c46941ae94e0,
-        type: 3}
-      propertyPath: pauseMenuCanvas
-      value: 
-      objectReference: {fileID: 586842502}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6efde0b35fe07354a844c46941ae94e0, type: 3}
 --- !u!1 &586842502 stripped
@@ -1551,16 +1551,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 432554867773838982, guid: 4f13c8119275def44a5170c0d5582ef5,
-        type: 3}
-      propertyPath: interactMask.m_Bits
-      value: 2048
-      objectReference: {fileID: 0}
-    - target: {fileID: 432554867773838982, guid: 4f13c8119275def44a5170c0d5582ef5,
-        type: 3}
-      propertyPath: interactCollider
-      value: 
-      objectReference: {fileID: 1690833877}
     - target: {fileID: 432554866883979748, guid: 4f13c8119275def44a5170c0d5582ef5,
         type: 3}
       propertyPath: InvMenu
@@ -1571,6 +1561,16 @@ PrefabInstance:
       propertyPath: BoxesPanel
       value: 
       objectReference: {fileID: 17987599}
+    - target: {fileID: 432554867773838982, guid: 4f13c8119275def44a5170c0d5582ef5,
+        type: 3}
+      propertyPath: interactMask.m_Bits
+      value: 2048
+      objectReference: {fileID: 0}
+    - target: {fileID: 432554867773838982, guid: 4f13c8119275def44a5170c0d5582ef5,
+        type: 3}
+      propertyPath: interactCollider
+      value: 
+      objectReference: {fileID: 1690833877}
     - target: {fileID: 432554867773839000, guid: 4f13c8119275def44a5170c0d5582ef5,
         type: 3}
       propertyPath: m_SortingOrder
@@ -1665,6 +1665,7 @@ GameObject:
   - component: {fileID: 2091418990}
   - component: {fileID: 2091418989}
   - component: {fileID: 2091418988}
+  - component: {fileID: 2091418992}
   m_Layer: 11
   m_Name: TrueWizard
   m_TagString: Wizard
@@ -1772,6 +1773,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2091418992
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2091418987}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 136dbde60e64beaf180c52adc95c5a52, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &2103183505
 PrefabInstance:
   m_ObjectHideFlags: 0
