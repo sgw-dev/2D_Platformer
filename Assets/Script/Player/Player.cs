@@ -7,30 +7,30 @@ public class Player : MonoBehaviour
 {
     //Author: Spencer Burke
 
+    public static Player main;
     private Rigidbody2D rb;//the rigid body attached to the gameobject
-    public float speed; //how much force is added each time
-    public float maxSpeed; //how fast you are alowed to go
-    public float sprint;
-    public float verticalSpeed;//how strong your jumps are
-    public float attackTime;
+    private float speed; //how much force is added each time
+    private float maxSpeed; //how fast you are alowed to go
+    private float sprint;
+    private float verticalSpeed;//how strong your jumps are
+    public bool frozen = false;
+    private float attackTime;
     private float attackTimer = 0.0f;
-    public CapsuleCollider2D attackCollider;
-    public Animator playerAnim;
-    private bool running = false;
+    private CapsuleCollider2D attackCollider;
+    private Animator playerAnim;
+    //private bool running = false;
 
     public float maxHealth;
-    private float health;
+    public float health;
     public Slider healthbar;
     private float healthWidth;
     private float maxWidth;
 
     public GameObject attackVisual;
-    private bool attacking = false;
+    //private bool attacking = false;
 
     public GameObject stage;
-    public GameObject bottom;
-    public GameObject right;
-    public GameObject left;
+    private GameObject bottom;
     private Transform bottomT;
     private Transform rightT;
     private Transform leftT;
@@ -38,29 +38,46 @@ public class Player : MonoBehaviour
     public LayerMask collisionMask;
     public LayerMask hitMask;
 
-    public float checkDistance;
-    public int numJumps = 2;
-    public float horizSpeed;
+    private float checkDistance;
+    private int numJumps;
+    private float horizSpeed;
 
-    public float attackSpeed;
+    private float attackSpeed;
     public GameObject arm;
     public GameObject body;
     private bool facingRight = true;
     private float armPos;
 
-    public ContactFilter2D filter;
+    private void Awake()
+    {
+        //Let main Player be called as `Player.main`
+        main = this;
+    }
 
     // Start is called before the first frame update
     void Start()
     {
+        //Initalise Variables
+        speed = 400;
+        maxSpeed = 5.5f;
+        sprint = 3;
+        verticalSpeed = 450;
+        attackTime = .5f;
+        checkDistance = .11f;
+        numJumps = 2;
+        horizSpeed = 800;
+        attackSpeed = .02f;
+
+        attackCollider = GameObject.Find("Character/Attack").GetComponent<CapsuleCollider2D>();
+        playerAnim = this.GetComponent<Animator>();
+        bottom = GameObject.Find("Character/Grounder");
+        bottomT = bottom.GetComponent<Transform>();
+        rightT = GameObject.Find("Character/Right").GetComponent<Transform>();
+        leftT = GameObject.Find("Character/Left").GetComponent<Transform>();
+
+
         //gets the rigid body on this object
         rb = this.GetComponent<Rigidbody2D>();
-
-        bottomT = bottom.GetComponent<Transform>();
-        rightT = right.GetComponent<Transform>();
-        leftT = left.GetComponent<Transform>();
-
-        attackCollider = this.GetComponentInChildren<CapsuleCollider2D>();
 
         healthbar = GameObject.Find("Canvas/HealthBar").GetComponent<Slider>();
         arm = GameObject.Find("Arm");
@@ -72,10 +89,26 @@ public class Player : MonoBehaviour
         health = maxHealth;
         maxWidth = healthbar.maxValue;
         healthWidth = maxWidth;
+        healthbar.value = healthWidth;
+        
 
     }
 
+    public void ToggleFrozen()
+    {
+        frozen = !frozen;
+    }
+
     void FixedUpdate()
+    {
+        if(!frozen)
+        {
+            Movement();
+        }
+    }
+
+    // Manages player horizontal movement
+    void Movement()
     {
 
         //if D pressed and sprint
@@ -149,6 +182,10 @@ public class Player : MonoBehaviour
                 rb.AddForce(new Vector2(-speed, 0.0f));
                 //flip the sprite to face left
                 this.GetComponent<SpriteRenderer>().flipX = true;
+                if(body == null)
+                {
+                    Start();
+                }
                 body.GetComponent<SpriteRenderer>().flipX = true;
                 if (facingRight)
                 {
@@ -192,7 +229,7 @@ public class Player : MonoBehaviour
             numJumps = 2;
         }
         //if jump pressed
-        if (Input.GetButtonDown("Jump"))
+        if (Input.GetButtonDown("Jump") & !frozen)
         {
             //add force up
 
@@ -225,6 +262,7 @@ public class Player : MonoBehaviour
     }
     private void attack()
     {
+        //Debug.Log("Attack");
         StartCoroutine(attackAnimation());
         //Debug.DrawRay(this.transform.position, Vector3.right, Color.red, .25df);
         Collider2D myCollider = attackCollider;
@@ -233,8 +271,15 @@ public class Player : MonoBehaviour
         ArrayList names = new ArrayList();
         ContactFilter2D contactFilter = new ContactFilter2D();
         contactFilter.layerMask = hitMask;
-        contactFilter.useTriggers = true;
         // Set you filters here according to https://docs.unity3d.com/ScriptReference/ContactFilter2D.html
+        if(myCollider == null)
+        {
+            Debug.Log("MyCollider is null");
+        }
+        if(colliders == null)
+        {
+            Debug.Log("colliders is null");
+        }
         int colliderCount = myCollider.OverlapCollider(contactFilter, colliders);
         for (int i = 0; i < numColliders; i++)
         {
@@ -306,6 +351,11 @@ public class Player : MonoBehaviour
     }
     public bool checkBottom()
     {
+        if(bottom == null)
+        {
+            Start();
+        }
+        
         Collider2D myCollider = bottom.GetComponent<Collider2D>();
         int numColliders = 10;
         Collider2D[] colliders = new Collider2D[numColliders];
@@ -341,5 +391,11 @@ public class Player : MonoBehaviour
     public void die()
     {
 
+    }
+    public void updateHealthBar()
+    {
+        float ratio = maxWidth / maxHealth;
+        float width = healthbar.value;
+        healthbar.value = width;
     }
 }

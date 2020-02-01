@@ -54,7 +54,11 @@ public class SlimeMovement : EnemyPathing
         if (checkOnGround())                //check if object is on ground
         {
             counter++;                      //add to counter
-            anim.SetTrigger("Ground");
+            anim.SetBool("Ground", true);
+        }
+        else
+        {
+            anim.SetBool("Ground", false);
         }
 
         if (counter > timeBetJump)
