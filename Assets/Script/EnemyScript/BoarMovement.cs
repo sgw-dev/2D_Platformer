@@ -148,7 +148,7 @@ public class BoarMovement : EnemyPathing
             attackFlag = true;
         }
     }
-    void OntriggerExit2D(Collider2D other)
+    void OnTriggerExit2D(Collider2D other)
     {
         if (other.CompareTag("Player"))
         {
