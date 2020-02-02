@@ -14,7 +14,7 @@ public class Player : MonoBehaviour
     private float sprint;
     private float verticalSpeed;//how strong your jumps are
     public bool frozen = false;
-    private float attackTime;
+    public float attackSpeed;
     private float attackTimer = 0.0f;
     private CapsuleCollider2D attackCollider;
     private Animator playerAnim;
@@ -22,7 +22,7 @@ public class Player : MonoBehaviour
 
     public float maxHealth;
     public float health;
-    public Slider healthbar;
+    private Slider healthbar;
     private float healthWidth;
     private float maxWidth;
 
@@ -42,7 +42,7 @@ public class Player : MonoBehaviour
     private int numJumps;
     private float horizSpeed;
 
-    private float attackSpeed;
+    private float armSpeed;
     public GameObject arm;
     public GameObject body;
     private bool facingRight = true;
@@ -62,11 +62,11 @@ public class Player : MonoBehaviour
         maxSpeed = 5.5f;
         sprint = 3;
         verticalSpeed = 450;
-        attackTime = .5f;
+        //attackSpeed = .5f;
         checkDistance = .11f;
         numJumps = 2;
         horizSpeed = 800;
-        attackSpeed = .02f;
+        armSpeed = .02f;
 
         attackCollider = GameObject.Find("Character/Attack").GetComponent<CapsuleCollider2D>();
         playerAnim = this.GetComponent<Animator>();
@@ -214,7 +214,7 @@ public class Player : MonoBehaviour
         //if Fire1 pressed
         if (Input.GetButtonDown("Fire1"))
         {
-            if (attackTimer > attackTime)
+            if (attackTimer > attackSpeed)
             {
                 attack();
                 //Attack animation
@@ -227,6 +227,11 @@ public class Player : MonoBehaviour
         if (checkBottom())
         {
             numJumps = 2;
+            playerAnim.SetBool("grounded", true);
+        }
+        else
+        {
+            playerAnim.SetBool("grounded", false);
         }
         //if jump pressed
         if (Input.GetButtonDown("Jump") & !frozen)
@@ -236,14 +241,17 @@ public class Player : MonoBehaviour
             if (checkRight())
             {
                 rb.AddForce(new Vector2(-(horizSpeed * 10), horizSpeed * 5.5f));
+                //playerAnim.SetTrigger("jump");
             }
             else if (checkLeft())
             {
                 rb.AddForce(new Vector2((horizSpeed * 10), horizSpeed * 5.5f));
+                //playerAnim.SetTrigger("jump");
             }
             else if (numJumps > 0)
             {
                 rb.AddForce(new Vector2(0.0f, verticalSpeed * 10));
+                playerAnim.SetTrigger("jump");
                 numJumps--;
             }
         }
@@ -311,7 +319,7 @@ public class Player : MonoBehaviour
             for (float i = 135; i >= 45f; i -= step)
             {
                 arm.transform.Rotate(new Vector3(0, 0, -step));
-                yield return new WaitForSeconds(attackSpeed);
+                yield return new WaitForSeconds(armSpeed);
             }
         }
         else {
@@ -321,7 +329,7 @@ public class Player : MonoBehaviour
             for (float i = -135; i <= -45f; i += step)
             {
                 arm.transform.Rotate(new Vector3(0, 0, step));
-                yield return new WaitForSeconds(attackSpeed);
+                yield return new WaitForSeconds(armSpeed);
             }
         }
         
@@ -379,6 +387,7 @@ public class Player : MonoBehaviour
     }
     public void applyDamage(float damage)
     {
+        playerAnim.SetTrigger("hit");
         health -= damage;
         if (health <= 0)
         {

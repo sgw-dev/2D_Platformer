@@ -48,6 +48,8 @@ public class OwlMovement : FlyingEnemyPathing
     //Spencer
     private Animator anim;
     private SpriteRenderer OwlSprite;
+    public bool attack;
+    public bool attackFlag = true;
 
     /*******************************************************************************************************************/
 
@@ -65,9 +67,14 @@ public class OwlMovement : FlyingEnemyPathing
         divePosition = new Vector2(8, 2);
         diveSpeed = 500;
         diveTime = 1;
+
+        //Spencer
+        perch = this.transform.position;
+        attack = false;
     }
     public void FixedUpdate()
     {
+        attack = anim.GetBool("Attack");
         if (!diving)
         {
             anim.SetBool("See", true);
@@ -133,4 +140,24 @@ public class OwlMovement : FlyingEnemyPathing
         anim.SetBool("Attack", false);
         StopCoroutine(DiveAttack());                    //end Coroutine
     }
+    void OnTriggerEnter2D(Collider2D other)
+    {
+        
+        if (attack && other.CompareTag("Player") && attackFlag)
+        {
+            
+            other.SendMessage("applyDamage", 2f);
+            attackFlag = false;
+        }
+    }
+    void OnTriggerExit2D(Collider2D other)
+    {
+
+        if (other.CompareTag("Player") && !attackFlag)
+        {
+
+            attackFlag = true;
+        }
+    }
+
 }
