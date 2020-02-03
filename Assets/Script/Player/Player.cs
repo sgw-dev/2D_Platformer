@@ -48,6 +48,8 @@ public class Player : MonoBehaviour
     private bool facingRight = true;
     private float armPos;
 
+    public bool attacking = false;
+
     private void Awake()
     {
         //Let main Player be called as `Player.main`
@@ -217,6 +219,8 @@ public class Player : MonoBehaviour
             if (attackTimer > attackSpeed)
             {
                 attack();
+                attacking = true;
+                //attack2();
                 //Attack animation
                 //Debug.DrawLine(this.transform.position, new Vector3(this.transform.position.x + attackCollider.radius, this.transform.position.y, this.transform.position.z), Color.red, .25f);
                 //Debug.DrawRay(this.transform.position, Vector3.right, Color.red, 1f);
@@ -224,6 +228,7 @@ public class Player : MonoBehaviour
                 attackTimer = 0.0f;
             }
         }
+        
         if (checkBottom())
         {
             numJumps = 2;
@@ -270,9 +275,7 @@ public class Player : MonoBehaviour
     }
     private void attack()
     {
-        //Debug.Log("Attack");
         StartCoroutine(attackAnimation());
-        //Debug.DrawRay(this.transform.position, Vector3.right, Color.red, .25df);
         Collider2D myCollider = attackCollider;
         int numColliders = 10;
         Collider2D[] colliders = new Collider2D[numColliders];
@@ -280,14 +283,6 @@ public class Player : MonoBehaviour
         ContactFilter2D contactFilter = new ContactFilter2D();
         contactFilter.layerMask = hitMask;
         // Set you filters here according to https://docs.unity3d.com/ScriptReference/ContactFilter2D.html
-        if(myCollider == null)
-        {
-            Debug.Log("MyCollider is null");
-        }
-        if(colliders == null)
-        {
-            Debug.Log("colliders is null");
-        }
         int colliderCount = myCollider.OverlapCollider(contactFilter, colliders);
         for (int i = 0; i < numColliders; i++)
         {
@@ -305,6 +300,31 @@ public class Player : MonoBehaviour
             }
         }
     }
+    //For attacking objects that are triggers
+    /*private void attack2()
+    {
+        RaycastHit2D[] results = new RaycastHit2D[10];
+        Vector2 direction;
+        if (facingRight)
+        {
+            direction = Vector2.right;
+        }
+        else
+        {
+            direction = Vector2.left;
+        }
+        ContactFilter2D contactFilter = new ContactFilter2D();
+        contactFilter.layerMask = hitMask2;
+        int numColliders = Physics2D.CircleCast(this.transform.position, 1f, direction, contactFilter, results, 1f);
+        for (int i = 0; i < numColliders; i++)
+        {
+            Debug.Log(results[i].transform.tag);
+            if (results[i].transform.tag.CompareTo("Owl") == 0)
+            {
+                results[i].transform.SendMessage("applyDamage", 1.0f);
+            }
+        }
+    }*/
     IEnumerator attackAnimation()
     {
         playerAnim.speed = 0;
@@ -338,6 +358,7 @@ public class Player : MonoBehaviour
         arm.transform.eulerAngles = new Vector3(0, 0, 0);
         this.gameObject.GetComponent<Renderer>().enabled = true;
         playerAnim.speed = 1;
+        attacking = false;
         StopCoroutine(attackAnimation());
     }
 
@@ -400,6 +421,10 @@ public class Player : MonoBehaviour
     public void die()
     {
 
+    }
+    public bool getAttacking()
+    {
+        return attacking;
     }
     public void updateHealthBar()
     {

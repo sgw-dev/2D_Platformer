@@ -150,6 +150,21 @@ public class OwlMovement : FlyingEnemyPathing
             attackFlag = false;
         }
     }
+    void OnTriggerStay2D(Collider2D other)
+    {
+
+        if (other.CompareTag("AttackBouble"))
+        {
+            
+            Player script = other.gameObject.GetComponentInParent<Player>();
+            Debug.Log(script.attacking);
+            if (script.attacking)
+            {
+                Debug.Log("Ouch!");
+                this.gameObject.GetComponent<EnemyHealth>().applyDamage(1f);
+            }
+        }
+    }
     void OnTriggerExit2D(Collider2D other)
     {
 

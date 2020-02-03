@@ -44,6 +44,7 @@ public class SnakeMovement : EnemyPathing
         searchDistance = 10;
         spitRate = 120;
         EnemyStart();
+
     }
 
     /**************************************************************************************************/
@@ -101,8 +102,6 @@ public class SnakeMovement : EnemyPathing
     //shoot teeth at the player
     private void Spit()
     {
-        
-
         counter = 0;
         Vector2 dir = (target - (Vector2)transform.position).normalized;                            //direction to player
         float angle = Vector3.SignedAngle(Vector3.up, dir, Vector3.forward);                        //converts vector to an angle

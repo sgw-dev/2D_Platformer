@@ -6,10 +6,8 @@ public class EnemyHealth : MonoBehaviour{
 
     public float maxHealth;
     private float health;
-
-    //public float weakness;
-
     public GameObject healthbar;
+    public GameObject sparkle;
     private float healthWidth;
     private float maxWidth;
 
@@ -26,20 +24,17 @@ public class EnemyHealth : MonoBehaviour{
     void Update()
     {
     }
-    public void applyDamage(float damage) {
-
-        //damage = damage * weakness;
+    public void applyDamage(float damage)
+    {
         health -= damage;
         if (health <= 0)
         {
-            die();
+            Instantiate(sparkle, new Vector3(gameObject.transform.position.x, gameObject.transform.position.y, -8f), gameObject.transform.rotation);
+            Destroy(gameObject);
         }
         float ratio = maxWidth / maxHealth;
         float width = healthbar.transform.localScale.x;
-        healthbar.transform.localScale = new Vector3 (width - (ratio*damage), healthbar.transform.localScale.y, 1.0f);
+        healthbar.transform.localScale = new Vector3(width - (ratio * damage), healthbar.transform.localScale.y, 1.0f);
 
-    }
-    public void die() {
-        Destroy(gameObject);
     }
 }
