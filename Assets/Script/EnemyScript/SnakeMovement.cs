@@ -39,7 +39,7 @@ public class SnakeMovement : EnemyPathing
 
     //Spencer: Add start function to set anim variable
     void Start() {
-        anim = GameObject.Find("Snake/Head").GetComponent<Animator>();
+        anim = head.GetComponent<Animator>();
         mask = LayerMask.GetMask("PlayerLayer");
         waitTime = 45f;
         searchDistance = 10;
