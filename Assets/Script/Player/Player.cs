@@ -57,6 +57,7 @@ public class Player : MonoBehaviour
     public GameObject shieldHolder;
     public bool blocking = false;
 
+    //**************************************Build 1.2
     private void Awake()
     {
         //Let main Player be called as `Player.main`
