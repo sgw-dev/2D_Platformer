@@ -14,7 +14,7 @@ public class Player : MonoBehaviour
     private float sprint;
     private float verticalSpeed;//how strong your jumps are
     public bool frozen = false;
-    private float attackTime;
+    public float attackSpeed;
     private float attackTimer = 0.0f;
     private CapsuleCollider2D attackCollider;
     private Animator playerAnim;
@@ -22,14 +22,13 @@ public class Player : MonoBehaviour
 
     public float maxHealth;
     public float health;
-    public Slider healthbar;
+    private Slider healthbar;
     private float healthWidth;
     private float maxWidth;
 
-    public GameObject attackVisual;
-    //private bool attacking = false;
+    public GameObject deathCanvas;
+    public GameObject deathVisual;
 
-    public GameObject stage;
     private GameObject bottom;
     private Transform bottomT;
     private Transform rightT;
@@ -42,11 +41,21 @@ public class Player : MonoBehaviour
     private int numJumps;
     private float horizSpeed;
 
-    private float attackSpeed;
+    private float armSpeed;
     public GameObject arm;
     public GameObject body;
     private bool facingRight = true;
     private float armPos;
+
+    public bool attacking = false;
+    public bool dead = false;
+
+    public Collider2D[] colliders;
+    public Sprite dagger;
+    public Sprite shield;
+    public GameObject weapon;
+    public GameObject shieldHolder;
+    public bool blocking = false;
 
     private void Awake()
     {
@@ -62,11 +71,11 @@ public class Player : MonoBehaviour
         maxSpeed = 5.5f;
         sprint = 3;
         verticalSpeed = 450;
-        attackTime = .5f;
+        //attackSpeed = .5f;
         checkDistance = .11f;
         numJumps = 2;
         horizSpeed = 800;
-        attackSpeed = .02f;
+        armSpeed = .02f;
 
         attackCollider = GameObject.Find("Character/Attack").GetComponent<CapsuleCollider2D>();
         playerAnim = this.GetComponent<Animator>();
@@ -85,11 +94,15 @@ public class Player : MonoBehaviour
         armPos = arm.transform.localPosition.x;
         body = GameObject.Find("Character/Body");
         body.GetComponent<Renderer>().enabled = false;
+        this.gameObject.GetComponent<Renderer>().enabled = true;
+        deathVisual.GetComponent<Renderer>().enabled = false;
 
         health = maxHealth;
         maxWidth = healthbar.maxValue;
         healthWidth = maxWidth;
         healthbar.value = healthWidth;
+
+        colliders = GetComponents<Collider2D>();
         
 
     }
@@ -205,49 +218,61 @@ public class Player : MonoBehaviour
     }
     public void Update()
     {
-        attackTimer += Time.deltaTime;
-        //hides attack animation
-        /*if (attackTimer > .25f && attackVisual.activeSelf == true)
-        {
-            attackVisual.SetActive(false);
-        }*/
-        //if Fire1 pressed
-        if (Input.GetButtonDown("Fire1"))
-        {
-            if (attackTimer > attackTime)
+        if (!dead) { 
+            attackTimer += Time.deltaTime;
+        
+            //if Fire1 pressed
+            if (Input.GetButtonDown("Fire1"))
             {
-                attack();
-                //Attack animation
-                //Debug.DrawLine(this.transform.position, new Vector3(this.transform.position.x + attackCollider.radius, this.transform.position.y, this.transform.position.z), Color.red, .25f);
-                //Debug.DrawRay(this.transform.position, Vector3.right, Color.red, 1f);
-                //Debug.Log("Attacked");
-                attackTimer = 0.0f;
+                if (attackTimer > attackSpeed)
+                {
+                    attack();
+                    attacking = true;
+                
+                    attackTimer = 0.0f;
+                }
             }
-        }
-        if (checkBottom())
-        {
-            numJumps = 2;
-        }
-        //if jump pressed
-        if (Input.GetButtonDown("Jump") & !frozen)
-        {
-            //add force up
+            if (Input.GetButtonDown("Fire2"))
+            {
+                blockUpAnimation();
+            }
+            if (Input.GetButtonUp("Fire2"))
+            {
+                StartCoroutine(blockDownAnimation());
+            }
 
-            if (checkRight())
-            {
-                rb.AddForce(new Vector2(-(horizSpeed * 10), horizSpeed * 5.5f));
+            if (checkBottom()){
+                numJumps = 2;
+                playerAnim.SetBool("grounded", true);
             }
-            else if (checkLeft())
-            {
-                rb.AddForce(new Vector2((horizSpeed * 10), horizSpeed * 5.5f));
+            else{
+                playerAnim.SetBool("grounded", false);
             }
-            else if (numJumps > 0)
+            //if jump pressed
+            if (Input.GetButtonDown("Jump") & !frozen)
             {
-                rb.AddForce(new Vector2(0.0f, verticalSpeed * 10));
-                numJumps--;
+                //add force up
+
+                if (checkRight())
+                {
+                    rb.AddForce(new Vector2(-(horizSpeed * 10), horizSpeed * 5.5f));
+                    //playerAnim.SetTrigger("jump");
+                }
+                else if (checkLeft())
+                {
+                    rb.AddForce(new Vector2((horizSpeed * 10), horizSpeed * 5.5f));
+                    //playerAnim.SetTrigger("jump");
+                }
+                else if (numJumps > 0)
+                {
+                    rb.AddForce(new Vector2(0.0f, verticalSpeed * 10));
+                    playerAnim.SetTrigger("jump");
+                    numJumps--;
+                }
             }
         }
     }
+
     private void flipArm(bool faceRight) {
         //flip arm
         if (faceRight)
@@ -262,9 +287,7 @@ public class Player : MonoBehaviour
     }
     private void attack()
     {
-        //Debug.Log("Attack");
         StartCoroutine(attackAnimation());
-        //Debug.DrawRay(this.transform.position, Vector3.right, Color.red, .25df);
         Collider2D myCollider = attackCollider;
         int numColliders = 10;
         Collider2D[] colliders = new Collider2D[numColliders];
@@ -272,21 +295,15 @@ public class Player : MonoBehaviour
         ContactFilter2D contactFilter = new ContactFilter2D();
         contactFilter.layerMask = hitMask;
         // Set you filters here according to https://docs.unity3d.com/ScriptReference/ContactFilter2D.html
-        if(myCollider == null)
-        {
-            Debug.Log("MyCollider is null");
-        }
-        if(colliders == null)
-        {
-            Debug.Log("colliders is null");
-        }
-        int colliderCount = myCollider.OverlapCollider(contactFilter, colliders);
+        //int colliderCount = myCollider.OverlapCollider(contactFilter, colliders);
+        int colliderCount = Physics2D.OverlapCollider(attackCollider, contactFilter, colliders);
         for (int i = 0; i < numColliders; i++)
         {
             if (colliders[i] != null)
             {
-                if (colliders[i].tag.CompareTo("Enemy") == 0)
+                if (colliders[i].tag.CompareTo("Enemy") == 0 || colliders[i].tag.CompareTo("Owl")==0)
                 {
+                    
                     if (!names.Contains(colliders[i].name))
                     {
                         colliders[i].SendMessage("applyDamage", 1.0f);
@@ -303,6 +320,8 @@ public class Player : MonoBehaviour
         this.gameObject.GetComponent<Renderer>().enabled = false;
         body.GetComponent<Renderer>().enabled = true;
         arm.SetActive(true);
+        weapon.GetComponent<SpriteRenderer>().sprite = dagger;
+        shieldHolder.SetActive(false);
         if (facingRight)
         {
             arm.transform.Rotate(new Vector3(0, 0, 135));
@@ -311,7 +330,7 @@ public class Player : MonoBehaviour
             for (float i = 135; i >= 45f; i -= step)
             {
                 arm.transform.Rotate(new Vector3(0, 0, -step));
-                yield return new WaitForSeconds(attackSpeed);
+                yield return new WaitForSeconds(armSpeed);
             }
         }
         else {
@@ -321,7 +340,7 @@ public class Player : MonoBehaviour
             for (float i = -135; i <= -45f; i += step)
             {
                 arm.transform.Rotate(new Vector3(0, 0, step));
-                yield return new WaitForSeconds(attackSpeed);
+                yield return new WaitForSeconds(armSpeed);
             }
         }
         
@@ -330,7 +349,61 @@ public class Player : MonoBehaviour
         arm.transform.eulerAngles = new Vector3(0, 0, 0);
         this.gameObject.GetComponent<Renderer>().enabled = true;
         playerAnim.speed = 1;
+        attacking = false;
+        shieldHolder.SetActive(true);
         StopCoroutine(attackAnimation());
+    }
+
+    public void blockUpAnimation()
+    {
+        playerAnim.speed = 0;
+        frozen = true;
+        blocking = true;
+        this.gameObject.GetComponent<Renderer>().enabled = false;
+        body.GetComponent<Renderer>().enabled = true;
+        arm.SetActive(true);
+        shieldHolder.GetComponent<SpriteRenderer>().sprite = shield;
+        weapon.SetActive(false);
+        if (facingRight)
+        {
+            arm.transform.Rotate(new Vector3(0, 0, 100));
+        }
+        else
+        {
+            arm.transform.Rotate(new Vector3(0, 0, -100));
+            
+        }
+    }
+    IEnumerator blockDownAnimation()
+    {
+        if (facingRight)
+        {
+            float step = 45;
+            for (float i = 100; i >= 45f; i -= step)
+            {
+                arm.transform.Rotate(new Vector3(0, 0, -step));
+                yield return new WaitForSeconds(armSpeed);
+            }
+        }
+        else
+        {
+            float step = 45;
+            for (float i = -100; i <= -45f; i += step)
+            {
+                arm.transform.Rotate(new Vector3(0, 0, step));
+                yield return new WaitForSeconds(armSpeed);
+            }
+        }
+
+        arm.SetActive(false);
+        body.GetComponent<Renderer>().enabled = false;
+        arm.transform.eulerAngles = new Vector3(0, 0, 0);
+        this.gameObject.GetComponent<Renderer>().enabled = true;
+        playerAnim.speed = 1;
+        blocking = false;
+        frozen = false;
+        weapon.SetActive(true);
+        StopCoroutine(blockDownAnimation());
     }
 
     public bool checkRight()
@@ -379,18 +452,39 @@ public class Player : MonoBehaviour
     }
     public void applyDamage(float damage)
     {
-        health -= damage;
-        if (health <= 0)
+        
+        if (!blocking)
         {
-            die();
+            playerAnim.SetTrigger("hit");
+            health -= damage;
+            if (health <= 0 && !dead)
+            {
+                die();
+                dead = true;
+            }
+            float ratio = maxWidth / maxHealth;
+            float width = healthbar.value;
+            healthbar.value = width - (ratio * damage);
         }
-        float ratio = maxWidth / maxHealth;
-        float width = healthbar.value;
-        healthbar.value = width - (ratio * damage);
+       
+        
     }
     public void die()
     {
-
+        Time.timeScale = 0f;
+        //make player walk through-able
+        foreach(Collider2D c in colliders)
+        {
+            c.enabled = false;
+        }
+        this.gameObject.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezeAll;
+        deathCanvas.SetActive(true);
+        this.gameObject.GetComponent<Renderer>().enabled = false;
+        deathVisual.GetComponent<Renderer>().enabled = true;
+    }
+    public bool getAttacking()
+    {
+        return attacking;
     }
     public void updateHealthBar()
     {

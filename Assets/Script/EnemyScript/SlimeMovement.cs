@@ -34,6 +34,11 @@ public class SlimeMovement : EnemyPathing
 
     //Spencer
     private Animator anim;
+    private bool attackFlag = true;
+    private int attackTimer;
+    private int attackTime = 100;
+    private Player playerScript;
+
 
     /**************************************************************************************************/
 
@@ -48,9 +53,20 @@ public class SlimeMovement : EnemyPathing
         searchDistance = 8;
         timeBetJump = 60;
         EnemyStart();
+        playerScript = playerPosition.GetComponent<Player>();
     }
     void FixedUpdate()
     {
+        if (attackTimer >= attackTime)
+        {
+            attackTimer = 0;
+            attackFlag = true;
+        }
+        else
+        {
+            attackTimer++;
+        }
+
         if (checkOnGround())                //check if object is on ground
         {
             counter++;                      //add to counter
@@ -59,6 +75,7 @@ public class SlimeMovement : EnemyPathing
         else
         {
             anim.SetBool("Ground", false);
+            
         }
 
         if (counter > timeBetJump)
@@ -73,8 +90,10 @@ public class SlimeMovement : EnemyPathing
 
             int moveType = checkForWall(bound.size.x / 2) * checkForHole(maxSpeedX * jumpTime * Time.deltaTime);        //int to tell if slime can jump
             int smallJump = checkForHole(maxSpeedX * jumpTime * Time.deltaTime / 2);                                    //int to tell if slime can do a smaller jump
-
-            tryMoving(moveType, smallJump);     //try moving
+            if (!playerScript.dead)
+            {
+                tryMoving(moveType, smallJump);     //try moving
+            }
         }
     }
 
@@ -106,4 +125,14 @@ public class SlimeMovement : EnemyPathing
     {
         Debug.DrawRay(p, Vector2.down, Color.green);
     }
+    void OnTriggerStay2D(Collider2D other)
+    {
+        if (other.CompareTag("Player") && attackFlag && !anim.GetBool("Ground"))
+        {
+            other.SendMessage("applyDamage", 1f);
+            attackFlag = false;
+        }
+    }
+    
+
 }

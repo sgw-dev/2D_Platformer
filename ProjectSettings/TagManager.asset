@@ -10,6 +10,8 @@ TagManager:
   - PlayerGrounder
   - Enemy
   - Wizard
+  - Owl
+  - AttackBouble
   layers:
   - Default
   - TransparentFX

@@ -32,6 +32,7 @@ public class SnakeMovement : EnemyPathing
     private LayerMask mask;
     private float waitTime;
     private bool canAttack = false;
+    private Player playerScript;
 
     public int spitRate;                                    //time between each shoot
     public int counter;                                    //counter for time
@@ -44,6 +45,7 @@ public class SnakeMovement : EnemyPathing
         searchDistance = 10;
         spitRate = 120;
         EnemyStart();
+        playerScript = playerPosition.GetComponent<Player>();
     }
 
     /**************************************************************************************************/
@@ -52,7 +54,7 @@ public class SnakeMovement : EnemyPathing
     {
         head.flipX = transform.position.x < playerPosition.position.x;        //flips the sprite
         //goes up to the wait time
-        if (counter >= spitRate )
+        if (counter >= spitRate && !playerScript.dead)
         {
             //starts the animation
             if (!canAttack)
@@ -72,10 +74,11 @@ public class SnakeMovement : EnemyPathing
             }
             
         }
-        else if(counter < spitRate)
+        else if(counter < spitRate && !playerScript.dead)
         {
             counter++;                                                      //counter for fire rate
         }
+        else { }
     }
 
     /**************************************************************************************************/
@@ -101,8 +104,6 @@ public class SnakeMovement : EnemyPathing
     //shoot teeth at the player
     private void Spit()
     {
-        
-
         counter = 0;
         Vector2 dir = (target - (Vector2)transform.position).normalized;                            //direction to player
         float angle = Vector3.SignedAngle(Vector3.up, dir, Vector3.forward);                        //converts vector to an angle
