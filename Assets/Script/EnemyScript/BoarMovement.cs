@@ -35,6 +35,7 @@ public class BoarMovement : EnemyPathing
     //Spencer
     private Animator anim;
     private bool attackFlag = true;
+    private Player playerScript;
 
     /**************************************************************************************************/
 
@@ -51,6 +52,9 @@ public class BoarMovement : EnemyPathing
         maxChargeSpeed = 10;
         restTime = 1;
         perpareTime = 1;
+        playerScript = playerPosition.GetComponent<Player>();
+        
+        
     }
 
     /**************************************************************************************************/
@@ -71,7 +75,7 @@ public class BoarMovement : EnemyPathing
 
             if (!preparing)
             {
-                if (target != Vector2.zero)
+                if (target != Vector2.zero && !playerScript.dead)
                 {
                     StartCoroutine(Prepare());      //start preparing if player in sight
                 }

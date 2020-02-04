@@ -37,6 +37,7 @@ public class SlimeMovement : EnemyPathing
     private bool attackFlag = true;
     private int attackTimer;
     private int attackTime = 100;
+    private Player playerScript;
 
 
     /**************************************************************************************************/
@@ -52,6 +53,7 @@ public class SlimeMovement : EnemyPathing
         searchDistance = 8;
         timeBetJump = 60;
         EnemyStart();
+        playerScript = playerPosition.GetComponent<Player>();
     }
     void FixedUpdate()
     {
@@ -87,8 +89,10 @@ public class SlimeMovement : EnemyPathing
 
             int moveType = checkForWall(bound.size.x / 2) * checkForHole(maxSpeedX * jumpTime * Time.deltaTime);        //int to tell if slime can jump
             int smallJump = checkForHole(maxSpeedX * jumpTime * Time.deltaTime / 2);                                    //int to tell if slime can do a smaller jump
-
-            tryMoving(moveType, smallJump);     //try moving
+            if (!playerScript.dead)
+            {
+                tryMoving(moveType, smallJump);     //try moving
+            }
         }
     }
 

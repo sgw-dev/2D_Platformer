@@ -50,6 +50,7 @@ public class OwlMovement : FlyingEnemyPathing
     private SpriteRenderer OwlSprite;
     public bool attack;
     public bool attackFlag = true;
+    private Player playerScript;
 
     /*******************************************************************************************************************/
 
@@ -71,6 +72,8 @@ public class OwlMovement : FlyingEnemyPathing
         //Spencer
         perch = this.transform.position;
         attack = false;
+
+        playerScript = playerPosition.GetComponent<Player>();
     }
     public void FixedUpdate()
     {
@@ -80,7 +83,7 @@ public class OwlMovement : FlyingEnemyPathing
             anim.SetBool("See", true);
             owlDirection = Vector2.zero;
             rb.velocity = owlDirection;     //zeros the rigidbodies velocity
-            if (lineOfSight())                              //can see player?
+            if (lineOfSight() && !playerScript.dead)                              //can see player?
             {
                 PrepareToDive();                            //prepares to dive
             }
@@ -157,7 +160,6 @@ public class OwlMovement : FlyingEnemyPathing
         {
             
             Player script = other.gameObject.GetComponentInParent<Player>();
-            Debug.Log(script.attacking);
             if (script.attacking)
             {
                 Debug.Log("Ouch!");

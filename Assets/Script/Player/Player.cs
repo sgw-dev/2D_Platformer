@@ -26,10 +26,9 @@ public class Player : MonoBehaviour
     private float healthWidth;
     private float maxWidth;
 
-    public GameObject attackVisual;
-    //private bool attacking = false;
+    public GameObject deathCanvas;
+    public GameObject deathVisual;
 
-    public GameObject stage;
     private GameObject bottom;
     private Transform bottomT;
     private Transform rightT;
@@ -49,6 +48,9 @@ public class Player : MonoBehaviour
     private float armPos;
 
     public bool attacking = false;
+    public bool dead = false;
+
+    public Collider2D[] colliders;
 
     private void Awake()
     {
@@ -87,11 +89,15 @@ public class Player : MonoBehaviour
         armPos = arm.transform.localPosition.x;
         body = GameObject.Find("Character/Body");
         body.GetComponent<Renderer>().enabled = false;
+        this.gameObject.GetComponent<Renderer>().enabled = true;
+        deathVisual.GetComponent<Renderer>().enabled = false;
 
         health = maxHealth;
         maxWidth = healthbar.maxValue;
         healthWidth = maxWidth;
         healthbar.value = healthWidth;
+
+        colliders = GetComponents<Collider2D>();
         
 
     }
@@ -207,12 +213,9 @@ public class Player : MonoBehaviour
     }
     public void Update()
     {
+        if (!dead) { 
         attackTimer += Time.deltaTime;
-        //hides attack animation
-        /*if (attackTimer > .25f && attackVisual.activeSelf == true)
-        {
-            attackVisual.SetActive(false);
-        }*/
+        
         //if Fire1 pressed
         if (Input.GetButtonDown("Fire1"))
         {
@@ -220,11 +223,7 @@ public class Player : MonoBehaviour
             {
                 attack();
                 attacking = true;
-                //attack2();
-                //Attack animation
-                //Debug.DrawLine(this.transform.position, new Vector3(this.transform.position.x + attackCollider.radius, this.transform.position.y, this.transform.position.z), Color.red, .25f);
-                //Debug.DrawRay(this.transform.position, Vector3.right, Color.red, 1f);
-                //Debug.Log("Attacked");
+                
                 attackTimer = 0.0f;
             }
         }
@@ -260,7 +259,9 @@ public class Player : MonoBehaviour
                 numJumps--;
             }
         }
+        }
     }
+
     private void flipArm(bool faceRight) {
         //flip arm
         if (faceRight)
@@ -283,13 +284,15 @@ public class Player : MonoBehaviour
         ContactFilter2D contactFilter = new ContactFilter2D();
         contactFilter.layerMask = hitMask;
         // Set you filters here according to https://docs.unity3d.com/ScriptReference/ContactFilter2D.html
-        int colliderCount = myCollider.OverlapCollider(contactFilter, colliders);
+        //int colliderCount = myCollider.OverlapCollider(contactFilter, colliders);
+        int colliderCount = Physics2D.OverlapCollider(attackCollider, contactFilter, colliders);
         for (int i = 0; i < numColliders; i++)
         {
             if (colliders[i] != null)
             {
-                if (colliders[i].tag.CompareTo("Enemy") == 0)
+                if (colliders[i].tag.CompareTo("Enemy") == 0 || colliders[i].tag.CompareTo("Owl")==0)
                 {
+                    
                     if (!names.Contains(colliders[i].name))
                     {
                         colliders[i].SendMessage("applyDamage", 1.0f);
@@ -300,31 +303,6 @@ public class Player : MonoBehaviour
             }
         }
     }
-    //For attacking objects that are triggers
-    /*private void attack2()
-    {
-        RaycastHit2D[] results = new RaycastHit2D[10];
-        Vector2 direction;
-        if (facingRight)
-        {
-            direction = Vector2.right;
-        }
-        else
-        {
-            direction = Vector2.left;
-        }
-        ContactFilter2D contactFilter = new ContactFilter2D();
-        contactFilter.layerMask = hitMask2;
-        int numColliders = Physics2D.CircleCast(this.transform.position, 1f, direction, contactFilter, results, 1f);
-        for (int i = 0; i < numColliders; i++)
-        {
-            Debug.Log(results[i].transform.tag);
-            if (results[i].transform.tag.CompareTo("Owl") == 0)
-            {
-                results[i].transform.SendMessage("applyDamage", 1.0f);
-            }
-        }
-    }*/
     IEnumerator attackAnimation()
     {
         playerAnim.speed = 0;
@@ -410,9 +388,10 @@ public class Player : MonoBehaviour
     {
         playerAnim.SetTrigger("hit");
         health -= damage;
-        if (health <= 0)
+        if (health <= 0 && !dead)
         {
             die();
+            dead = true;
         }
         float ratio = maxWidth / maxHealth;
         float width = healthbar.value;
@@ -420,7 +399,16 @@ public class Player : MonoBehaviour
     }
     public void die()
     {
-
+        Time.timeScale = 0f;
+        //make player walk through-able
+        foreach(Collider2D c in colliders)
+        {
+            c.enabled = false;
+        }
+        this.gameObject.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezeAll;
+        deathCanvas.SetActive(true);
+        this.gameObject.GetComponent<Renderer>().enabled = false;
+        deathVisual.GetComponent<Renderer>().enabled = true;
     }
     public bool getAttacking()
     {

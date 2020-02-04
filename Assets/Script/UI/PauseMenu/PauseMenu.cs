@@ -21,6 +21,8 @@ public class PauseMenu : MonoBehaviour
     public GameObject pauseMenuCanvas;
     public GameObject invMenuCanvas;
 
+    public GameObject deathCanvas;
+
     //pause function
     void Update()
     {
@@ -108,5 +110,11 @@ public class PauseMenu : MonoBehaviour
         invMenuCanvas.SetActive(false);
         Time.timeScale = 1f;
         isInv = !isInv;
+    }
+    public void respawn()
+    {
+        deathCanvas.SetActive(true);
+        Time.timeScale = 1f;
+        UnityEngine.SceneManagement.SceneManager.LoadScene(startLevel);
     }
 }
