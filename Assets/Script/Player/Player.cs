@@ -51,6 +51,11 @@ public class Player : MonoBehaviour
     public bool dead = false;
 
     public Collider2D[] colliders;
+    public Sprite dagger;
+    public Sprite shield;
+    public GameObject weapon;
+    public GameObject shieldHolder;
+    public bool blocking = false;
 
     private void Awake()
     {
@@ -214,51 +219,57 @@ public class Player : MonoBehaviour
     public void Update()
     {
         if (!dead) { 
-        attackTimer += Time.deltaTime;
+            attackTimer += Time.deltaTime;
         
-        //if Fire1 pressed
-        if (Input.GetButtonDown("Fire1"))
-        {
-            if (attackTimer > attackSpeed)
+            //if Fire1 pressed
+            if (Input.GetButtonDown("Fire1"))
             {
-                attack();
-                attacking = true;
+                if (attackTimer > attackSpeed)
+                {
+                    attack();
+                    attacking = true;
                 
-                attackTimer = 0.0f;
+                    attackTimer = 0.0f;
+                }
             }
-        }
-        
-        if (checkBottom())
-        {
-            numJumps = 2;
-            playerAnim.SetBool("grounded", true);
-        }
-        else
-        {
-            playerAnim.SetBool("grounded", false);
-        }
-        //if jump pressed
-        if (Input.GetButtonDown("Jump") & !frozen)
-        {
-            //add force up
+            if (Input.GetButtonDown("Fire2"))
+            {
+                blockUpAnimation();
+            }
+            if (Input.GetButtonUp("Fire2"))
+            {
+                StartCoroutine(blockDownAnimation());
+            }
 
-            if (checkRight())
-            {
-                rb.AddForce(new Vector2(-(horizSpeed * 10), horizSpeed * 5.5f));
-                //playerAnim.SetTrigger("jump");
+            if (checkBottom()){
+                numJumps = 2;
+                playerAnim.SetBool("grounded", true);
             }
-            else if (checkLeft())
-            {
-                rb.AddForce(new Vector2((horizSpeed * 10), horizSpeed * 5.5f));
-                //playerAnim.SetTrigger("jump");
+            else{
+                playerAnim.SetBool("grounded", false);
             }
-            else if (numJumps > 0)
+            //if jump pressed
+            if (Input.GetButtonDown("Jump") & !frozen)
             {
-                rb.AddForce(new Vector2(0.0f, verticalSpeed * 10));
-                playerAnim.SetTrigger("jump");
-                numJumps--;
+                //add force up
+
+                if (checkRight())
+                {
+                    rb.AddForce(new Vector2(-(horizSpeed * 10), horizSpeed * 5.5f));
+                    //playerAnim.SetTrigger("jump");
+                }
+                else if (checkLeft())
+                {
+                    rb.AddForce(new Vector2((horizSpeed * 10), horizSpeed * 5.5f));
+                    //playerAnim.SetTrigger("jump");
+                }
+                else if (numJumps > 0)
+                {
+                    rb.AddForce(new Vector2(0.0f, verticalSpeed * 10));
+                    playerAnim.SetTrigger("jump");
+                    numJumps--;
+                }
             }
-        }
         }
     }
 
@@ -309,6 +320,8 @@ public class Player : MonoBehaviour
         this.gameObject.GetComponent<Renderer>().enabled = false;
         body.GetComponent<Renderer>().enabled = true;
         arm.SetActive(true);
+        weapon.GetComponent<SpriteRenderer>().sprite = dagger;
+        shieldHolder.SetActive(false);
         if (facingRight)
         {
             arm.transform.Rotate(new Vector3(0, 0, 135));
@@ -337,7 +350,60 @@ public class Player : MonoBehaviour
         this.gameObject.GetComponent<Renderer>().enabled = true;
         playerAnim.speed = 1;
         attacking = false;
+        shieldHolder.SetActive(true);
         StopCoroutine(attackAnimation());
+    }
+
+    public void blockUpAnimation()
+    {
+        playerAnim.speed = 0;
+        frozen = true;
+        blocking = true;
+        this.gameObject.GetComponent<Renderer>().enabled = false;
+        body.GetComponent<Renderer>().enabled = true;
+        arm.SetActive(true);
+        shieldHolder.GetComponent<SpriteRenderer>().sprite = shield;
+        weapon.SetActive(false);
+        if (facingRight)
+        {
+            arm.transform.Rotate(new Vector3(0, 0, 100));
+        }
+        else
+        {
+            arm.transform.Rotate(new Vector3(0, 0, -100));
+            
+        }
+    }
+    IEnumerator blockDownAnimation()
+    {
+        if (facingRight)
+        {
+            float step = 45;
+            for (float i = 100; i >= 45f; i -= step)
+            {
+                arm.transform.Rotate(new Vector3(0, 0, -step));
+                yield return new WaitForSeconds(armSpeed);
+            }
+        }
+        else
+        {
+            float step = 45;
+            for (float i = -100; i <= -45f; i += step)
+            {
+                arm.transform.Rotate(new Vector3(0, 0, step));
+                yield return new WaitForSeconds(armSpeed);
+            }
+        }
+
+        arm.SetActive(false);
+        body.GetComponent<Renderer>().enabled = false;
+        arm.transform.eulerAngles = new Vector3(0, 0, 0);
+        this.gameObject.GetComponent<Renderer>().enabled = true;
+        playerAnim.speed = 1;
+        blocking = false;
+        frozen = false;
+        weapon.SetActive(true);
+        StopCoroutine(blockDownAnimation());
     }
 
     public bool checkRight()
@@ -386,16 +452,22 @@ public class Player : MonoBehaviour
     }
     public void applyDamage(float damage)
     {
-        playerAnim.SetTrigger("hit");
-        health -= damage;
-        if (health <= 0 && !dead)
+        
+        if (!blocking)
         {
-            die();
-            dead = true;
+            playerAnim.SetTrigger("hit");
+            health -= damage;
+            if (health <= 0 && !dead)
+            {
+                die();
+                dead = true;
+            }
+            float ratio = maxWidth / maxHealth;
+            float width = healthbar.value;
+            healthbar.value = width - (ratio * damage);
         }
-        float ratio = maxWidth / maxHealth;
-        float width = healthbar.value;
-        healthbar.value = width - (ratio * damage);
+       
+        
     }
     public void die()
     {

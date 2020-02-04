@@ -75,6 +75,7 @@ public class SlimeMovement : EnemyPathing
         else
         {
             anim.SetBool("Ground", false);
+            
         }
 
         if (counter > timeBetJump)
@@ -126,7 +127,7 @@ public class SlimeMovement : EnemyPathing
     }
     void OnTriggerStay2D(Collider2D other)
     {
-        if (other.CompareTag("Player") && attackFlag)
+        if (other.CompareTag("Player") && attackFlag && !anim.GetBool("Ground"))
         {
             other.SendMessage("applyDamage", 1f);
             attackFlag = false;
