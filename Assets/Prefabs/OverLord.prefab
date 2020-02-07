@@ -50,3 +50,4 @@ MonoBehaviour:
   isInv: 0
   pauseMenuCanvas: {fileID: 0}
   invMenuCanvas: {fileID: 0}
+  deathCanvas: {fileID: 0}
