@@ -36,7 +36,7 @@ public class Save : MonoBehaviour {
 	string PlayerInventory() {
 		string itemsininv="";
 		Inventory inv = GameObject.Find("Character").transform.Find("Inventory").GetComponent<Inventory>();
-		GameObject[] slots = inv.Slots;
+		GameObject[] slots = inv.slot;
 		foreach (GameObject g in slots ) {
 			GameObject slot = g.GetComponent<Slot>().item;
 			if (slot!=null) {

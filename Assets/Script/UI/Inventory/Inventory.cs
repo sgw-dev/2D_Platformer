@@ -4,69 +4,80 @@ using UnityEngine;
 
 public class Inventory : MonoBehaviour
 {
-    public GameObject InvMenu;
-    public GameObject BoxesPanel;
-    public GameObject[] Slots;
-    public bool[] isFull;
-	public GameObject itemSlotImage;
+    public GameObject inventory;
+    private bool inventoryEnabled;
 
-	private Slot[] slotsScripts;
-    private int InvSize = 18;
+    private int inventorySize;
+    public GameObject boxPanels;
+    public GameObject[] slot;
+    Items items;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        Slots = new GameObject[18];
-        isFull = new bool[18];
-		slotsScripts = new Slot[18];
-        for (int i = 0; i < 18; i++)
-        {
-            Slots[i] = BoxesPanel.transform.GetChild(i).gameObject;
-            isFull[i] = false;
-			GameObject tmp = GameObject.Instantiate(itemSlotImage,Slots[i].transform);
-			Slots[i].AddComponent<Slot>();
-
-			Slots[i].GetComponent<Slot>().slotIconGO = tmp.transform;
-        }
-    }
-
-    // Update is called once per frame
     void Update()
     {
+        // pulls up the inventory if I is pressed
         if (Input.GetKeyDown(KeyCode.I))
+            inventoryEnabled = !inventoryEnabled;
+        // sets inventory active or inactive
+        if (inventoryEnabled == true)
         {
-            InvMenu.SetActive(!InvMenu.activeSelf);
+            inventory.SetActive(true);
+        }
+        else
+        {
+            inventory.SetActive(false);
         }
     }
-    private void OnTriggerEnter2D(Collider2D other)
-    {
-        if(other.tag == "Item")
-        {
-            GameObject itemPickedUp = other.gameObject;
-            Items item = itemPickedUp.GetComponent<Items>();
 
-            AddItem(itemPickedUp, item.ID, item.type, item.description, item.icon);
+    void Start()
+    {
+        // sets size of inventroy to max 18
+        inventorySize = 18;
+        slot = new GameObject[inventorySize];
+        // populates inventory with box panels
+        for (int i = 0; i < inventorySize; i++)
+        {
+            slot[i] = boxPanels.transform.GetChild(i).gameObject;
+            // checks if slot is empty
+            if (slot[i].GetComponent<Slot>().item != null)
+                slot[i].GetComponent<Slot>().empty = false;
         }
     }
-    void AddItem(GameObject itemObject, int itemId, string itemType, string itemDescription, Sprite itemIcon)
+
+    private void OnTriggerEnter(Collider other)
     {
-        for(int i = 0; i < InvSize; i++)
+        // if collide with object labled "Item" adds it to inventory
+        if (other.tag == "Item")
         {
-            if( ! isFull[i] )
+            GameObject itemAcquired = other.gameObject;
+            items = itemAcquired.GetComponent<Items>();
+            AddItem(itemAcquired, items.ID, items.type, items.description, items.icon);
+        }
+    }
+
+    void AddItem(GameObject itemObject, int id, string type, string description, Sprite itemIcon)
+    {
+        // goes through inventory to find a free slot
+        for (int i = 0; i < inventorySize; i++)
+        {
+            // if empty slot is found
+            if (slot[i].GetComponent<Slot>().empty)
             {
-                Slots[i].GetComponent<Slot>().item = itemObject;
-                Slots[i].GetComponent<Slot>().icon = itemIcon;
-                Slots[i].GetComponent<Slot>().type = itemType; 
-                Slots[i].GetComponent<Slot>().description = itemDescription;
-                Slots[i].GetComponent<Slot>().ID = itemId;
+                // pick up game object and call acquired from Items script, set to true
+                itemObject.GetComponent<Items>().acquired = true;
 
-                itemObject.transform.parent = Slots[i].transform;
+                // call item from Slot script and set it to the itemObject that was picked up
+                slot[i].GetComponent<Slot>().item = itemObject;
+                // call the ReadIn script and pass it the reference number
+                slot[i].GetComponent<ReadIn>().getItem(id);
+
+                // moves item object to correct slot and sets object to inactive
+                itemObject.transform.parent = slot[i].transform;
                 itemObject.SetActive(false);
 
-                Slots[i].GetComponent<Slot>().UpdateSlot();
-                isFull[i] = true;
-                return;
+                slot[i].GetComponent<Slot>().UpdateSlot();
+                slot[i].GetComponent<Slot>().empty = false;
             }
+            return;
         }
     }
 }

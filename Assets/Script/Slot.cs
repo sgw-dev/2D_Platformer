@@ -9,16 +9,11 @@ public class Slot : MonoBehaviour
     public int ID;
     public string type;
     public string description;
+    public bool empty;
     public Sprite icon;
-    public Transform slotIconGO;
-
-    private void Start()
-    {
-        slotIconGO = transform.GetChild(0);
-    }
 
     public void UpdateSlot()
     {
-        slotIconGO.GetComponent<Image>().sprite = icon;
+        this.GetComponent<Image>().sprite = icon;
     }
 }

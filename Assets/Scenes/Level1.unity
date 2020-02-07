@@ -2540,6 +2540,16 @@ PrefabInstance:
       propertyPath: BoxesPanel
       value: 
       objectReference: {fileID: 176646752}
+    - target: {fileID: 4284535761739551135, guid: 4f13c8119275def44a5170c0d5582ef5,
+        type: 3}
+      propertyPath: inventory
+      value: 
+      objectReference: {fileID: 1833970757}
+    - target: {fileID: 4284535761739551135, guid: 4f13c8119275def44a5170c0d5582ef5,
+        type: 3}
+      propertyPath: boxPanels
+      value: 
+      objectReference: {fileID: 176646752}
     - target: {fileID: 4284535762187328180, guid: 4f13c8119275def44a5170c0d5582ef5,
         type: 3}
       propertyPath: m_LocalRotation.w

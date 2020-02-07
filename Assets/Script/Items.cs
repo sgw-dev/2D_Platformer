@@ -12,11 +12,18 @@ public class Items : MonoBehaviour
     public float secValue;
     public string description;
     public Sprite icon;
+    public bool acquired;
+    public bool equipped;
 
-    public void newItems() {
-
+    public void Update()
+    {
+        if (equipped)
+        {
+            // some weapon actions
+        }
     }
-    public void newItems(string s) {
+    public void newItems(string s)
+    {
         string[] parts = s.Split('\t');
         ID = int.Parse(parts[0]);
         itemName = parts[1];
@@ -26,12 +33,20 @@ public class Items : MonoBehaviour
         secValue = float.Parse(parts[5]);
         description = parts[6];
     }
-    public void newItems(int id, string t, string des) {
+    public void newItems(int id, string t, string des)
+    {
         ID = id;
         type = t;
         description = des;
 
     }
-    
+
+    public void UseItem()
+    {
+        if (type == "Weapon")
+        {
+            equipped = true;
+        }
+    }
 
 }
