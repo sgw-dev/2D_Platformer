@@ -170,12 +170,12 @@ TextureImporter:
       name: CutUp_1
       rect:
         serializedVersion: 2
-        x: 104
-        y: 121.00001
-        width: 42
-        height: 118.99999
+        x: 100.97285
+        y: 119.00001
+        width: 47.027153
+        height: 122.99999
       alignment: 9
-      pivot: {x: 0.5, y: 0.49999997}
+      pivot: {x: 0.5109208, y: 0.49999997}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -191,12 +191,12 @@ TextureImporter:
       name: CutUp_2
       rect:
         serializedVersion: 2
-        x: 143
-        y: 104
-        width: 75
-        height: 136
+        x: 141
+        y: 99
+        width: 82
+        height: 143
       alignment: 9
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0.4817073, y: 0.5104895}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -212,10 +212,10 @@ TextureImporter:
       name: CutUp_3
       rect:
         serializedVersion: 2
-        x: 213
-        y: 132
-        width: 54
-        height: 108
+        x: 211
+        y: 130
+        width: 58
+        height: 112
       alignment: 9
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -233,12 +233,12 @@ TextureImporter:
       name: CutUp_4
       rect:
         serializedVersion: 2
-        x: 72
-        y: 1
-        width: 59
-        height: 114.00001
+        x: 70
+        y: 0
+        width: 63
+        height: 116.5
       alignment: 9
-      pivot: {x: 0.5, y: 0.49999994}
+      pivot: {x: 0.5, y: 0.49785408}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -254,12 +254,12 @@ TextureImporter:
       name: CutUp_5
       rect:
         serializedVersion: 2
-        x: 196.99998
-        y: 7
-        width: 42.000015
-        height: 113.99999
+        x: 196.49998
+        y: 4.999996
+        width: 46
+        height: 118
       alignment: 9
-      pivot: {x: 0.5000002, y: 0.50000006}
+      pivot: {x: 0.46739164, y: 0.50000006}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -284,6 +284,6 @@ TextureImporter:
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0
-  userData: 
+  userData: 637178370357370220
   assetBundleName: 
   assetBundleVariant: 

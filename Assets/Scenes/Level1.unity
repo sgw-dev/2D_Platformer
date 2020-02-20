@@ -209,7 +209,6 @@ GameObject:
   m_Component:
   - component: {fileID: 60829069}
   - component: {fileID: 60829072}
-  - component: {fileID: 60829071}
   - component: {fileID: 60829070}
   m_Layer: 0
   m_Name: CutUp_1 Front Arm
@@ -232,8 +231,8 @@ Transform:
   m_Father: {fileID: 207013446}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!23 &60829070
-MeshRenderer:
+--- !u!137 &60829070
+SkinnedMeshRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -269,14 +268,20 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 3
---- !u!33 &60829071
-MeshFilter:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 60829068}
+  serializedVersion: 2
+  m_Quality: 0
+  m_UpdateWhenOffscreen: 0
+  m_SkinnedMotionVectors: 1
   m_Mesh: {fileID: 0}
+  m_Bones:
+  - {fileID: 137991008}
+  - {fileID: 574140561}
+  m_BlendShapeWeights: []
+  m_RootBone: {fileID: 137991008}
+  m_AABB:
+    m_Center: {x: 0.5066173, y: 0.030634612, z: 0}
+    m_Extent: {x: 0.7288569, y: 0.46828878, z: 0}
+  m_DirtyAABB: 0
 --- !u!114 &60829072
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -295,7 +300,9 @@ MonoBehaviour:
   - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
   m_SortingLayerID: 0
   m_SortingOrder: 3
-  m_BoneTransforms: []
+  m_BoneTransforms:
+  - {fileID: 137991008}
+  - {fileID: 574140561}
 --- !u!1 &66802019
 GameObject:
   m_ObjectHideFlags: 0
@@ -1088,7 +1095,6 @@ GameObject:
   m_Component:
   - component: {fileID: 248047850}
   - component: {fileID: 248047853}
-  - component: {fileID: 248047852}
   - component: {fileID: 248047851}
   m_Layer: 0
   m_Name: CutUp_2 Chest
@@ -1111,8 +1117,8 @@ Transform:
   m_Father: {fileID: 207013446}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!23 &248047851
-MeshRenderer:
+--- !u!137 &248047851
+SkinnedMeshRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -1148,14 +1154,20 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 2
---- !u!33 &248047852
-MeshFilter:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 248047849}
+  serializedVersion: 2
+  m_Quality: 0
+  m_UpdateWhenOffscreen: 0
+  m_SkinnedMotionVectors: 1
   m_Mesh: {fileID: 0}
+  m_Bones:
+  - {fileID: 838998733}
+  - {fileID: 1038932262}
+  m_BlendShapeWeights: []
+  m_RootBone: {fileID: 838998733}
+  m_AABB:
+    m_Center: {x: 0.32880616, y: 0.028638452, z: 0}
+    m_Extent: {x: 0.78887403, y: 0.3584052, z: 0}
+  m_DirtyAABB: 0
 --- !u!114 &248047853
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1174,7 +1186,9 @@ MonoBehaviour:
   - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
   m_SortingLayerID: 0
   m_SortingOrder: 2
-  m_BoneTransforms: []
+  m_BoneTransforms:
+  - {fileID: 838998733}
+  - {fileID: 1038932262}
 --- !u!1 &249633653
 GameObject:
   m_ObjectHideFlags: 0
@@ -2510,7 +2524,6 @@ GameObject:
   m_Component:
   - component: {fileID: 664298700}
   - component: {fileID: 664298703}
-  - component: {fileID: 664298702}
   - component: {fileID: 664298701}
   m_Layer: 0
   m_Name: CutUp_4 Front Leg
@@ -2533,8 +2546,8 @@ Transform:
   m_Father: {fileID: 207013446}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!23 &664298701
-MeshRenderer:
+--- !u!137 &664298701
+SkinnedMeshRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -2570,14 +2583,20 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 1
---- !u!33 &664298702
-MeshFilter:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 664298699}
+  serializedVersion: 2
+  m_Quality: 0
+  m_UpdateWhenOffscreen: 0
+  m_SkinnedMotionVectors: 1
   m_Mesh: {fileID: 0}
+  m_Bones:
+  - {fileID: 1425097297}
+  - {fileID: 2043465258}
+  m_BlendShapeWeights: []
+  m_RootBone: {fileID: 1425097297}
+  m_AABB:
+    m_Center: {x: 0.6029897, y: -0.013144046, z: 0}
+    m_Extent: {x: 0.6955272, y: 0.24179533, z: 0}
+  m_DirtyAABB: 0
 --- !u!114 &664298703
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2596,7 +2615,9 @@ MonoBehaviour:
   - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
   m_SortingLayerID: 0
   m_SortingOrder: 1
-  m_BoneTransforms: []
+  m_BoneTransforms:
+  - {fileID: 1425097297}
+  - {fileID: 2043465258}
 --- !u!1 &685550169
 GameObject:
   m_ObjectHideFlags: 0
@@ -3763,7 +3784,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1045600886}
   - component: {fileID: 1045600889}
-  - component: {fileID: 1045600888}
   - component: {fileID: 1045600887}
   m_Layer: 0
   m_Name: CutUp_0 Head
@@ -3786,8 +3806,8 @@ Transform:
   m_Father: {fileID: 207013446}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!23 &1045600887
-MeshRenderer:
+--- !u!137 &1045600887
+SkinnedMeshRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -3823,14 +3843,19 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 3
---- !u!33 &1045600888
-MeshFilter:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1045600885}
+  serializedVersion: 2
+  m_Quality: 0
+  m_UpdateWhenOffscreen: 0
+  m_SkinnedMotionVectors: 1
   m_Mesh: {fileID: 0}
+  m_Bones:
+  - {fileID: 1392054189}
+  m_BlendShapeWeights: []
+  m_RootBone: {fileID: 1392054189}
+  m_AABB:
+    m_Center: {x: 0.4589684, y: 0.05618453, z: 0}
+    m_Extent: {x: 0.58454335, y: 0.7351611, z: 0}
+  m_DirtyAABB: 0
 --- !u!114 &1045600889
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3849,7 +3874,8 @@ MonoBehaviour:
   - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
   m_SortingLayerID: 0
   m_SortingOrder: 3
-  m_BoneTransforms: []
+  m_BoneTransforms:
+  - {fileID: 1392054189}
 --- !u!1 &1048659149
 GameObject:
   m_ObjectHideFlags: 0
@@ -4029,7 +4055,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1081432224}
   - component: {fileID: 1081432227}
-  - component: {fileID: 1081432226}
   - component: {fileID: 1081432225}
   m_Layer: 0
   m_Name: CutUp_3 Back Arm
@@ -4052,8 +4077,8 @@ Transform:
   m_Father: {fileID: 207013446}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!23 &1081432225
-MeshRenderer:
+--- !u!137 &1081432225
+SkinnedMeshRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -4089,14 +4114,20 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 1
---- !u!33 &1081432226
-MeshFilter:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1081432223}
+  serializedVersion: 2
+  m_Quality: 0
+  m_UpdateWhenOffscreen: 0
+  m_SkinnedMotionVectors: 1
   m_Mesh: {fileID: 0}
+  m_Bones:
+  - {fileID: 466135253}
+  - {fileID: 1566870266}
+  m_BlendShapeWeights: []
+  m_RootBone: {fileID: 466135253}
+  m_AABB:
+    m_Center: {x: 0.45283088, y: 0.014721006, z: 0}
+    m_Extent: {x: 0.6465442, y: 0.40145808, z: 0}
+  m_DirtyAABB: 0
 --- !u!114 &1081432227
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4115,7 +4146,9 @@ MonoBehaviour:
   - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
   m_SortingLayerID: 0
   m_SortingOrder: 1
-  m_BoneTransforms: []
+  m_BoneTransforms:
+  - {fileID: 466135253}
+  - {fileID: 1566870266}
 --- !u!1 &1082320024
 GameObject:
   m_ObjectHideFlags: 0
@@ -5795,7 +5828,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1637735004}
   - component: {fileID: 1637735007}
-  - component: {fileID: 1637735006}
   - component: {fileID: 1637735005}
   m_Layer: 0
   m_Name: CutUp_5 Back Leg
@@ -5818,8 +5850,8 @@ Transform:
   m_Father: {fileID: 207013446}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!23 &1637735005
-MeshRenderer:
+--- !u!137 &1637735005
+SkinnedMeshRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -5855,14 +5887,20 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!33 &1637735006
-MeshFilter:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1637735003}
+  serializedVersion: 2
+  m_Quality: 0
+  m_UpdateWhenOffscreen: 0
+  m_SkinnedMotionVectors: 1
   m_Mesh: {fileID: 0}
+  m_Bones:
+  - {fileID: 981364941}
+  - {fileID: 1711568137}
+  m_BlendShapeWeights: []
+  m_RootBone: {fileID: 981364941}
+  m_AABB:
+    m_Center: {x: 0.57740754, y: 0.09148398, z: 0}
+    m_Extent: {x: 0.6788277, y: 0.28871202, z: 0}
+  m_DirtyAABB: 0
 --- !u!114 &1637735007
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5881,7 +5919,9 @@ MonoBehaviour:
   - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
   m_SortingLayerID: 0
   m_SortingOrder: 0
-  m_BoneTransforms: []
+  m_BoneTransforms:
+  - {fileID: 981364941}
+  - {fileID: 1711568137}
 --- !u!1 &1655883942
 GameObject:
   m_ObjectHideFlags: 0
