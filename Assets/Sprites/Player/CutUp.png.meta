@@ -149,12 +149,12 @@ TextureImporter:
       name: CutUp_0
       rect:
         serializedVersion: 2
-        x: 104
-        y: 241
-        width: 147
-        height: 60
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 99
+        y: 236.00002
+        width: 157
+        height: 69.999985
+      alignment: 9
+      pivot: {x: 0.5, y: 0.49999988}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -170,12 +170,12 @@ TextureImporter:
       name: CutUp_1
       rect:
         serializedVersion: 2
-        x: 109
-        y: 126
-        width: 32
-        height: 109
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 104
+        y: 121.00001
+        width: 42
+        height: 118.99999
+      alignment: 9
+      pivot: {x: 0.5, y: 0.49999997}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -191,12 +191,12 @@ TextureImporter:
       name: CutUp_2
       rect:
         serializedVersion: 2
-        x: 148
-        y: 109
-        width: 65
-        height: 126
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 143
+        y: 104
+        width: 75
+        height: 136
+      alignment: 9
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -212,12 +212,12 @@ TextureImporter:
       name: CutUp_3
       rect:
         serializedVersion: 2
-        x: 218
-        y: 137
-        width: 44
-        height: 98
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 213
+        y: 132
+        width: 54
+        height: 108
+      alignment: 9
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -233,12 +233,12 @@ TextureImporter:
       name: CutUp_4
       rect:
         serializedVersion: 2
-        x: 77
-        y: 6
-        width: 49
-        height: 104
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 72
+        y: 1
+        width: 59
+        height: 114.00001
+      alignment: 9
+      pivot: {x: 0.5, y: 0.49999994}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -254,12 +254,12 @@ TextureImporter:
       name: CutUp_5
       rect:
         serializedVersion: 2
-        x: 202
-        y: 12
-        width: 32
-        height: 104
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 196.99998
+        y: 7
+        width: 42.000015
+        height: 113.99999
+      alignment: 9
+      pivot: {x: 0.5000002, y: 0.50000006}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
