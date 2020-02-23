@@ -48,6 +48,9 @@ public class OwlMovement : FlyingEnemyPathing
     //Spencer
     private Animator anim;
     private SpriteRenderer OwlSprite;
+    public bool attack;
+    public bool attackFlag = true;
+    private Player playerScript;
 
     /*******************************************************************************************************************/
 
@@ -56,15 +59,31 @@ public class OwlMovement : FlyingEnemyPathing
         EnemyStart();
         anim = this.GetComponentInChildren<Animator>();
         OwlSprite = this.GetComponentInChildren<SpriteRenderer>();
+        jumpPower = 200;
+        searchDistance = 10;
+        searchAngle = 270;
+        degBetweenSearches = 5;
+        searchDistanceWall = 1;
+        minNumOfSearches = 1;
+        divePosition = new Vector2(8, 2);
+        diveSpeed = 500;
+        diveTime = 1;
+
+        //Spencer
+        perch = this.transform.position;
+        attack = false;
+
+        playerScript = playerPosition.GetComponent<Player>();
     }
     public void FixedUpdate()
     {
+        attack = anim.GetBool("Attack");
         if (!diving)
         {
             anim.SetBool("See", true);
             owlDirection = Vector2.zero;
             rb.velocity = owlDirection;     //zeros the rigidbodies velocity
-            if (lineOfSight())                              //can see player?
+            if (lineOfSight() && !playerScript.dead)                              //can see player?
             {
                 PrepareToDive();                            //prepares to dive
             }
@@ -124,4 +143,38 @@ public class OwlMovement : FlyingEnemyPathing
         anim.SetBool("Attack", false);
         StopCoroutine(DiveAttack());                    //end Coroutine
     }
+    void OnTriggerEnter2D(Collider2D other)
+    {
+        
+        if (attack && other.CompareTag("Player") && attackFlag)
+        {
+            
+            other.SendMessage("applyDamage", 2f);
+            attackFlag = false;
+        }
+    }
+    void OnTriggerStay2D(Collider2D other)
+    {
+
+        if (other.CompareTag("AttackBouble"))
+        {
+            
+            Player script = other.gameObject.GetComponentInParent<Player>();
+            if (script.attacking)
+            {
+                Debug.Log("Ouch!");
+                this.gameObject.GetComponent<EnemyHealth>().applyDamage(1f);
+            }
+        }
+    }
+    void OnTriggerExit2D(Collider2D other)
+    {
+
+        if (other.CompareTag("Player") && !attackFlag)
+        {
+
+            attackFlag = true;
+        }
+    }
+
 }

@@ -34,6 +34,8 @@ public class BoarMovement : EnemyPathing
     private bool resting, charging, preparing;      //the state of boar
     //Spencer
     private Animator anim;
+    private bool attackFlag = true;
+    private Player playerScript;
 
     /**************************************************************************************************/
 
@@ -50,6 +52,9 @@ public class BoarMovement : EnemyPathing
         maxChargeSpeed = 10;
         restTime = 1;
         perpareTime = 1;
+        playerScript = playerPosition.GetComponent<Player>();
+        
+        
     }
 
     /**************************************************************************************************/
@@ -70,7 +75,7 @@ public class BoarMovement : EnemyPathing
 
             if (!preparing)
             {
-                if (target != Vector2.zero)
+                if (target != Vector2.zero && !playerScript.dead)
                 {
                     StartCoroutine(Prepare());      //start preparing if player in sight
                 }
@@ -134,5 +139,24 @@ public class BoarMovement : EnemyPathing
         yield return new WaitForSeconds(restTime);      //wait
         resting = false;                                //not resting
         StopCoroutine(Rest());                          //end coroutine
+    }
+    void OnTriggerStay2D(Collider2D other)
+    {
+        if (charging && other.CompareTag("Player") && attackFlag)
+        {
+            other.SendMessage("applyDamage", 2f);
+            attackFlag = false;
+        }
+        if (!charging)
+        {
+            attackFlag = true;
+        }
+    }
+    void OnTriggerExit2D(Collider2D other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            attackFlag = true;
+        }
     }
 }

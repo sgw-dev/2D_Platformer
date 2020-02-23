@@ -48,4 +48,19 @@ public class SnakeToothMovement : MonoBehaviour
             Destroy(this.gameObject);       //detroy this
         }
     }
+
+    void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.transform.CompareTag("Stage"))
+        {
+            Destroy(this.gameObject);
+        }
+        if (other.CompareTag("Player"))
+        {
+            
+            Destroy(this.gameObject);       //detroy this
+            other.SendMessage("applyDamage", 1f); 
+            
+        }
+    }
 }
