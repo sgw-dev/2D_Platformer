@@ -111,7 +111,7 @@ public class SaveUtility : MonoBehaviour {
 			
 		}
 		#if UNITY_EDITOR
-			Debug.Log("SaveFieldsComplete for " + save_type.Name);
+			Debug.Log("LoadFields Complete for " + save_type.Name);
 		#endif
 	}
 
@@ -147,8 +147,7 @@ public class SaveUtility : MonoBehaviour {
 			}
 		}
 		#if UNITY_EDITOR
-			Debug.Log("SaveFieldsComplete for " + save_type.Name + 
-				"\nSaved ");
+			Debug.Log("SaveFields Complete for " + save_type.Name);
 		#endif
 	}
 }
