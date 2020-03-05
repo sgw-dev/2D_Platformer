@@ -762,7 +762,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 137991007}
-  m_LocalRotation: {x: 0, y: 0, z: 0.99711055, w: 0.075964116}
+  m_LocalRotation: {x: 0, y: 0, z: 0.9971105, w: 0.07596482}
   m_LocalPosition: {x: 0.5881664, y: 0.37968418, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -783,7 +783,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Length: 0.6454908
+  m_Length: 0.6454907
   m_ChildTransform: {fileID: 574140561}
   m_AttachedIK: {fileID: 167520607}
 --- !u!1 &167520606
@@ -827,11 +827,11 @@ MonoBehaviour:
     m_SolverPoses:
     - m_BoneTransform: {fileID: 137991008}
       solverPosition: {x: 0, y: 0, z: 0}
-      solverRotation: {x: 0, y: 0, z: 0.99711055, w: 0.075964116}
+      solverRotation: {x: 0, y: 0, z: 0.9971105, w: 0.07596482}
       defaultLocalRotation: {x: 0, y: 0, z: 0.99871, w: 0.05077792}
     - m_BoneTransform: {fileID: 574140561}
       solverPosition: {x: 0, y: 0, z: 0}
-      solverRotation: {x: 0, y: 0, z: 0.19573434, w: 0.980657}
+      solverRotation: {x: 0, y: 0, z: 0.19573553, w: 0.98065674}
       defaultLocalRotation: {x: 0, y: 0, z: 0.1411464, w: 0.9899888}
     m_Weight: 1
     m_RestoreDefaultPose: 1
@@ -1295,8 +1295,8 @@ SkinnedMeshRenderer:
   m_BlendShapeWeights: []
   m_RootBone: {fileID: 838998733}
   m_AABB:
-    m_Center: {x: 0.32880616, y: 0.028638452, z: 0}
-    m_Extent: {x: 0.78887403, y: 0.3584052, z: 0}
+    m_Center: {x: 0.32880613, y: 0.028634638, z: 0}
+    m_Extent: {x: 0.7888739, y: 0.3584052, z: 0}
   m_DirtyAABB: 0
 --- !u!114 &248047853
 MonoBehaviour:
@@ -1867,53 +1867,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!1 &368775239
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 368775240}
-  - component: {fileID: 368775241}
-  m_Layer: 0
-  m_Name: Weapon
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &368775240
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 368775239}
-  m_LocalRotation: {x: -0, y: -0, z: -0.60442984, w: -0.79665846}
-  m_LocalPosition: {x: 0.89291304, y: -0.0011669281, z: 0}
-  m_LocalScale: {x: 0.37, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 574140561}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 74.37601}
---- !u!114 &368775241
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 368775239}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 03b157d7625014c58bfbad3513f40289, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Length: 1
-  m_ChildTransform: {fileID: 0}
-  m_AttachedIK: {fileID: 0}
 --- !u!4 &384157508 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1853775583886953807, guid: f4cedd988869bf848b915e5bd2b4a384,
@@ -2383,11 +2336,10 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 574140560}
-  m_LocalRotation: {x: 0, y: 0, z: 0.19573434, w: 0.980657}
+  m_LocalRotation: {x: 0, y: 0, z: 0.19573553, w: 0.98065674}
   m_LocalPosition: {x: 0.6454911, y: 0, z: 0}
   m_LocalScale: {x: 0.44, y: 1, z: 1}
-  m_Children:
-  - {fileID: 368775240}
+  m_Children: []
   m_Father: {fileID: 137991008}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 22.575}
@@ -2405,7 +2357,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_Length: 0.892913
-  m_ChildTransform: {fileID: 368775240}
+  m_ChildTransform: {fileID: 0}
   m_AttachedIK: {fileID: 167520607}
 --- !u!1 &582083747
 GameObject:

@@ -95,8 +95,8 @@ public class Player : MonoBehaviour
         armPos = arm.transform.localPosition.x;
         body = GameObject.Find("Character/Body");
         body.GetComponent<Renderer>().enabled = false;
-        this.gameObject.GetComponent<Renderer>().enabled = true;
-        deathVisual.GetComponent<Renderer>().enabled = false;
+        //this.gameObject.GetComponent<Renderer>().enabled = true;
+        //deathVisual.GetComponent<Renderer>().enabled = false;
 
         health = maxHealth;
         maxWidth = healthbar.maxValue;
@@ -120,7 +120,15 @@ public class Player : MonoBehaviour
             Movement();
         }
     }
-
+    void flip(bool left)
+    {
+        float scaleX = Mathf.Abs(transform.localScale.x);
+        if (left)
+        {
+            scaleX *= -1;
+        }
+        transform.localScale = new Vector3(scaleX, transform.localScale.y, transform.localScale.z);
+    }
     // Manages player horizontal movement
     void Movement()
     {
@@ -137,8 +145,9 @@ public class Player : MonoBehaviour
                 //flip the sprite to face right
                 //this.GetComponent<SpriteRenderer>().flipX = false;
                 //body.GetComponent<SpriteRenderer>().flipX = false;
+                flip(false);
                 if (!facingRight) {
-                    flipArm(true);
+                    //flipArm(true);
                     facingRight = true;
                 }
             }
@@ -155,9 +164,10 @@ public class Player : MonoBehaviour
                 //flip the sprite to face right
                 //this.GetComponent<SpriteRenderer>().flipX = false;
                 //body.GetComponent<SpriteRenderer>().flipX = false;
+                flip(false);
                 if (!facingRight)
                 {
-                    flipArm(true);
+                    //flipArm(true);
                     facingRight = true;
                 }
             }
@@ -176,9 +186,10 @@ public class Player : MonoBehaviour
                 //flip the sprite to face left
                 //this.GetComponent<SpriteRenderer>().flipX = true;
                 //body.GetComponent<SpriteRenderer>().flipX = true;
+                flip(true);
                 if (facingRight)
                 {
-                    flipArm(false);
+                    //flipArm(false);
                     facingRight = false;
                 }
 
@@ -196,14 +207,15 @@ public class Player : MonoBehaviour
                 rb.AddForce(new Vector2(-speed, 0.0f));
                 //flip the sprite to face left
                 //this.GetComponent<SpriteRenderer>().flipX = true;
-                if(body == null)
+                flip(true);
+                if (body == null)
                 {
                     Start();
                 }
                 //body.GetComponent<SpriteRenderer>().flipX = true;
                 if (facingRight)
                 {
-                    flipArm(false);
+                    //flipArm(false);
                     facingRight = false;
                 }
             }
