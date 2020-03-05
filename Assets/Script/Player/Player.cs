@@ -79,7 +79,7 @@ public class Player : MonoBehaviour
         armSpeed = .02f;
 
         attackCollider = GameObject.Find("Character/Attack").GetComponent<CapsuleCollider2D>();
-        playerAnim = this.GetComponent<Animator>();
+        playerAnim = GameObject.Find("Character/PlayerBody").GetComponent<Animator>();
         bottom = GameObject.Find("Character/Grounder");
         bottomT = bottom.GetComponent<Transform>();
         rightT = GameObject.Find("Character/Right").GetComponent<Transform>();
@@ -135,8 +135,8 @@ public class Player : MonoBehaviour
                 //add force to the object to the right
                 rb.AddForce(new Vector2(speed, 0.0f));
                 //flip the sprite to face right
-                this.GetComponent<SpriteRenderer>().flipX = false;
-                body.GetComponent<SpriteRenderer>().flipX = false;
+                //this.GetComponent<SpriteRenderer>().flipX = false;
+                //body.GetComponent<SpriteRenderer>().flipX = false;
                 if (!facingRight) {
                     flipArm(true);
                     facingRight = true;
@@ -153,8 +153,8 @@ public class Player : MonoBehaviour
                 //add force to the object to the right
                 rb.AddForce(new Vector2(speed, 0.0f));
                 //flip the sprite to face right
-                this.GetComponent<SpriteRenderer>().flipX = false;
-                body.GetComponent<SpriteRenderer>().flipX = false;
+                //this.GetComponent<SpriteRenderer>().flipX = false;
+                //body.GetComponent<SpriteRenderer>().flipX = false;
                 if (!facingRight)
                 {
                     flipArm(true);
@@ -174,8 +174,8 @@ public class Player : MonoBehaviour
                 //add force to the object to the left
                 rb.AddForce(new Vector2(-speed, 0.0f));
                 //flip the sprite to face left
-                this.GetComponent<SpriteRenderer>().flipX = true;
-                body.GetComponent<SpriteRenderer>().flipX = true;
+                //this.GetComponent<SpriteRenderer>().flipX = true;
+                //body.GetComponent<SpriteRenderer>().flipX = true;
                 if (facingRight)
                 {
                     flipArm(false);
@@ -195,12 +195,12 @@ public class Player : MonoBehaviour
                 //add force on the object to the left
                 rb.AddForce(new Vector2(-speed, 0.0f));
                 //flip the sprite to face left
-                this.GetComponent<SpriteRenderer>().flipX = true;
+                //this.GetComponent<SpriteRenderer>().flipX = true;
                 if(body == null)
                 {
                     Start();
                 }
-                body.GetComponent<SpriteRenderer>().flipX = true;
+                //body.GetComponent<SpriteRenderer>().flipX = true;
                 if (facingRight)
                 {
                     flipArm(false);
@@ -235,11 +235,13 @@ public class Player : MonoBehaviour
             }
             if (Input.GetButtonDown("Fire2"))
             {
-                blockUpAnimation();
+                playerAnim.SetTrigger("blockup");
+                //blockUpAnimation();
             }
             if (Input.GetButtonUp("Fire2"))
             {
-                StartCoroutine(blockDownAnimation());
+                playerAnim.SetTrigger("blockdown");
+                //StartCoroutine(blockDownAnimation());
             }
 
             if (checkBottom()){
@@ -288,7 +290,10 @@ public class Player : MonoBehaviour
     }
     private void attack()
     {
-        StartCoroutine(attackAnimation());
+        //start animation
+        //StartCoroutine(attackAnimation());
+        playerAnim.SetTrigger("attack");
+        //Finding enemies to hit
         Collider2D myCollider = attackCollider;
         int numColliders = 10;
         Collider2D[] colliders = new Collider2D[numColliders];
@@ -357,7 +362,9 @@ public class Player : MonoBehaviour
 
     public void blockUpAnimation()
     {
-        playerAnim.speed = 0;
+        
+        //old animation code
+        /*playerAnim.speed = 0;
         frozen = true;
         blocking = true;
         this.gameObject.GetComponent<Renderer>().enabled = false;
@@ -373,10 +380,12 @@ public class Player : MonoBehaviour
         {
             arm.transform.Rotate(new Vector3(0, 0, -100));
             
-        }
+        }*/
     }
     IEnumerator blockDownAnimation()
     {
+        
+        
         if (facingRight)
         {
             float step = 45;
@@ -472,6 +481,7 @@ public class Player : MonoBehaviour
     }
     public void die()
     {
+        playerAnim.SetTrigger("dead");
         Time.timeScale = 0f;
         //make player walk through-able
         foreach(Collider2D c in colliders)
@@ -480,8 +490,8 @@ public class Player : MonoBehaviour
         }
         this.gameObject.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezeAll;
         deathCanvas.SetActive(true);
-        this.gameObject.GetComponent<Renderer>().enabled = false;
-        deathVisual.GetComponent<Renderer>().enabled = true;
+        //this.gameObject.GetComponent<Renderer>().enabled = false;
+        //deathVisual.GetComponent<Renderer>().enabled = true;
     }
     public bool getAttacking()
     {
