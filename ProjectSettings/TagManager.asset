@@ -12,6 +12,7 @@ TagManager:
   - Wizard
   - Owl
   - AttackBouble
+  - Pit
   layers:
   - Default
   - TransparentFX
