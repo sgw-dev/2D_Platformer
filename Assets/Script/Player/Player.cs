@@ -325,6 +325,7 @@ public class Player : MonoBehaviour
                     if (!names.Contains(colliders[i].name))
                     {
                         colliders[i].SendMessage("applyDamage", 1.0f);
+                        Debug.Log("Hit: " + colliders[i].name);
                         names.Add(colliders[i].name);
                     }
                 }
