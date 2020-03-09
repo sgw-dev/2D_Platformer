@@ -4,22 +4,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-/**
- *  How to use this class
- *  Just call the public Save or Load with the 
- *  script you want to save, or load, values for.
- *  
- *  CAREFUL :
- *  THIS WILL SAVE EVERY FLOAT STRING INT IN A CLASS PROVIDED.
- *  AS WELL AS LOAD EVERY FLOAT STRING AND INT TOT THE CLASS PROVIDED.
- *  
- *  As an example, the kepad minus and mulitply will respectively Load and Save 
- *  the int float and string values in the class provided, Player by the GameObject
- *  set in the scene.
- *  
- *  The class provided to the methods does not need to extend Monobehavior.
- *  
- */
 
 /**
 FYI
@@ -38,38 +22,104 @@ On iOS, PlayerPrefs are stored in /Library/Preferences/[bundle identifier].plist
  * and an actual build location in terms of the window's registry.
  */
 public class SaveUtility : MonoBehaviour {
+	
+	static readonly string MAXHP = "playermaxhealth";
+	static readonly string CURHP = "playercurrenthealth";
+	static readonly string GOLD  = "playergold";
+	//location of gameobject and script subject to change
+	static readonly string INV   = "inventoryslot_";
+	//not sure where this gameobject/script is yet
+	static readonly string EQUIP = "playerequipslot_";
 
 	[Tooltip("Make Sure the instance attached to the player is here")]
-	public GameObject player;
+	public GameObject      player;
+	Player                 playerscript;
+	Inventory              inventoryscript;
 
 	void Start() {
-        
-    }
+        playerscript    = player.GetComponent<Player>();
+		inventoryscript = player.GetComponentInChildren<Inventory>();
+		if(playerscript ==null || inventoryscript == null) {
+			Debug.LogError("Cannot save missing components from Player GameObject,\n"+
+				"Player    : " + playerscript+"\n"+
+				"Inventory : " + inventoryscript+"\n");
+		}
+	}
 
     void Update() {
+		//Code for the editor to test
+		//In deployed build these should not be included by the compiler
 		#if UNITY_EDITOR
 			if(Input.GetKeyDown(KeyCode.KeypadMinus)) {
-				Load<Player>(player.GetComponent<Player>());
+				Debug.Log("SAVING");
+				SaveGame();
+				//Load<Player>(player.GetComponent<Player>());
 			}
 			if (Input.GetKeyDown(KeyCode.KeypadMultiply)) {
-				Save<Player>(player.GetComponent<Player>());
+				Debug.Log("LOADING");
+				LoadGame();
+				//Save<Player>(player.GetComponent<Player>());
 			}
 		#endif
     }
 
+	public void SaveGame() {
+		PlayerPrefs.SetFloat(MAXHP,playerscript.maxHealth);
+		PlayerPrefs.SetFloat(CURHP,playerscript.health);
+		
+		//try is here until item system and inventory is set
+		try {
+			for(int i = 0 ; i < inventoryscript.Slots.Length ; i++) {
+				PlayerPrefs.SetInt(INV+i,inventoryscript.Slots[i].GetComponent<Slot>().ID);
+			}
+		} catch(Exception e) {
+			Debug.LogError(e.Message);
+		}
+		//PlayerPrefs.SetFloat(GOLD,-1);
+		PlayerPrefs.Save();
+	}
+
+	public void LoadGame() {
+		if(PlayerPrefs.HasKey(MAXHP)) {
+			playerscript.maxHealth = PlayerPrefs.GetFloat(MAXHP);
+		}
+		if(PlayerPrefs.HasKey(CURHP)) {
+			playerscript.health    = PlayerPrefs.GetFloat(CURHP);
+		}
+		//try is here until item system and inventory is set
+		try {
+			for(int i = 0 ; i < inventoryscript.Slots.Length ; i++) {
+				if(PlayerPrefs.HasKey(INV+i)) {
+					inventoryscript.Slots[i].GetComponent<Slot>().ID = PlayerPrefs.GetInt(INV+i);
+				}
+			}
+		} catch(Exception e) {
+			Debug.LogError(e.Message);
+		}
+		if(PlayerPrefs.HasKey(GOLD)) {
+			//code to set gold
+		}
+	}
+
+
+/////////////////////////////////////////////////////////////////////////////////
+//////Everything below here is just for an example of reflection/////////////////
+/////////////////////////////////////////////////////////////////////////////////	
 	/**
 	 * Save one thing?
 	 * No way, save it all!
 	 * string,float, int
 	 */
-	public void Save<T>(T t) {
+	[Obsolete("Save is deprecated, please use GameSave instead.")]
+	void Save<T>(T t) {
 		SaveFields(t);
 	}
 
 	/*
 	 * Load one thing?
 	 */
-	public void Load<T>(T t) {
+	[Obsolete("Load is deprecated, please use LoadGame instead.")]
+	void Load<T>(T t) {
 		LoadFields(t);
 	}
 
@@ -151,57 +201,3 @@ public class SaveUtility : MonoBehaviour {
 		#endif
 	}
 }
-//garbage below
-
-
-	/*
-	void SaveFields<T>(T c) {
-		Assembly info = typeof(T).Assembly;
-		MemberInfo[] memberInfo;
-		Type save_type = c.GetType();
-		memberInfo = save_type.GetMembers();
-		for(int i = 0 ; i < memberInfo.Length ; i++ ) {
-			//Debug.Log(string.Format("'{0}' is a {1}", memberInfo[i].Name, memberInfo[i].MemberType));
-		}
-
-		FieldInfo[] fields = save_type.GetFields(BindingFlags.NonPublic | BindingFlags.Instance);
-		for (int i = 0 ; i < fields.Length ; i++ ) {
-			Debug.Log(string.Format(
-				"Name            : {0}\n" +
-	            "Declaring Type  : {1}\n" +
-				"IsPublic        : {2}\n" +
-				"MemberType      : {3}\n" +
-				"FieldType       : {4}\n" +
-				"IsFamily        : {5}\n" +
-				"VALUE           : {6}\n"
-									,fields[i].Name
-									,fields[i].DeclaringType
-									,fields[i].IsPublic
-									,fields[i].MemberType
-									,fields[i].FieldType
-									,fields[i].IsFamily
-									,fields[i].GetValue(c)
-				)
-			);
-		}
-
-		Debug.Log(info);
-	}*/
-
-				/*Debug.Log(string.Format(
-				"Name            : {0}\n" +
-	            "Declaring Type  : {1}\n" +
-				"IsPublic        : {2}\n" +
-				"MemberType      : {3}\n" +
-				"FieldType       : {4}\n" +
-				"IsFamily        : {5}\n" +
-				"VALUE           : {6}\n"
-									,fields[i].Name
-									,fields[i].DeclaringType
-									,fields[i].IsPublic
-									,fields[i].MemberType
-									,fields[i].FieldType
-									,fields[i].IsFamily
-									,fields[i].GetValue(c)
-				)
-			);*/
