@@ -50,7 +50,7 @@ public class PauseMenu : MonoBehaviour
             Time.timeScale = 0f;
         }
         //if not paused hide pause menu and resume all game movement
-        else
+        else if(!isInv)
         {
             invMenuCanvas.SetActive(false);
             Time.timeScale = 1f;
