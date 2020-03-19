@@ -192,7 +192,7 @@ public class Player : MonoBehaviour
             numJumps = 2;
         }
         //if jump pressed
-        if (Input.GetButtonDown("Jump"))
+        if (Input.GetButtonDown("Jump") && Time.deltaTime > 0)
         {
             //add force up
 

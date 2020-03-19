@@ -7,7 +7,7 @@ public class BossPathing2 : MonoBehaviour
 {
     /*
      * By: Parker Allen
-     * Version: 2.0
+     * Version: 2.1
      */
 
     public LayerMask collisionMask;     //layers of the ground
@@ -127,7 +127,7 @@ public class BossPathing2 : MonoBehaviour
             p.x += direction * (myBounds.x + distance / 2);     //offset point further from this object
             dontGetNextPoint = true;                            //don't get another point
         }
-        else if(InYBounds(p))   //only offset point if onthe same y height
+        else if(InYBounds(p))               //only offset point if onthe same y height
         {
             p.x += -direction * distance;   //offset point closer to this object
         }

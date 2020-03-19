@@ -18,12 +18,11 @@ public class CharacterMovement : RayCastController
     /// </summary>
     
     SpriteRenderer spriteRen;
-    public string tagOfPlatforms;
 
     public float maxClimbAngle;
     public float maxDesendAngle;
 
-    private Collider2D collider;
+    public Collider2D myCollider;
 
     //tells what sides are colliding
     public CollisionSides sides;
@@ -31,13 +30,14 @@ public class CharacterMovement : RayCastController
     public void StartCharacter()
     {
         spriteRen = GetComponent<SpriteRenderer>();
-        collider = GetComponent<BoxCollider2D>();
+        myCollider = GetComponent<BoxCollider2D>();
         CalculateRaySpacing();
     }
 
     public void StartCharacterSkeleton()
     {
-        collider = GetComponent<BoxCollider2D>();
+        myCollider = GetComponent<BoxCollider2D>();
+        boxCollider = myCollider;
         CalculateRaySpacing();
     }
 
@@ -103,9 +103,9 @@ public class CharacterMovement : RayCastController
             RaycastHit2D hit = Physics2D.Raycast(rayOrigin, Vector2.right * directionX, rayLength, collisionMask);
 
             //helpful for debugging
-            //Debug.DrawRay(rayOrigin, Vector2.right * directionX * rayLength, Color.red);
+            Debug.DrawRay(rayOrigin, Vector2.right * directionX * rayLength, Color.red);
 
-            if (hit && !hit.transform.CompareTag(tagOfPlatforms))
+            if (hit)
             {
                 float slopeAngle = Vector2.Angle(hit.normal, Vector2.up);
 
@@ -165,7 +165,7 @@ public class CharacterMovement : RayCastController
             //Debug.DrawRay(rayOrigin, Vector2.up * directionY * rayLength, Color.red);
 
             //if will hit ground/cieling or on slope set object right infront of ground/cieling
-            if (hit && !(hit.transform.CompareTag(tagOfPlatforms) && (directionY > 0 || sides.dropTroughPlatform)))
+            if (hit)
             {
                 velocity.y = (hit.distance - skinWidth) * directionY;
                 rayLength = hit.distance;
@@ -229,8 +229,6 @@ public class CharacterMovement : RayCastController
 
         public bool climbing, desending;
         public float oldSlopeAngle, slopeAngle;
-        
-        public bool dropTroughPlatform;
 
         public Vector3 velocityOld;
 

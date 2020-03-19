@@ -8,20 +8,20 @@ public class RayCastController : MonoBehaviour
     //layer of ground and plateforms
     public LayerMask collisionMask;
 
-    public const float skinWidth = .015f;
+    [HideInInspector] public const float skinWidth = .015f;
     const float dstBetweenRays = .25f;
 
     //number points to look for collisions
-    public int horizontalRayCount;
-    public int verticalRayCount;
+    [HideInInspector] public int horizontalRayCount;
+    [HideInInspector] public int verticalRayCount;
 
     // space between each point
-    public float horizontalRaySpacing;
-    public float verticalRaySpacing;
+    [HideInInspector] public float horizontalRaySpacing;
+    [HideInInspector] public float verticalRaySpacing;
 
     //**Spencer Change *** Changed variable name because gameobjects have a variable named this allready and it was conflicting
-    public Collider2D boxCollider;
-    public RaycastOrigins raycastOrigins;
+    [HideInInspector] public Collider2D boxCollider;
+    [HideInInspector] public RaycastOrigins raycastOrigins;
 
     //set orgins of collision test points at corners of hit box
     public void UpdateRaycastOrigins()

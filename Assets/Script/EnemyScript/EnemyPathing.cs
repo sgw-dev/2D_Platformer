@@ -245,7 +245,7 @@ public class EnemyPathing : MonoBehaviour
     //Enemy jumps with given vector
     public void Jump(Vector2 jump)
     {
-        if (numOfJumps > 0)         //check number of jumps
+        if (numOfJumps > 0 && Time.deltaTime > 0)         //check number of jumps
         {
             numOfJumps--;           //subtracts number of jumps
             rb.AddForce(jump);      //jump
@@ -256,7 +256,7 @@ public class EnemyPathing : MonoBehaviour
     //moves left or right at a rate given, unless velcity is over given max
     public void Move(float move, float max)
     {
-        if (Mathf.Abs(rb.velocity.x) < max)       //can't add more force one it is above max
+        if (Mathf.Abs(rb.velocity.x) < max && Time.deltaTime > 0)       //can't add more force one it is above max
         {
             rb.AddForce(direction * move);
         }

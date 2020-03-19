@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(BossPathing2))]
+[RequireComponent(typeof(CharacterMovement))]
 public class BossMovement : MonoBehaviour
 {
     /*
@@ -19,19 +20,19 @@ public class BossMovement : MonoBehaviour
     public float jumpTime;          //time used to reach jump height
     private float maxJumpSpeed;     //max jump speed
 
-    public int maxNumberOfJumps, numberOfJumps;     //number of jumps and the max number of jumps
+    [HideInInspector] public int maxNumberOfJumps, numberOfJumps;     //number of jumps and the max number of jumps
 
     public float walkSpeed, sprintSpeed;    //walking speed and sprinting speed
 
     public Vector3 direction;       //direction
     public Vector3 velocity;        //velocity
 
-    public bool walking, sprinting, jumping, falling;   //state of object
-    public int moveType;                                //int to tell how object should move
+    [HideInInspector] public bool walking, sprinting, jumping, falling;   //state of object
+    [HideInInspector] public int moveType;                                //int to tell how object should move
     //0 = stop  1 = move on ground  2 or more = jump
 
-    public bool canAttack;          //cooldown between different attacks
-    public bool stopToAttack;       //stop moving to attack
+    [HideInInspector] public bool canAttack;          //cooldown between different attacks
+    [HideInInspector] public bool stopToAttack;       //stop moving to attack
     private float attackCooldown;   //multiplyier for time between attacks
 
     public int maxHealth;   //max health
@@ -46,7 +47,7 @@ public class BossMovement : MonoBehaviour
         playerFilter.SetLayerMask(bossPathing.playerMask);
 
         characterMovement = GetComponent<CharacterMovement>();
-        characterMovement.StartCharacter();
+        characterMovement.StartCharacterSkeleton();
 
         maxNumberOfJumps = 1;
         maxJumpSpeed = jumpHeight;
@@ -328,5 +329,10 @@ public class BossMovement : MonoBehaviour
     public CharacterMovement GetCharacterMovement()
     {
         return characterMovement;
+    }
+
+    public void DebugDirection()
+    {
+        Debug.DrawRay(transform.position, direction, Color.yellow);
     }
 }
