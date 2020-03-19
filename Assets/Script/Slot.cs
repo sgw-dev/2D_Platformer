@@ -7,12 +7,17 @@ using UnityEngine.UI;
 public class Slot : MonoBehaviour
     , IPointerClickHandler // 2
 {
-    private Item item;
-    private Transform location;
-    public GameObject hoverPrefab;
-    private GameObject inventory;
-    private bool display;
-    private GameObject pane;
+    public GameObject       hoverPrefab;//The prefab for the Description Popup
+
+    private Item            item;
+    private Transform       location;
+    private bool            display;//If the Description Popup is showing
+
+    private GameObject      inventory;//The location where the Pane will Be made
+    private GameObject      pane;//Destription Popup
+    private GameObject      overLord;//Refrence to Overlord Object
+
+    private Image           image;//Refrence to the image component of the box
 
     public Slot()
     {
@@ -21,10 +26,33 @@ public class Slot : MonoBehaviour
     public void Awake()
     {
         inventory = GameObject.Find("Canvas/Inventory/BoxesPanel");
+        overLord = GameObject.Find("OverLord");
+        image = this.GetComponent<Image>();
+    }
+    public bool isEmpty()
+    {
+        if(item == null)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+    public void addItem(int id)
+    {
+        item = overLord.GetComponent<ReadIn>().getItem(id);
+        image.sprite = item.getIcon();
+    }
+    public void removeItem()
+    {
+        item = null;
+        image.sprite = null;
     }
     public void OnPointerClick(PointerEventData eventData) // 3
     {
-        if (!display)
+        if (!display && item != null)
         {
             pane = Instantiate(hoverPrefab) as GameObject;
             pane.transform.SetParent(inventory.transform);

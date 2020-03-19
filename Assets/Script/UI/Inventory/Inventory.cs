@@ -11,7 +11,7 @@ public class Inventory : MonoBehaviour
     private bool inventoryEnabled;
     private int inventorySize;
     public GameObject[] slot;
-    Items items;
+    Item item;
 
     void Update()
     {
@@ -49,24 +49,26 @@ public class Inventory : MonoBehaviour
         // if collide with object labled "Item" adds it to inventory
         if (other.tag == "Item")
         {
+            Debug.Log("Got Item");
             GameObject itemAcquired = other.gameObject;
-            items = itemAcquired.GetComponent<Items>();
-            AddItem(itemAcquired, items.ID, items.type, items.description, items.icon);
+            item = itemAcquired.GetComponent<ItemMananger>().getItem();
+            AddItem(item.getId());
+            Destroy(other);
         }
     }
 
-    void AddItem(GameObject itemObject, int id, string type, string description, Sprite itemIcon)
+    void AddItem(int id)
     {
         // goes through inventory to find a free slot
         for (int i = 0; i < inventorySize; i++)
         {
             // if empty slot is found
-            /*if (slot[i].GetComponent<Slot>().empty)
+            if (slot[i].GetComponent<Slot>().isEmpty())
             {
                 // pick up game object and call acquired from Items script, set to true
-                itemObject.GetComponent<Items>().acquired = true;
+                //itemObject.GetComponent<Items>().acquired = true;
 
-                slot[i].GetComponent<Slot>().Item = id;*/
+                slot[i].GetComponent<Slot>().addItem(id);
                 /*
                 // call item from Slot script and set it to the itemObject that was picked up
                 slot[i].GetComponent<Slot>().item = itemObject;
@@ -78,8 +80,8 @@ public class Inventory : MonoBehaviour
                 itemObject.SetActive(false);*/
                 /*
                 slot[i].GetComponent<Slot>().UpdateSlot();
-                slot[i].GetComponent<Slot>().empty = false;
-            }*/
+                slot[i].GetComponent<Slot>().empty = false;*/
+            }
             return;
         }
     }
