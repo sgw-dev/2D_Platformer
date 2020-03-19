@@ -38,7 +38,7 @@ public class ReadIn : MonoBehaviour
         return images[id];
     }
     public Item getItem(int i) {
-        Debug.Log("Overlord ReadIn " + i);
+        //Debug.Log("Overlord ReadIn " + i);
         return items[i];
     }
 }

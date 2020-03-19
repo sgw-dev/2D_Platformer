@@ -15,10 +15,16 @@ public class ItemMananger : MonoBehaviour
     void Start()
     {
         overLord = GameObject.Find("OverLord");
-
         id = Random.Range(min, max);
         read = overLord.GetComponent<ReadIn>();
-        Debug.Log(id);
+        StartCoroutine(LateStart(1f));
+    }
+
+    IEnumerator LateStart(float waitTime)
+    {
+        yield return new WaitForSeconds(waitTime);
+        //Your Function You Want to Call
+        //Debug.Log(id);
         item = read.getItem(id);
     }
     public Item getItem()

@@ -13,22 +13,25 @@ public class Slot : MonoBehaviour
     private Transform       location;
     private bool            display;//If the Description Popup is showing
 
-    private GameObject      inventory;//The location where the Pane will Be made
+    public GameObject      inventory;//The location where the Pane will Be made
     private GameObject      pane;//Destription Popup
-    private GameObject      overLord;//Refrence to Overlord Object
+    public GameObject      overLord;//Refrence to Overlord Object
 
-    private Image           image;//Refrence to the image component of the box
+    public Image           image;//Refrence to the image component of the box
+    public int test = 0;
 
-    public Slot()
-    {
-
-    }
-    public void Awake()
+    void Start()
     {
         inventory = GameObject.Find("Canvas/Inventory/BoxesPanel");
         overLord = GameObject.Find("OverLord");
         image = this.GetComponent<Image>();
+        test = 5;
     }
+    public Slot()
+    {
+        
+    }
+    
     public bool isEmpty()
     {
         if(item == null)

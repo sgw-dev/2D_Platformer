@@ -12,21 +12,47 @@ public class Inventory : MonoBehaviour
     private int inventorySize;
     public GameObject[] slot;
     Item item;
+    public LayerMask hitMask;
 
     void Update()
     {
         // pulls up the inventory if I is pressed
         if (Input.GetKeyDown(KeyCode.I))
-            inventoryEnabled = !inventoryEnabled;
-        // sets inventory active or inactive
-        if (inventoryEnabled == true)
         {
-            inventory.SetActive(true);
+            // sets inventory active or inactive
+            if (inventoryEnabled == true)
+            {
+                //inventory.SetActive(true);
+                showInventory();
+                inventoryEnabled = true;
+            }
+            else
+            {
+                //inventory.SetActive(false);
+                hideInventory();
+                inventoryEnabled = false;
+            }
         }
-        else
+            
+        
+        if (Input.GetKeyDown(KeyCode.E))
         {
-            inventory.SetActive(false);
+            pickUp();
         }
+    }
+    private void hideInventory()
+    {
+        CanvasGroup cg = inventory.GetComponent<CanvasGroup>();
+        cg.interactable = false;
+        cg.alpha = 0;
+        cg.blocksRaycasts = true;
+    }
+    private void showInventory()
+    {
+        CanvasGroup cg = inventory.GetComponent<CanvasGroup>();
+        cg.interactable = true;
+        cg.alpha = 1;
+        cg.blocksRaycasts = false;
     }
 
     void Start()
@@ -41,6 +67,38 @@ public class Inventory : MonoBehaviour
             // checks if slot is empty
             /*if (slot[i].GetComponent<Slot>().Item != null)
                 slot[i].GetComponent<Slot>().empty = false;*/
+        }
+    }
+
+    private void pickUp()
+    {
+        Collider2D myCollider = this.GetComponent<CircleCollider2D>();
+        int numColliders = 10;
+        Collider2D[] colliders = new Collider2D[numColliders];
+        ArrayList names = new ArrayList();
+        ContactFilter2D contactFilter = new ContactFilter2D();
+        contactFilter.layerMask = hitMask;
+        // Set you filters here according to https://docs.unity3d.com/ScriptReference/ContactFilter2D.html
+        //int colliderCount = myCollider.OverlapCollider(contactFilter, colliders);
+        int colliderCount = Physics2D.OverlapCollider(myCollider, contactFilter, colliders);
+        for (int i = 0; i < numColliders; i++)
+        {
+            if (colliders[i] != null)
+            {
+                if (colliders[i].tag.CompareTo("Item") == 0)
+                {
+
+                    if (!names.Contains(colliders[i].name))
+                    {
+                        Debug.Log("Got Item");
+                        GameObject itemAcquired = colliders[i].gameObject;
+                        item = itemAcquired.GetComponent<ItemMananger>().getItem();
+                        AddItem(item.getId());
+                        Destroy(colliders[i].gameObject);
+                    }
+                }
+
+            }
         }
     }
 
