@@ -3214,8 +3214,18 @@ PrefabInstance:
     - target: {fileID: 4284535761739551135, guid: 4f13c8119275def44a5170c0d5582ef5,
         type: 3}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 4284535761739551135, guid: 4f13c8119275def44a5170c0d5582ef5,
+        type: 3}
+      propertyPath: boxPanels
+      value: 
+      objectReference: {fileID: 176646752}
+    - target: {fileID: 4284535761739551135, guid: 4f13c8119275def44a5170c0d5582ef5,
+        type: 3}
+      propertyPath: inventory
+      value: 
+      objectReference: {fileID: 1833970757}
     - target: {fileID: 4284535762187328180, guid: 4f13c8119275def44a5170c0d5582ef5,
         type: 3}
       propertyPath: m_LocalRotation.w
@@ -7720,6 +7730,42 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d3eeb0383440a3d46af742ddcc68a3e2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  items: []
+  images:
+  - {fileID: 21300000, guid: 789978e23ec87e54197a1be5b5f65bf0, type: 3}
+  - {fileID: 21300000, guid: 7852548e283d027459e17c21bc3fb67b, type: 3}
+  - {fileID: 21300000, guid: 78566b2069c94f0499498c40156007ab, type: 3}
+  - {fileID: 21300000, guid: 00f14668f6fda9a409dde147b8f7d26b, type: 3}
+  - {fileID: 21300000, guid: 14eec57a03689684eb53d30e2e7e0c77, type: 3}
+  - {fileID: 21300000, guid: c639e68d04b44154aa5b716896c5709f, type: 3}
+  - {fileID: 21300000, guid: 0352b1ff8d97e3f49b62da6a546af5cd, type: 3}
+  - {fileID: 21300000, guid: adaa84da94a0c4f439f395de2d43030e, type: 3}
+  - {fileID: 21300000, guid: 6215a69ff7568344aa83bab9e54db5c0, type: 3}
+  - {fileID: 21300000, guid: a229f3bd006a50f49ad3049812e13aab, type: 3}
+  - {fileID: 21300000, guid: 1d1346b54b9c0fd48a361d005c6e805d, type: 3}
+  - {fileID: 21300000, guid: a68d30ecd7bb5f54696fbd58a884a1b1, type: 3}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
 --- !u!1001 &62364057405144967
 PrefabInstance:
   m_ObjectHideFlags: 0

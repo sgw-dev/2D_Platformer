@@ -4,11 +4,12 @@ using UnityEngine;
 
 public class Inventory : MonoBehaviour
 {
+    [Header("Set in Inspector")]
     public GameObject inventory;
-    private bool inventoryEnabled;
-
-    private int inventorySize;
     public GameObject boxPanels;
+
+    private bool inventoryEnabled;
+    private int inventorySize;
     public GameObject[] slot;
     Items items;
 
@@ -38,8 +39,8 @@ public class Inventory : MonoBehaviour
         {
             slot[i] = boxPanels.transform.GetChild(i).gameObject;
             // checks if slot is empty
-            if (slot[i].GetComponent<Slot>().item != null)
-                slot[i].GetComponent<Slot>().empty = false;
+            /*if (slot[i].GetComponent<Slot>().Item != null)
+                slot[i].GetComponent<Slot>().empty = false;*/
         }
     }
 
@@ -60,11 +61,13 @@ public class Inventory : MonoBehaviour
         for (int i = 0; i < inventorySize; i++)
         {
             // if empty slot is found
-            if (slot[i].GetComponent<Slot>().empty)
+            /*if (slot[i].GetComponent<Slot>().empty)
             {
                 // pick up game object and call acquired from Items script, set to true
                 itemObject.GetComponent<Items>().acquired = true;
 
+                slot[i].GetComponent<Slot>().Item = id;*/
+                /*
                 // call item from Slot script and set it to the itemObject that was picked up
                 slot[i].GetComponent<Slot>().item = itemObject;
                 // call the ReadIn script and pass it the reference number
@@ -72,11 +75,11 @@ public class Inventory : MonoBehaviour
 
                 // moves item object to correct slot and sets object to inactive
                 itemObject.transform.parent = slot[i].transform;
-                itemObject.SetActive(false);
-
+                itemObject.SetActive(false);*/
+                /*
                 slot[i].GetComponent<Slot>().UpdateSlot();
                 slot[i].GetComponent<Slot>().empty = false;
-            }
+            }*/
             return;
         }
     }

@@ -48,5 +48,9 @@ public class Items : MonoBehaviour
             equipped = true;
         }
     }
+    public Sprite getIcon()
+    {
+        return icon;
+    }
 
 }

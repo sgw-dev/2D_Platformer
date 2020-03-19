@@ -57,6 +57,9 @@ public class Player : MonoBehaviour
     public GameObject shieldHolder;
     public bool blocking = false;
 
+    public float jumpDelay = .1f;//This is to prevent spaming the jump key;
+    public float jumpTimer;
+
     //**************************************Build 1.2
     private void Awake()
     {
@@ -233,6 +236,7 @@ public class Player : MonoBehaviour
     {
         if (!dead) { 
             attackTimer += Time.deltaTime;
+            jumpTimer += Time.deltaTime;
         
             //if Fire1 pressed
             if (Input.GetButtonDown("Fire1"))
@@ -264,7 +268,7 @@ public class Player : MonoBehaviour
                 playerAnim.SetBool("grounded", false);
             }
             //if jump pressed
-            if (Input.GetButtonDown("Jump") & !frozen)
+            if (Input.GetButtonDown("Jump") & !frozen & (jumpTimer > jumpDelay))
             {
                 //add force up
 

@@ -38,12 +38,12 @@ public class Save : MonoBehaviour {
 		Inventory inv = GameObject.Find("Character").transform.Find("Inventory").GetComponent<Inventory>();
 		GameObject[] slots = inv.slot;
 		foreach (GameObject g in slots ) {
-			GameObject slot = g.GetComponent<Slot>().item;
+			/*GameObject slot = g.GetComponent<Slot>().item;
 			if (slot!=null) {
 				itemsininv+="\t"+slot.GetComponent<Items>().ID;//probably terrible performance
 				//try finding string builder later
 				//Debug.Log(slot.GetComponent<Items>().ID);
-			}
+			}*/
 		}
 
 		return "INVENTORY\n"+itemsininv;

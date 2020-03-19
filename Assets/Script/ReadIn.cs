@@ -2,23 +2,27 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+
 public class ReadIn : MonoBehaviour
 {
 
-    List<Items> items = new List<Items>();
+    public List<Item> items = new List<Item>();
     // Start is called before the first frame update
+    public List<Sprite> images = new List<Sprite>();
     void Start()
     {
         string filepath = System.IO.Path.GetFullPath("Assets/Loot_Spreadsheet.tsv");
         System.IO.StreamReader file = new System.IO.StreamReader(filepath);
         string line = file.ReadLine();
-        Items item = this.gameObject.AddComponent<Items>();
+        Item item = new Item();
         items.Add(item);
         while ((line = file.ReadLine()) != null)
         {
-            item = this.gameObject.AddComponent<Items>();
+            item = new Item();
             item.newItems(line);
+            item.setIcon();
             items.Add(item);
+            //print("Added Item" + item.getId());
         }
 
         file.Close();
@@ -29,7 +33,11 @@ public class ReadIn : MonoBehaviour
     {
         
     }
-    public Items getItem(int i) {
+    public Sprite getSprite(int id)
+    {
+        return images[id];
+    }
+    public Item getItem(int i) {
         return items[i];
     }
 }
