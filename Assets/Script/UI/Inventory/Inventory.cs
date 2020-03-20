@@ -23,14 +23,16 @@ public class Inventory : MonoBehaviour
             if (inventoryEnabled == true)
             {
                 //inventory.SetActive(true);
-                showInventory();
+                /*showInventory();
                 inventoryEnabled = true;
+                Time.timeScale = 0f;*/
             }
             else
             {
                 //inventory.SetActive(false);
-                hideInventory();
+                /*hideInventory();
                 inventoryEnabled = false;
+                Time.timeScale = 1f;*/
             }
         }
             

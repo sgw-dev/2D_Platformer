@@ -69,9 +69,9 @@ public class SaveUtility : MonoBehaviour {
 		
 		//try is here until item system and inventory is set
 		try {
-			for(int i = 0 ; i < inventoryscript.Slots.Length ; i++) {
+			/*for(int i = 0 ; i < inventoryscript.Slots.Length ; i++) {
 				PlayerPrefs.SetInt(INV+i,inventoryscript.Slots[i].GetComponent<Slot>().ID);
-			}
+			}*/
 		} catch(Exception e) {
 			Debug.LogError(e.Message);
 		}
@@ -88,11 +88,11 @@ public class SaveUtility : MonoBehaviour {
 		}
 		//try is here until item system and inventory is set
 		try {
-			for(int i = 0 ; i < inventoryscript.Slots.Length ; i++) {
+			/*for(int i = 0 ; i < inventoryscript.Slots.Length ; i++) {
 				if(PlayerPrefs.HasKey(INV+i)) {
 					inventoryscript.Slots[i].GetComponent<Slot>().ID = PlayerPrefs.GetInt(INV+i);
 				}
-			}
+			}*/
 		} catch(Exception e) {
 			Debug.LogError(e.Message);
 		}
