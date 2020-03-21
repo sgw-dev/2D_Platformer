@@ -60,7 +60,7 @@ public class Slot : MonoBehaviour
             pane = Instantiate(hoverPrefab) as GameObject;
             pane.transform.SetParent(inventory.transform);
             pane.GetComponent<RectTransform>().localPosition = this.GetComponent<RectTransform>().localPosition + new Vector3(115, -55, 0);
-            pane.GetComponentInChildren<Text>().text = item.getName() + "\n" + item.getDescription();
+            pane.GetComponentInChildren<Text>().text = item.getName() + "\n\n" + item.getDescription();
             display = true;
         }
         else

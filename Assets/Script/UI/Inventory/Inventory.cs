@@ -103,16 +103,16 @@ public class Inventory : MonoBehaviour
         }
     }
 
-    private void OnTriggerEnter(Collider other)
+    private void OnCollisionEnter(Collision other)
     {
         // if collide with object labled "Item" adds it to inventory
-        if (other.tag == "Item")
+        if (other.gameObject.tag == "Item")
         {
             Debug.Log("Got Item");
             GameObject itemAcquired = other.gameObject;
             item = itemAcquired.GetComponent<ItemMananger>().getItem();
             AddItem(item.getId());
-            Destroy(other);
+            Destroy(other.gameObject);
         }
     }
 
