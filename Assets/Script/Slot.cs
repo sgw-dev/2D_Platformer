@@ -5,31 +5,48 @@ using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 public class Slot : MonoBehaviour
-    , IPointerClickHandler // 2
+    , IPointerClickHandler , IBeginDragHandler , IEndDragHandler // 2
 {
     public GameObject       hoverPrefab;//The prefab for the Description Popup
 
     private Item            item;
-    private Transform       location;
+    private Transform       location;//Starting Location
     private bool            display;//If the Description Popup is showing
 
-    public GameObject      inventory;//The location where the Pane will Be made
+    public GameObject       inventory;//The location where the Pane will Be made
     private GameObject      pane;//Destription Popup
-    public GameObject      overLord;//Refrence to Overlord Object
+    public GameObject       overLord;//Refrence to Overlord Object
 
-    public Image           image;//Refrence to the image component of the box
-    public int test = 0;
+    public Image            image;//Refrence to the image component of the box
+    private bool            dragging;
+
 
     void Start()
     {
         inventory = GameObject.Find("Canvas/Inventory/BoxesPanel");
         overLord = GameObject.Find("OverLord");
         image = this.GetComponent<Image>();
-        test = 5;
+        location = this.transform;
     }
     public Slot()
     {
         
+    }
+    public void Update()
+    {
+        if(dragging)
+        {
+            Debug.Log("Dragging");
+            transform.position = new Vector2(Input.mousePosition.x, Input.mousePosition.y);
+        }
+        else
+        {
+            
+            if (!transform.position.Equals(location.position))
+            {
+                transform.position = new Vector2(Mathf.Lerp(Input.mousePosition.x, location.position.x, .75f), Mathf.Lerp(Input.mousePosition.y, location.position.y, .75f));
+            }
+        }
     }
     
     public bool isEmpty()
@@ -73,5 +90,17 @@ public class Slot : MonoBehaviour
             display = false;
         }
         
+    }
+    public void OnPointerDown(PointerEventData eventData)
+    {
+        //dragging = true;
+    }
+    public void OnEndDrag(PointerEventData eventData)
+    {
+        dragging = false;
+    }
+    public void OnBeginDrag(PointerEventData eventData)
+    {
+        dragging = true;
     }
 }
