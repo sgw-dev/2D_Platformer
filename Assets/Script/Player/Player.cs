@@ -57,8 +57,8 @@ public class Player : MonoBehaviour
     public GameObject shieldHolder;
     public bool blocking = false;
 
-    public float jumpDelay = .1f;//This is to prevent spaming the jump key;
-    public float jumpTimer;
+    private float jumpDelay = .1f;//This is to prevent spaming the jump key;
+    private float jumpTimer;
 
     //**************************************Build 1.2
     private void Awake()
@@ -74,11 +74,11 @@ public class Player : MonoBehaviour
         speed = 400;
         maxSpeed = 5.5f;
         sprint = 3;
-        verticalSpeed = 450;
+        verticalSpeed = 10;
         //attackSpeed = .5f;
         checkDistance = .11f;
         numJumps = 2;
-        horizSpeed = 800;
+        horizSpeed = 7;
         armSpeed = .02f;
 
         attackCollider = GameObject.Find("Character/Attack").GetComponent<CapsuleCollider2D>();
@@ -274,17 +274,21 @@ public class Player : MonoBehaviour
 
                 if (checkRight())
                 {
-                    rb.AddForce(new Vector2(-(horizSpeed * 10), horizSpeed * 5.5f));
+                    rb.velocity = new Vector2(-horizSpeed, (verticalSpeed/1.5f));
+                    //rb.AddForce(new Vector2(-(horizSpeed * 10), horizSpeed * 5.5f));
                     //playerAnim.SetTrigger("jump");
                 }
                 else if (checkLeft())
                 {
-                    rb.AddForce(new Vector2((horizSpeed * 10), horizSpeed * 5.5f));
+                    rb.velocity = new Vector2(-horizSpeed, (verticalSpeed / 1.5f));
+                    //rb.AddForce(new Vector2((horizSpeed * 10), horizSpeed * 5.5f));
                     //playerAnim.SetTrigger("jump");
                 }
                 else if (numJumps > 0)
                 {
-                    rb.AddForce(new Vector2(0.0f, verticalSpeed * 10));
+                    //Trying to directly set the player's velocity to give better feel to jump
+                    rb.velocity = new Vector2(rb.velocity.x, verticalSpeed);
+                    //rb.AddForce(new Vector2(0.0f, verticalSpeed * 10));
                     playerAnim.SetTrigger("jump");
                     numJumps--;
                 }

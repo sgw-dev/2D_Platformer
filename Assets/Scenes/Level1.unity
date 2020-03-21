@@ -3633,6 +3633,16 @@ PrefabInstance:
       propertyPath: shieldHolder
       value: 
       objectReference: {fileID: 645263515}
+    - target: {fileID: 4284535761811045963, guid: 4f13c8119275def44a5170c0d5582ef5,
+        type: 3}
+      propertyPath: verticalSpeed
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 4284535761811045963, guid: 4f13c8119275def44a5170c0d5582ef5,
+        type: 3}
+      propertyPath: horizSpeed
+      value: 7
+      objectReference: {fileID: 0}
     - target: {fileID: 4284535761739551135, guid: 4f13c8119275def44a5170c0d5582ef5,
         type: 3}
       propertyPath: BoxesPanel
