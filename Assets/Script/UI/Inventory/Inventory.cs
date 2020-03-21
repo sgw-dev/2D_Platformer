@@ -92,7 +92,6 @@ public class Inventory : MonoBehaviour
 
                     if (!names.Contains(colliders[i].name))
                     {
-                        Debug.Log("Got Item");
                         GameObject itemAcquired = colliders[i].gameObject;
                         item = itemAcquired.GetComponent<ItemMananger>().getItem();
                         AddItem(item.getId());

@@ -37,6 +37,14 @@ public class Item
     {
         return ID;
     }
+    public string getName()
+    {
+        return itemName;
+    }
+    public string getDescription()
+    {
+        return description;
+    }
     public void setIcon()
     {
         icon = GameObject.Find("OverLord").GetComponent<ReadIn>().getSprite(ID);
