@@ -600,10 +600,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hoverPrefab: {fileID: 5235442185366062084, guid: 5866f168b1dc6514d998b0fe46e01ee6,
     type: 3}
-  inventory: {fileID: 0}
-  overLord: {fileID: 0}
-  image: {fileID: 0}
-  test: 0
+  childIndex: 0
 --- !u!1 &100675645
 GameObject:
   m_ObjectHideFlags: 0
@@ -1592,10 +1589,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hoverPrefab: {fileID: 5235442185366062084, guid: 5866f168b1dc6514d998b0fe46e01ee6,
     type: 3}
-  inventory: {fileID: 0}
-  overLord: {fileID: 0}
-  image: {fileID: 0}
-  test: 0
+  childIndex: 0
 --- !u!1 &298345364
 GameObject:
   m_ObjectHideFlags: 0
@@ -1909,10 +1903,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hoverPrefab: {fileID: 5235442185366062084, guid: 5866f168b1dc6514d998b0fe46e01ee6,
     type: 3}
-  inventory: {fileID: 0}
-  overLord: {fileID: 0}
-  image: {fileID: 0}
-  test: 0
+  childIndex: 0
 --- !u!1 &324028475
 GameObject:
   m_ObjectHideFlags: 0
@@ -2091,10 +2082,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hoverPrefab: {fileID: 5235442185366062084, guid: 5866f168b1dc6514d998b0fe46e01ee6,
     type: 3}
-  inventory: {fileID: 0}
-  overLord: {fileID: 0}
-  image: {fileID: 0}
-  test: 0
+  childIndex: 0
 --- !u!1 &364517882
 GameObject:
   m_ObjectHideFlags: 0
@@ -2364,10 +2352,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hoverPrefab: {fileID: 5235442185366062084, guid: 5866f168b1dc6514d998b0fe46e01ee6,
     type: 3}
-  inventory: {fileID: 0}
-  overLord: {fileID: 0}
-  image: {fileID: 0}
-  test: 0
+  childIndex: 0
 --- !u!4 &452170599 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8801550999985750888, guid: 029e5f36da7f3e34e9c90e79fa02074d,
@@ -3214,10 +3199,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hoverPrefab: {fileID: 5235442185366062084, guid: 5866f168b1dc6514d998b0fe46e01ee6,
     type: 3}
-  inventory: {fileID: 0}
-  overLord: {fileID: 0}
-  image: {fileID: 0}
-  test: 0
+  childIndex: 0
 --- !u!4 &779429479 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1026728907082991384, guid: fa65f9b81298f744cb8b751a4ceaad1c,
@@ -3452,10 +3434,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hoverPrefab: {fileID: 5235442185366062084, guid: 5866f168b1dc6514d998b0fe46e01ee6,
     type: 3}
-  inventory: {fileID: 0}
-  overLord: {fileID: 0}
-  image: {fileID: 0}
-  test: 0
+  childIndex: 0
 --- !u!1 &888006125 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 626821428534033775, guid: e11e4c5e9625fef43bfa014c2c429324,
@@ -3476,10 +3455,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hoverPrefab: {fileID: 5235442185366062084, guid: 5866f168b1dc6514d998b0fe46e01ee6,
     type: 3}
-  inventory: {fileID: 0}
-  overLord: {fileID: 0}
-  image: {fileID: 0}
-  test: 0
+  childIndex: 0
 --- !u!1 &891364223 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 626821429122861563, guid: e11e4c5e9625fef43bfa014c2c429324,
@@ -3500,10 +3476,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hoverPrefab: {fileID: 5235442185366062084, guid: 5866f168b1dc6514d998b0fe46e01ee6,
     type: 3}
-  inventory: {fileID: 0}
-  overLord: {fileID: 0}
-  image: {fileID: 0}
-  test: 0
+  childIndex: 0
 --- !u!1001 &908913977
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3869,10 +3842,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hoverPrefab: {fileID: 5235442185366062084, guid: 5866f168b1dc6514d998b0fe46e01ee6,
     type: 3}
-  inventory: {fileID: 0}
-  overLord: {fileID: 0}
-  image: {fileID: 0}
-  test: 0
+  childIndex: 0
 --- !u!1 &960442624
 GameObject:
   m_ObjectHideFlags: 0
@@ -4235,10 +4205,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hoverPrefab: {fileID: 5235442185366062084, guid: 5866f168b1dc6514d998b0fe46e01ee6,
     type: 3}
-  inventory: {fileID: 0}
-  overLord: {fileID: 0}
-  image: {fileID: 0}
-  test: 0
+  childIndex: 0
 --- !u!1 &1027440987
 GameObject:
   m_ObjectHideFlags: 0
@@ -4338,10 +4305,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hoverPrefab: {fileID: 5235442185366062084, guid: 5866f168b1dc6514d998b0fe46e01ee6,
     type: 3}
-  inventory: {fileID: 0}
-  overLord: {fileID: 0}
-  image: {fileID: 0}
-  test: 0
+  childIndex: 0
 --- !u!1 &1038932261
 GameObject:
   m_ObjectHideFlags: 0
@@ -5248,10 +5212,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hoverPrefab: {fileID: 5235442185366062084, guid: 5866f168b1dc6514d998b0fe46e01ee6,
     type: 3}
-  inventory: {fileID: 0}
-  overLord: {fileID: 0}
-  image: {fileID: 0}
-  test: 0
+  childIndex: 0
 --- !u!1 &1220177941 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 626821428153089909, guid: e11e4c5e9625fef43bfa014c2c429324,
@@ -5272,10 +5233,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hoverPrefab: {fileID: 5235442185366062084, guid: 5866f168b1dc6514d998b0fe46e01ee6,
     type: 3}
-  inventory: {fileID: 0}
-  overLord: {fileID: 0}
-  image: {fileID: 0}
-  test: 0
+  childIndex: 0
 --- !u!1 &1222999178
 GameObject:
   m_ObjectHideFlags: 0
@@ -6405,10 +6363,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hoverPrefab: {fileID: 5235442185366062084, guid: 5866f168b1dc6514d998b0fe46e01ee6,
     type: 3}
-  inventory: {fileID: 0}
-  overLord: {fileID: 0}
-  image: {fileID: 0}
-  test: 0
+  childIndex: 0
 --- !u!1 &1589126419
 GameObject:
   m_ObjectHideFlags: 0
@@ -7400,10 +7355,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hoverPrefab: {fileID: 5235442185366062084, guid: 5866f168b1dc6514d998b0fe46e01ee6,
     type: 3}
-  inventory: {fileID: 0}
-  overLord: {fileID: 0}
-  image: {fileID: 0}
-  test: 0
+  childIndex: 0
 --- !u!1 &1897107536 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 626821429486276993, guid: e11e4c5e9625fef43bfa014c2c429324,
@@ -7424,10 +7376,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hoverPrefab: {fileID: 5235442185366062084, guid: 5866f168b1dc6514d998b0fe46e01ee6,
     type: 3}
-  inventory: {fileID: 0}
-  overLord: {fileID: 0}
-  image: {fileID: 0}
-  test: 0
+  childIndex: 0
 --- !u!4 &1919022191 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 755519525353090789, guid: 25843200f4eb4ef418c21e915432aebb,
@@ -8240,10 +8189,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hoverPrefab: {fileID: 5235442185366062084, guid: 5866f168b1dc6514d998b0fe46e01ee6,
     type: 3}
-  inventory: {fileID: 0}
-  overLord: {fileID: 0}
-  image: {fileID: 0}
-  test: 0
+  childIndex: 0
 --- !u!1 &2111706298 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 5002397085170350537, guid: 6efde0b35fe07354a844c46941ae94e0,
@@ -8633,6 +8579,11 @@ PrefabInstance:
     - target: {fileID: 626821428342578121, guid: e11e4c5e9625fef43bfa014c2c429324,
         type: 3}
       propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 626821429353941216, guid: e11e4c5e9625fef43bfa014c2c429324,
+        type: 3}
+      propertyPath: m_LocalPosition.z
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
