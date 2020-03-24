@@ -78,6 +78,10 @@ public class Slot : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IPoin
         }
         else
         {
+            if(item.getId() == 0)
+            {
+                return true;
+            }
             return false;
         }
     }
