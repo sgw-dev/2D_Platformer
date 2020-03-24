@@ -13,9 +13,10 @@ public class Slot : MonoBehaviour
     private Vector3       location;//Starting Location
     private bool            display;//If the Description Popup is showing
 
-    private GameObject       inventory;//The location where the Pane will Be made
+    private GameObject       paneLocation;//The location where the Pane will Be made
     private GameObject      pane;//Destription Popup
     private GameObject       overLord;//Refrence to Overlord Object
+    private InvEventHandling invEvent;
 
     private Image            image;//Refrence to the image component of the box
     private bool            dragging;//If the object is being dragged
@@ -26,8 +27,9 @@ public class Slot : MonoBehaviour
 
     void Start()
     {
-        inventory = GameObject.Find("Canvas/Inventory/BoxesPanel");
+        paneLocation = GameObject.Find("Canvas/Inventory/BoxesPanel");
         overLord = GameObject.Find("OverLord");
+        invEvent = overLord.GetComponent<InvEventHandling>();
         image = this.GetComponent<Image>();
         location = this.transform.position;
         childIndex = transform.GetSiblingIndex();
@@ -41,7 +43,7 @@ public class Slot : MonoBehaviour
         if (Input.GetButtonDown("Fire2") && hovering && !display && item != null)
         {
             pane = Instantiate(hoverPrefab) as GameObject;
-            pane.transform.SetParent(inventory.transform);
+            pane.transform.SetParent(paneLocation.transform);
             pane.GetComponent<RectTransform>().localPosition = this.GetComponent<RectTransform>().localPosition + new Vector3(115, -55, 0);
             pane.GetComponentInChildren<Text>().text = item.getName() + "\n\n" + item.getDescription();
             display = true;
@@ -53,15 +55,7 @@ public class Slot : MonoBehaviour
             //Make the thing you are dragging ontop of everything else
             transform.SetSiblingIndex(transform.childCount - 1);
         }
-        /*else
-        {
-
-            if (!transform.position.Equals(location.position))
-            {
-                transform.position = new Vector2(Mathf.Lerp(Input.mousePosition.x, location.position.x, .75f), Mathf.Lerp(Input.mousePosition.y, location.position.y, .75f));
-            }
-        }
-        */
+        
     }
     
     public bool isEmpty()
@@ -87,23 +81,6 @@ public class Slot : MonoBehaviour
     }
     public void OnPointerClick(PointerEventData eventData) // 3
     {
-        /*if (!display && item != null && !dragging)
-        {
-            pane = Instantiate(hoverPrefab) as GameObject;
-            pane.transform.SetParent(inventory.transform);
-            pane.GetComponent<RectTransform>().localPosition = this.GetComponent<RectTransform>().localPosition + new Vector3(115, -55, 0);
-            pane.GetComponentInChildren<Text>().text = item.getName() + "\n\n" + item.getDescription();
-            display = true;
-        }
-        else
-        {
-            if(pane != null)
-            {
-                Destroy(pane);
-                pane = null;
-            }
-            display = false;
-        }*/
         
     }
     public void OnPointerDown(PointerEventData eventData)
@@ -118,7 +95,8 @@ public class Slot : MonoBehaviour
 
     public void OnPointerUp(PointerEventData eventData)
     {
-        Debug.Log("Not Dragging");
+        //Debug.Log("Not Dragging");
+        
         transform.position = location;
         dragging = false;
     }
