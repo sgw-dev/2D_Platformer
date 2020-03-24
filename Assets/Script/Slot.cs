@@ -4,8 +4,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class Slot : MonoBehaviour
-    , IPointerClickHandler, IPointerDownHandler, IPointerUpHandler, IPointerEnterHandler, IPointerExitHandler // 2
+public class Slot : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IPointerEnterHandler, IPointerExitHandler
 {
     public GameObject       hoverPrefab;//The prefab for the Description Popup
 
@@ -18,11 +17,14 @@ public class Slot : MonoBehaviour
     private GameObject       overLord;//Refrence to Overlord Object
     private InvEventHandling invEvent;
 
+    private GameObject[] equipSlots;//Refrence to Equipment Slots
+    private Sprite blank;//The visual of an empty box
+
     private Image            image;//Refrence to the image component of the box
     private bool            dragging;//If the object is being dragged
 
     private bool            hovering;//If the mouse is on the slot; used to show the item description
-    public int childIndex;//The proper index location of the child
+    private int             childIndex;//The proper index location of the child
 
 
     void Start()
@@ -33,6 +35,10 @@ public class Slot : MonoBehaviour
         image = this.GetComponent<Image>();
         location = this.transform.position;
         childIndex = transform.GetSiblingIndex();
+        //The box starts as blank so just grab the starting sprite
+        blank = image.sprite;
+        //Grab the references to all the equipment slots
+        equipSlots = new GameObject[] { GameObject.Find("Equip (1)"), GameObject.Find("Equip (2)"), GameObject.Find("Equip (3)"), GameObject.Find("Equip (4)"), GameObject.Find("Equip (5)") };
     }
     public Slot()
     {
@@ -40,6 +46,12 @@ public class Slot : MonoBehaviour
     }
     public void Update()
     {
+        if (Input.GetButtonUp("Fire1"))
+        {
+            dragging = false;
+            image.raycastTarget = true;
+            transform.position = location;
+        }
         if (Input.GetButtonDown("Fire2") && hovering && !display && item != null)
         {
             pane = Instantiate(hoverPrefab) as GameObject;
@@ -48,13 +60,13 @@ public class Slot : MonoBehaviour
             pane.GetComponentInChildren<Text>().text = item.getName() + "\n\n" + item.getDescription();
             display = true;
         }
-        if (dragging)
+        if (dragging && item != null)
         {
-            Debug.Log("Dragging");
             transform.position = new Vector2(Input.mousePosition.x, Input.mousePosition.y);
             //Make the thing you are dragging ontop of everything else
             transform.SetSiblingIndex(transform.childCount - 1);
         }
+        
         
     }
     
@@ -77,28 +89,53 @@ public class Slot : MonoBehaviour
     public void removeItem()
     {
         item = null;
-        image.sprite = null;
-    }
-    public void OnPointerClick(PointerEventData eventData) // 3
-    {
-        
+        image.sprite = blank;
     }
     public void OnPointerDown(PointerEventData eventData)
     {
-        //Debug.Log("Dragging");
         if (!Input.GetButton("Fire2"))
         {
             dragging = true;
+            image.raycastTarget = false;
         }
         
     }
 
     public void OnPointerUp(PointerEventData eventData)
     {
-        //Debug.Log("Not Dragging");
+        //Check if it is over any of the equipment Slots
+        if (invEvent.Head)
+        {
+            equipSlots[0].GetComponent<EquipmentWatcher>().setItem(item.getId());
+            removeItem();
+        }else if (invEvent.Chest)
+        {
+            equipSlots[1].GetComponent<EquipmentWatcher>().setItem(item.getId());
+            removeItem();
+        }
+        else if (invEvent.Feet)
+        {
+            equipSlots[2].GetComponent<EquipmentWatcher>().setItem(item.getId());
+            removeItem();
+        }
+        else if (invEvent.Shield)
+        {
+            equipSlots[3].GetComponent<EquipmentWatcher>().setItem(item.getId());
+            removeItem();
+        }
+        else if (invEvent.Weapon)
+        {
+            equipSlots[4].GetComponent<EquipmentWatcher>().setItem(item.getId());
+            removeItem();
+        }
+        else
+        {
+            //It was not ontop of anything so put it back
+            transform.position = location;
+            dragging = false;
+            image.raycastTarget = true;
+        }
         
-        transform.position = location;
-        dragging = false;
     }
 
     public void OnPointerEnter(PointerEventData eventData)

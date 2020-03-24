@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum Type { Weapon, Helmet, Chest, Boots, Gun, Accessory, Spell, Potion, Rune}
+public enum ItemType { Weapon, Helmet, Chest, Boots, Gun, Accessory, Spell, Potion, Rune}
 
 [Serializable]
 public class Item 
@@ -12,7 +12,7 @@ public class Item
     private int ID;
     private string description;
     private string itemName;
-    private Type type;
+    private ItemType type;
     private string subType;
     private float value;
     private float secValue;
@@ -33,31 +33,31 @@ public class Item
         switch (temp)
         {
             case "Weapon":
-                type = Type.Weapon;
+                type = ItemType.Weapon;
                 break;
             case "Helmet":
-                type = Type.Helmet;
+                type = ItemType.Helmet;
                 break;
             case "Chest":
-                type = Type.Chest;
+                type = ItemType.Chest;
                 break;
             case "Boots":
-                type = Type.Boots;
+                type = ItemType.Boots;
                 break;
             case "Gun":
-                type = Type.Gun;
+                type = ItemType.Gun;
                 break;
             case "Accessory":
-                type = Type.Accessory;
+                type = ItemType.Accessory;
                 break;
             case "Spell":
-                type = Type.Spell;
+                type = ItemType.Spell;
                 break;
             case "Potion":
-                type = Type.Potion;
+                type = ItemType.Potion;
                 break;
             case "Rune":
-                type = Type.Rune;
+                type = ItemType.Rune;
                 break;
         }
         subType = parts[3];
@@ -85,7 +85,7 @@ public class Item
     {
         return icon;
     }
-    public Type getType()
+    public ItemType getType()
     {
         return type;
     }

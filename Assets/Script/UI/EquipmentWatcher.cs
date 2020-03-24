@@ -20,8 +20,10 @@ public class EquipmentWatcher : MonoBehaviour, IPointerEnterHandler, IPointerExi
     }
     public void setItem(int id)
     {
-        if(item == null)
+        Debug.Log("setItem Called");
+        if(item.getId() == 0)
         {
+            Debug.Log("Item is null");
             item = overlord.GetComponent<ReadIn>().getItem(id);
             this.GetComponent<Image>().sprite = item.getIcon();
             
@@ -58,6 +60,7 @@ public class EquipmentWatcher : MonoBehaviour, IPointerEnterHandler, IPointerExi
     }
     public void OnPointerEnter(PointerEventData eventData)
     {
+        //Debug.Log("Pointer entered "+ typeOfInv);
         switch (typeOfInv)
         {
             case Watching.Head:
