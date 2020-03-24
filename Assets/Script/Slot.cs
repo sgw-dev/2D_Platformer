@@ -106,27 +106,73 @@ public class Slot : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IPoin
         //Check if it is over any of the equipment Slots
         if (invEvent.Head)
         {
-            equipSlots[0].GetComponent<EquipmentWatcher>().setItem(item.getId());
-            removeItem();
+            if(item.getType() == ItemType.Helmet)
+            {
+                equipSlots[0].GetComponent<EquipmentWatcher>().setItem(item.getId());
+                removeItem();
+            }
+            else
+            {
+                transform.position = location;
+                dragging = false;
+                image.raycastTarget = true;
+            }
+            
         }else if (invEvent.Chest)
         {
-            equipSlots[1].GetComponent<EquipmentWatcher>().setItem(item.getId());
-            removeItem();
+            if (item.getType() == ItemType.Chest)
+            {
+                equipSlots[1].GetComponent<EquipmentWatcher>().setItem(item.getId());
+                removeItem();
+            }
+            else
+            {
+                transform.position = location;
+                dragging = false;
+                image.raycastTarget = true;
+            }
         }
         else if (invEvent.Feet)
         {
-            equipSlots[2].GetComponent<EquipmentWatcher>().setItem(item.getId());
-            removeItem();
+            if (item.getType() == ItemType.Boots)
+            {
+                equipSlots[2].GetComponent<EquipmentWatcher>().setItem(item.getId());
+                removeItem();
+            }
+            else
+            {
+                transform.position = location;
+                dragging = false;
+                image.raycastTarget = true;
+            }
         }
         else if (invEvent.Shield)
         {
-            equipSlots[3].GetComponent<EquipmentWatcher>().setItem(item.getId());
-            removeItem();
+            if (item.getType() == ItemType.Shield)
+            {
+                equipSlots[3].GetComponent<EquipmentWatcher>().setItem(item.getId());
+                removeItem();
+            }
+            else
+            {
+                transform.position = location;
+                dragging = false;
+                image.raycastTarget = true;
+            }
         }
         else if (invEvent.Weapon)
         {
-            equipSlots[4].GetComponent<EquipmentWatcher>().setItem(item.getId());
-            removeItem();
+            if (item.getType() == ItemType.Weapon)
+            {
+                equipSlots[4].GetComponent<EquipmentWatcher>().setItem(item.getId());
+                removeItem();
+            }
+            else
+            {
+                transform.position = location;
+                dragging = false;
+                image.raycastTarget = true;
+            }
         }
         else
         {

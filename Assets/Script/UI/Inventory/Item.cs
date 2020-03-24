@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum ItemType { Weapon, Helmet, Chest, Boots, Gun, Accessory, Spell, Potion, Rune}
+public enum ItemType { Weapon, Helmet, Chest, Boots, Gun, Accessory, Spell, Potion, Rune, Shield}
 
 [Serializable]
 public class Item 
