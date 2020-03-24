@@ -116,16 +116,16 @@ public class Inventory : MonoBehaviour
         }
     }
 
-    void AddItem(int id)
+    public void AddItem(int id)
     {
-        Debug.Log("Adding Item");
+        
         // goes through inventory to find a free slot
         for (int i = 0; i < inventorySize; i++)
         {
             // if empty slot is found
             if (slot[i].GetComponent<Slot>().isEmpty())
             {
-                Debug.Log("Slot " + i + " is empty");
+                
                 // pick up game object and call acquired from Items script, set to true
                 //itemObject.GetComponent<Items>().acquired = true;
 
@@ -146,7 +146,7 @@ public class Inventory : MonoBehaviour
             }
             else
             {
-                Debug.Log("Slot " + i + " is not empty");
+                
             }
             
         }

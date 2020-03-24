@@ -5,28 +5,39 @@ using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 public enum Watching { Head, Chest, Feet, Weapon, Shield}
-public class EquipmentWatcher : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
+public class EquipmentWatcher : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerClickHandler
 {
 
     public Item item;
     private Vector2 location;
     private GameObject overlord;
+    private GameObject inventory;
+    private Sprite emptyIcon;//The image of the empty slot
     public Watching typeOfInv;
 
     void Start()
     {
         overlord = GameObject.Find("OverLord");
+        inventory = GameObject.Find("Character/Inventory");
         location = this.GetComponent<RectTransform>().anchoredPosition;
+        //Slot starts out empty so...
+        emptyIcon = GetComponent<Image>().sprite;
     }
     public void setItem(int id)
     {
-        Debug.Log("setItem Called");
-        if(item.getId() == 0)
+        
+        if(item == null || item.getId() == 0)
         {
-            Debug.Log("Item is null");
+            
             item = overlord.GetComponent<ReadIn>().getItem(id);
             this.GetComponent<Image>().sprite = item.getIcon();
-            
+
+        }
+        else
+        {
+            inventory.GetComponent<Inventory>().AddItem(item.getId());
+            item = overlord.GetComponent<ReadIn>().getItem(id);
+            this.GetComponent<Image>().sprite = item.getIcon();
         }
         switch (typeOfInv)
         {
@@ -101,5 +112,12 @@ public class EquipmentWatcher : MonoBehaviour, IPointerEnterHandler, IPointerExi
                 overlord.GetComponent<InvEventHandling>().Shield = false;
                 break;
         }
+    }
+
+    public void OnPointerClick(PointerEventData eventData)
+    {
+        inventory.GetComponent<Inventory>().AddItem(item.getId());
+        item = null;
+        this.GetComponent<Image>().sprite = emptyIcon;
     }
 }
