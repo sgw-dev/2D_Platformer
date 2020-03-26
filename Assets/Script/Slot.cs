@@ -90,6 +90,10 @@ public class Slot : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IPoin
         item = overLord.GetComponent<ReadIn>().getItem(id);
         image.sprite = item.getIcon();
     }
+    public int getItem()
+    {
+        return item.getId();
+    }
     public void removeItem()
     {
         item = null;

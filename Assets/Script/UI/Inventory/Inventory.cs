@@ -42,6 +42,10 @@ public class Inventory : MonoBehaviour
             pickUp();
         }
     }
+    public GameObject[] getSlots()
+    {
+        return slot;
+    }
     private void hideInventory()
     {
         CanvasGroup cg = inventory.GetComponent<CanvasGroup>();
