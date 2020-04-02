@@ -28,6 +28,7 @@ public class SceneTrigger : MonoBehaviour {
 
 	public void OnTriggerEnter2D(Collider2D c) {
 		if (c.name.Equals(cause)&&!trigger_on_key_press) {
+            GameObject.Find("OverLord").GetComponent<SaveUtility>().SaveGame();
 			SceneManager.LoadScene(scene_to_load);
 		}
 	}

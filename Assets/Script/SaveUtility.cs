@@ -46,8 +46,13 @@ public class SaveUtility : MonoBehaviour {
 				"Player    : " + playerscript+"\n"+
 				"Inventory : " + inventoryscript+"\n");
 		}
+        StartCoroutine(LateStart());
 	}
-
+    IEnumerator LateStart()
+    {
+        yield return new WaitForSeconds(.2f);
+        LoadGame();//Spencer
+    }
     void Update() {
 		//Code for the editor to test
 		//In deployed build these should not be included by the compiler
@@ -71,7 +76,7 @@ public class SaveUtility : MonoBehaviour {
 		
 		//try is here until item system and inventory is set
 		try {
-            //******************Possible error here ~ Spencer ***********
+            
 			for(int i = 0 ; i < inventoryscript.slot.Length ; i++) {
                 
                 if (!inventoryscript.slot[i].GetComponent<Slot>().isEmpty())
@@ -96,8 +101,9 @@ public class SaveUtility : MonoBehaviour {
 		}
 		//try is here until item system and inventory is set
 		try {
-            //****************Possible error here ~ Spencer ***************
-			for(int i = 0 ; i < inventoryscript.slot.Length ; i++) {
+            //~~~~~Hard Fix, Sometimes it thinks there are 0 slots in the inventory
+            //Trigger on a late start?
+            for (int i = 0 ; i < inventoryscript.slot.Length; i++) {
 				if(PlayerPrefs.HasKey(INV+i)) {
                     inventoryscript.slot[i].GetComponent<Slot>().addItem(PlayerPrefs.GetInt(INV + i));
 				}
