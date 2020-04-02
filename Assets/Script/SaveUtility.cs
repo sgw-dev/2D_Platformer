@@ -37,9 +37,11 @@ public class SaveUtility : MonoBehaviour {
 	Inventory              inventoryscript;
 
 	void Start() {
+        player = GameObject.Find("Character");//Spencer
         playerscript    = player.GetComponent<Player>();
 		inventoryscript = player.GetComponentInChildren<Inventory>();
-		if(playerscript ==null || inventoryscript == null) {
+        
+        if (playerscript ==null || inventoryscript == null) {
 			Debug.LogError("Cannot save missing components from Player GameObject,\n"+
 				"Player    : " + playerscript+"\n"+
 				"Inventory : " + inventoryscript+"\n");

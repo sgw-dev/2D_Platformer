@@ -24,6 +24,16 @@ public class PauseMenu : MonoBehaviour
     public GameObject deathCanvas;
 
     //pause function
+
+
+    void Start()
+    {
+        pauseMenuCanvas = GameObject.Find("Canvas/PausePanel");
+        pauseMenuCanvas.SetActive(false);
+        invMenuCanvas = GameObject.Find("Canvas/Inventory");
+        deathCanvas = GameObject.Find("Canvas/DeathPanel");
+        deathCanvas.SetActive(false);
+    }
     void Update()
     {
         //if paused show pause menu and stop all game movement
