@@ -88,7 +88,7 @@ public class SnakeMovement : EnemyPathing
         Vector2 dir = (playerPosition.position - transform.position).normalized;                            //direction to player
                                                                    //Spencer: changed to mask, wasn't seeing the player
         RaycastHit2D hit = Physics2D.Raycast(transform.position, dir, searchDistance, mask);      //raycast to target
-        Debug.DrawRay(transform.position, dir * searchDistance, Color.black);
+        //Debug.DrawRay(transform.position, dir * searchDistance, Color.black);
         if (hit) {
             
         }

@@ -101,13 +101,12 @@ public class PauseMenu : MonoBehaviour
     }
     public void openInv()
     {
-        invMenuCanvas.SetActive(true);
+        invMenuCanvas.SetActive(isInv = !isInv);
         Time.timeScale = 0f;
-        isInv = !isInv;
     }
     public void closeInv()
     {
-        invMenuCanvas.SetActive(false);
+        invMenuCanvas.SetActive(isInv);
         Time.timeScale = 1f;
         isInv = !isInv;
     }

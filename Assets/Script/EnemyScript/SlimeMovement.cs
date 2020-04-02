@@ -27,10 +27,10 @@ public class SlimeMovement : EnemyPathing
      */
 
 
-    public int timeBetJump;     //time between when it lands and jumps
+    private int timeBetJump;     //time between when it lands and jumps
     private int counter;        //counter to keep track of time
 
-    public float smallerjump;   //a jump that move less horizontally
+    private float smallerjump;   //a jump that move less horizontally
 
     //Spencer
     private Animator anim;
@@ -55,7 +55,8 @@ public class SlimeMovement : EnemyPathing
         EnemyStart();
         playerScript = playerPosition.GetComponent<Player>();
     }
-    void FixedUpdate()
+
+    private void FixedUpdate()
     {
         if (attackTimer >= attackTime)
         {
