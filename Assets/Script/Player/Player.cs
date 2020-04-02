@@ -28,7 +28,8 @@ public class Player : MonoBehaviour
 	public float currentXP;
 	public float maxXP;
 	public Slider xpbar;
-	
+	public int gold;
+
 	public int level;
 	private Text levelpanel;
 
@@ -122,6 +123,8 @@ public class Player : MonoBehaviour
 
 		level = 1;//load level from save
 		levelpanel.text = level+"";
+
+		gold = 0;//load from save
 
         colliders = GetComponents<Collider2D>();
         
@@ -568,6 +571,14 @@ public class Player : MonoBehaviour
 		level++;
 		levelpanel.text=level+"";
 		//do other things like adjust stats
+	}
+
+	public void GoldTransact(int amount) {
+		if(gold+amount < 0 ) {
+			Debug.LogWarning("You cannot afford this");
+			return;
+		}
+		gold += amount;
 	}
 
 }
