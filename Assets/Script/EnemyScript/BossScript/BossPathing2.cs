@@ -37,6 +37,9 @@ public class BossPathing2 : MonoBehaviour
         bound = GetComponent<Collider2D>().bounds;      //get collider bounds
         myBounds.SetMyBounds(bound);                    //turn it into my lazy bounds
 
+        //Get Player Dynamically
+        playerPosition = GameObject.Find("Character").GetComponent<Transform>();
+
         //initialize some things
         points = new List<Vector3>();
         point = transform.position;
