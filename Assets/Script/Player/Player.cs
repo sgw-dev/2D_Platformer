@@ -29,6 +29,7 @@ public class Player : MonoBehaviour
 	public float maxXP;
 	public Slider xpbar;
 	public int gold;
+	private Text goldpanel;
 
 	public int level;
 	private Text levelpanel;
@@ -102,6 +103,7 @@ public class Player : MonoBehaviour
         healthbar = GameObject.Find("Canvas/HealthBar").GetComponent<Slider>();
 		xpbar     = GameObject.Find("Canvas/Inventory/CharacterPanel/StatsPanel/XP Slider").GetComponent<Slider>();
 		levelpanel= GameObject.Find("Canvas/Inventory/CharacterPanel/StatsPanel/Level").GetComponent<Text>();
+		goldpanel = GameObject.Find("Canvas/Inventory/CharacterPanel/StatsPanel/GoldText").GetComponent<Text>();
         arm = GameObject.Find("Arm");
         arm.SetActive(false);
         armPos = arm.transform.localPosition.x;
@@ -125,6 +127,7 @@ public class Player : MonoBehaviour
 		levelpanel.text = level+"";
 
 		gold = 0;//load from save
+		goldpanel.text = gold+"";
 
         colliders = GetComponents<Collider2D>();
         
@@ -579,6 +582,7 @@ public class Player : MonoBehaviour
 			return;
 		}
 		gold += amount;
+		goldpanel.text=gold+"";
 	}
 
 }
