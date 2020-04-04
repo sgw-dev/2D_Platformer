@@ -60,7 +60,10 @@ public class Player : MonoBehaviour
     private float jumpDelay = .1f;//This is to prevent spaming the jump key;
     private float jumpTimer;
 
-    //**************************************Build 1.2
+
+    public float defaultMaxHP = 10f;
+
+    
     private void Awake()
     {
         //Let main Player be called as `Player.main`

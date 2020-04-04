@@ -5478,6 +5478,15 @@ PrefabInstance:
       propertyPath: m_Name
       value: Canvas
       objectReference: {fileID: 0}
+    - target: {fileID: 278621264, guid: e11e4c5e9625fef43bfa014c2c429324, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 626821429789913034, guid: e11e4c5e9625fef43bfa014c2c429324,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 626821428155966479, guid: e11e4c5e9625fef43bfa014c2c429324,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -5621,12 +5630,12 @@ PrefabInstance:
     - target: {fileID: 626821428342578121, guid: e11e4c5e9625fef43bfa014c2c429324,
         type: 3}
       propertyPath: m_AnchorMax.x
-      value: 0
+      value: 0.602
       objectReference: {fileID: 0}
     - target: {fileID: 626821428342578121, guid: e11e4c5e9625fef43bfa014c2c429324,
         type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1826378934, guid: e11e4c5e9625fef43bfa014c2c429324, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
@@ -5640,6 +5649,11 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 2067850901}
+    - target: {fileID: 626821429016557639, guid: e11e4c5e9625fef43bfa014c2c429324,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e11e4c5e9625fef43bfa014c2c429324, type: 3}
 --- !u!1001 &755519524050770570

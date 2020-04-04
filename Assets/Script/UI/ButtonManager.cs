@@ -5,11 +5,17 @@ using UnityEngine.SceneManagement;
 
 public class ButtonManager : MonoBehaviour
 {
-    public void loadLevelSelect()
+    static readonly string MAXHP = "playermaxhealth";
+    static readonly string CURHP = "playercurrenthealth";
+    static readonly string INV = "inventoryslot_";
+    private GameObject popup;
+
+    void Start()
     {
-        SceneManager.LoadScene("LevelSelect", LoadSceneMode.Single);
+        popup = GameObject.Find("Canvas/Warning");
+        popup.SetActive(false);
     }
-    public void loadLevel1()
+    public void resume()
     {
         SceneManager.LoadScene("Level1", LoadSceneMode.Single);
     }
@@ -20,5 +26,27 @@ public class ButtonManager : MonoBehaviour
     public void mainMenu()
     {
         SceneManager.LoadScene("MainMenu", LoadSceneMode.Single);
+    }
+    public void newGame()
+    {
+        reset();
+        SceneManager.LoadScene("Level1", LoadSceneMode.Single);
+    }
+    public void reset()
+    {
+        PlayerPrefs.DeleteKey(MAXHP);
+        PlayerPrefs.DeleteKey(CURHP);
+        for (int i = 0; i < 18; i++)
+        {
+            PlayerPrefs.DeleteKey(INV + i);
+        }
+    }
+    public void showPrompt()
+    {
+        popup.SetActive(true);
+    }
+    public void back()
+    {
+        popup.SetActive(false);
     }
 }

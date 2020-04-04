@@ -35,6 +35,7 @@ public class SaveUtility : MonoBehaviour {
 	public GameObject      player;
 	Player                 playerscript;
 	Inventory              inventoryscript;
+    
 
 	void Start() {
         player = GameObject.Find("Character");//Spencer
@@ -92,13 +93,31 @@ public class SaveUtility : MonoBehaviour {
 		PlayerPrefs.Save();
 	}
 
+    public void clear()
+    {
+        PlayerPrefs.DeleteKey(MAXHP);
+        PlayerPrefs.DeleteKey(CURHP);
+        for (int i = 0; i < inventoryscript.slot.Length; i++)
+        {
+            PlayerPrefs.DeleteKey(INV + i);
+        }
+    }
+
 	public void LoadGame() {
 		if(PlayerPrefs.HasKey(MAXHP)) {
 			playerscript.maxHealth = PlayerPrefs.GetFloat(MAXHP);
-		}
+        }
+        else
+        {
+            playerscript.maxHealth = playerscript.defaultMaxHP;
+        }
 		if(PlayerPrefs.HasKey(CURHP)) {
 			playerscript.health    = PlayerPrefs.GetFloat(CURHP);
-		}
+        }
+        else
+        {
+            playerscript.health = playerscript.defaultMaxHP;
+        }
 		//try is here until item system and inventory is set
 		try {
             //~~~~~Hard Fix, Sometimes it thinks there are 0 slots in the inventory
