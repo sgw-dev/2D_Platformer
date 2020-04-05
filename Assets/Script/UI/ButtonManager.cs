@@ -41,6 +41,12 @@ public class ButtonManager : MonoBehaviour
             PlayerPrefs.DeleteKey(INV + i);
         }
     }
+    public void clear()
+    {
+        reset();
+        GameObject.Find("Character/Inventory").GetComponent<Inventory>().clearInv();
+        popup.SetActive(false);
+    }
     public void showPrompt()
     {
         popup.SetActive(true);

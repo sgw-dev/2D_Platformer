@@ -113,11 +113,15 @@ public class EquipmentWatcher : MonoBehaviour, IPointerEnterHandler, IPointerExi
                 break;
         }
     }
+    public void clearItem()
+    {
+        item = null;
+        this.GetComponent<Image>().sprite = emptyIcon;
+    }
 
     public void OnPointerClick(PointerEventData eventData)
     {
         inventory.GetComponent<Inventory>().AddItem(item.getId());
-        item = null;
-        this.GetComponent<Image>().sprite = emptyIcon;
+        clearItem();
     }
 }

@@ -17,7 +17,7 @@ public class ItemMananger : MonoBehaviour
         overLord = GameObject.Find("OverLord");
         id = Random.Range(min, max);
         read = overLord.GetComponent<ReadIn>();
-        StartCoroutine(LateStart(1f));
+        StartCoroutine(LateStart(.1f));
     }
 
     IEnumerator LateStart(float waitTime)

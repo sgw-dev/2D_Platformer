@@ -7,13 +7,34 @@ public class Inventory : MonoBehaviour
     [Header("Set in Inspector")]
     public GameObject inventory;
     public GameObject boxPanels;
+    public GameObject characterBackground;
 
     private bool inventoryEnabled;
     private int inventorySize;
     public GameObject[] slot;
+    public GameObject[] equips;
     Item item;
     public LayerMask hitMask;
 
+    void Start()
+    {
+        // sets size of inventroy to max 18
+        inventorySize = 18;
+        slot = new GameObject[inventorySize];
+        // populates inventory with box panels
+        for (int i = 0; i < inventorySize; i++)
+        {
+            slot[i] = boxPanels.transform.GetChild(i).gameObject;
+            // checks if slot is empty
+            /*if (slot[i].GetComponent<Slot>().Item != null)
+                slot[i].GetComponent<Slot>().empty = false;*/
+        }
+        equips = new GameObject[5];
+        for(int i=0; i<equips.Length; i++)
+        {
+            equips[i] = characterBackground.transform.GetChild(i+1).gameObject;
+        }
+    }
     void Update()
     {
         // pulls up the inventory if I is pressed
@@ -46,6 +67,16 @@ public class Inventory : MonoBehaviour
     {
         return slot;
     }
+    public void clearInv()
+    {
+        foreach(GameObject s in slot){
+            s.GetComponent<Slot>().removeItem();
+        }
+        foreach(GameObject e in equips)
+        {
+            e.GetComponent<EquipmentWatcher>().clearItem();
+        }
+    }
     private void hideInventory()
     {
         CanvasGroup cg = inventory.GetComponent<CanvasGroup>();
@@ -61,20 +92,7 @@ public class Inventory : MonoBehaviour
         cg.blocksRaycasts = false;
     }
 
-    void Start()
-    {
-        // sets size of inventroy to max 18
-        inventorySize = 18;
-        slot = new GameObject[inventorySize];
-        // populates inventory with box panels
-        for (int i = 0; i < inventorySize; i++)
-        {
-            slot[i] = boxPanels.transform.GetChild(i).gameObject;
-            // checks if slot is empty
-            /*if (slot[i].GetComponent<Slot>().Item != null)
-                slot[i].GetComponent<Slot>().empty = false;*/
-        }
-    }
+    
 
     private void pickUp()
     {
