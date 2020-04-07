@@ -36,8 +36,8 @@ public class ItemMananger : MonoBehaviour
 
     private Item calcItem()
     {
-        //50/50 chance to get an item
-        if(Random.value > .5)
+        //More Likely to get gold
+        if(Random.value > .7)
         {
             //Choose between weapons and armor; lean towards weapons
             int type = Random.Range(0, 10);
@@ -89,7 +89,7 @@ public class ItemMananger : MonoBehaviour
         else
         {
             gold = true;
-            goldAmount = Random.Range(5, goldMax);
+            goldAmount = Random.Range(10, goldMax);
             id = 0;
             return null;
         }

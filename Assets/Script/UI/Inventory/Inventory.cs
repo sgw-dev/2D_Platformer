@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Inventory : MonoBehaviour
 {
@@ -8,6 +9,7 @@ public class Inventory : MonoBehaviour
     public GameObject inventory;
     public GameObject boxPanels;
     public GameObject characterBackground;
+    public Text goldText;
 
     private bool inventoryEnabled;
     private int inventorySize;
@@ -15,6 +17,7 @@ public class Inventory : MonoBehaviour
     public GameObject[] equips;
     Item item;
     public LayerMask hitMask;
+    private int gold;
 
     void Start()
     {
@@ -159,6 +162,7 @@ public class Inventory : MonoBehaviour
     }
     public void AddGold(int amount)
     {
-        Debug.Log("Adding " + amount + " gold to inv");
+        gold += amount;
+        goldText.text = gold.ToString();
     }
 }

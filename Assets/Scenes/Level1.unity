@@ -1654,18 +1654,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &450706505 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 3511916845269582376, guid: 6efde0b35fe07354a844c46941ae94e0,
-    type: 3}
-  m_PrefabInstance: {fileID: 5002397086063779677}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5afb9c3684de6034a8119cc32189958b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!4 &452170599 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8801550999985750888, guid: 029e5f36da7f3e34e9c90e79fa02074d,
@@ -2051,6 +2039,18 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &674826337 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 9043550527645294761, guid: e11e4c5e9625fef43bfa014c2c429324,
+    type: 3}
+  m_PrefabInstance: {fileID: 626821428266320783}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 708705254, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &685550169
 GameObject:
   m_ObjectHideFlags: 0
@@ -2355,7 +2355,7 @@ MonoBehaviour:
   read: {fileID: 0}
   gold: 0
   goldAmount: 0
-  goldMax: 0
+  goldMax: 100
 --- !u!50 &792127332
 Rigidbody2D:
   serializedVersion: 4
@@ -2552,6 +2552,11 @@ PrefabInstance:
       propertyPath: characterBackground
       value: 
       objectReference: {fileID: 75740696}
+    - target: {fileID: 4284535761739551135, guid: 4f13c8119275def44a5170c0d5582ef5,
+        type: 3}
+      propertyPath: goldText
+      value: 
+      objectReference: {fileID: 674826337}
     - target: {fileID: 60829070, guid: 4f13c8119275def44a5170c0d5582ef5, type: 3}
       propertyPath: m_Mesh
       value: 
@@ -3541,7 +3546,7 @@ MonoBehaviour:
   read: {fileID: 0}
   gold: 0
   goldAmount: 0
-  goldMax: 0
+  goldMax: 100
 --- !u!50 &1255508716
 Rigidbody2D:
   serializedVersion: 4
@@ -5713,16 +5718,6 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 2067850901}
-    - target: {fileID: 626821428229741212, guid: e11e4c5e9625fef43bfa014c2c429324,
-        type: 3}
-      propertyPath: m_Interactable
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 626821428587073077, guid: e11e4c5e9625fef43bfa014c2c429324,
-        type: 3}
-      propertyPath: m_Interactable
-      value: 0
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e11e4c5e9625fef43bfa014c2c429324, type: 3}
 --- !u!1001 &755519524050770570
