@@ -4,13 +4,13 @@ using UnityEngine;
 
 public class ItemMananger : MonoBehaviour
 {
-    public int id;
-    public Item item;
+    private int id;
+    private Item item;
     private GameObject overLord;
-    public ReadIn read;
-    public bool gold = false;
-    public int goldAmount;
-    public int goldMax;
+    private ReadIn read;
+    private bool gold = false;
+    private int goldAmount;
+    public int goldMax = 100;
 
     // Start is called before the first frame update
     void Start()

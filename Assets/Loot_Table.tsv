@@ -2,32 +2,33 @@ ID	Name	Type	Subtype	Value	Secondary Value	Des
 1	Rusty Axe	Weapon	Axe	10	0	A Rusted Axe that has seen better days
 2	Steel Axe	Weapon	Axe	16	0	An Axe that is commonly uset to chop wood
 3	Demonic Axe	Weapon	Axe	25	0	You hear a quite whisper when you hold this axe
-4	Steel Battle Axe	Weapon	Battle Axe	18	0	A large blade attached to the end of a long pole
-5	Champion's Battle Axe	Weapon	Battle Axe	28	0	This weapon is fit for a mighty warrior
-6	Rusty Dagger	Weapon	Dagger	5	0	A small blade dulled with rust and time
-7	Iron Dagger	Weapon	Dagger	10	0	A short pointy blade used for quick cuts
-8	Poisoned Dagger	Weapon	Dagger	15	0	This blade is coated in a drippping poison
-9	Stone Spear	Weapon	Spear	9	0	A spear fashioned for hunting animals
-10	Steel Spear	Weapon	Spear	14	0	A spear that could befound in the hands of local gaurds
-11	Spear of the Forest	Weapon	Spear	25	0	You can hear the rustle of leaves and the scent of pine needles
-12	Rusty Sword	Weapon	Sword	9	0	A rusted shortsword, Likely from a fallen adventurer.
-13	Steel Sword	Weapon	Sword	15	0	A common sword, it is sharp but nothing special
-14	Champion's Sword	Weapon	Sword	25	0	The sharpest and lightest blade you have ever seen
-15	Feather Cap	Helmet	Light	4	4	A light cap with a feather attached
-16	Chain Hood	Helmet	Medium	6	0	A hood made with chainmail, it looks rather old
-17	Plate Helmet	Helmet	Heavy	10	0	A helmet that covers the whole head, allowing for increased defense.
-18	Leather Tunic	Chest	Light	12	6	Light armor fashioned from tanned leather.
-19	Chain Shirt	Chest	Medium	22	0	A heavy chain shirt, made for protection.
-20	Breastplate	Chest	Heavy	34	0	A breastplate made from iron.
-21	Heavy Boots	Boots	Heavy	50	0	Heavy boots that allows the wearer to keep easier footing
+4	Dull Battle Axe	Weapon	Battle Axe	11	0	A dull, blunt battle axe
+5	Steel Battle Axe	Weapon	Battle Axe	18	0	A large blade attached to the end of a long pole
+6	Champion's Battle Axe	Weapon	Battle Axe	28	0	This weapon is fit for a mighty warrior
+7	Rusty Dagger	Weapon	Dagger	5	0	A small blade dulled with rust and time
+8	Iron Dagger	Weapon	Dagger	10	0	A short pointy blade used for quick cuts
+9	Poisoned Dagger	Weapon	Dagger	15	0	This blade is coated in a drippping poison
+10	Stone Spear	Weapon	Spear	9	0	A spear fashioned for hunting animals
+11	Steel Spear	Weapon	Spear	14	0	A spear that could befound in the hands of local gaurds
+12	Spear of the Forest	Weapon	Spear	25	0	You can hear the rustle of leaves and the scent of pine needles
+13	Rusty Sword	Weapon	Sword	9	0	A rusted shortsword, Likely from a fallen adventurer.
+14	Steel Sword	Weapon	Sword	15	0	A common sword, it is sharp but nothing special
+15	Champion's Sword	Weapon	Sword	25	0	The sharpest and lightest blade you have ever seen
+16	Feather Cap	Helmet	Light	4	4	A light cap with a feather attached
+17	Chain Hood	Helmet	Medium	6	0	A hood made with chainmail, it looks rather old
+18	Plate Helmet	Helmet	Heavy	10	0	A helmet that covers the whole head, allowing for increased defense.
+19	Leather Tunic	Chest	Light	12	6	Light armor fashioned from tanned leather.
+20	Chain Shirt	Chest	Medium	22	0	A heavy chain shirt, made for protection.
+21	Breastplate	Chest	Heavy	34	0	A breastplate made from iron.
 22	Agile Boots	Boots	Light	25	0	Boots that allow the wearer to move faster
-23	Fireball	Spell	Fireball	30	5	A scroll that allows the user to hurl fireballs at will
-24	Shield	Spell	Shield	100	15	This spell allows the user to shield themselves from damage for a time
-25	Potion of Rage	Potion	Rage	1.5	15	A potion that enrages the drinker, increasing their strength for a time
-26	Potion of Focus	Potion	Focus	1.5	15	A potion that allows the drinker to see an enemies weak spots, increasing ranged damage.
-27	Warding Rune	Rune	Warding	1.2	1	A rune that enchants armor with a protective aura, warding off blows.
-28	Rune of Wrath	Rune	Wrath	1.35	1	A rune that enchants weapons to hit harder
-29	Rune of Fire	Rune	Fire	10	5	A rune that enchants weapons with fire, giving a chance for enemies to burn
-30	Rune of Lightning	Rune	Lightning	0.1	30	A rune that enchants weapons with lightning, allowing damage to chain between enemies.
-31	Hermes Boots	Boots	Hermes	25	5	Boots made for fast delivery, these winged boots allow for speed and temporary flight
-32	Eye of Xzaraos	Spell	Eye	150	1	A one use scroll that summons the avatar of death
+23	Heavy Boots	Boots	Heavy	50	0	Heavy boots that allows the wearer to keep easier footing
+24	Hermes Boots	Boots	Hermes	25	5	Boots made for fast delivery, these winged boots allow for speed and temporary flight
+25	Fireball	Spell	Fireball	30	5	A scroll that allows the user to hurl fireballs at will
+26	Shield	Spell	Shield	100	15	This spell allows the user to shield themselves from damage for a time
+27	Potion of Rage	Potion	Rage	1.5	15	A potion that enrages the drinker, increasing their strength for a time
+28	Potion of Focus	Potion	Focus	1.5	15	A potion that allows the drinker to see an enemies weak spots, increasing ranged damage.
+29	Warding Rune	Rune	Warding	1.2	1	A rune that enchants armor with a protective aura, warding off blows.
+30	Rune of Wrath	Rune	Wrath	1.35	1	A rune that enchants weapons to hit harder
+31	Rune of Fire	Rune	Fire	10	5	A rune that enchants weapons with fire, giving a chance for enemies to burn
+32	Rune of Lightning	Rune	Lightning	0.1	30	A rune that enchants weapons with lightning, allowing damage to chain between enemies.
+33	Eye of Xzaraos	Spell	Eye	150	1	A one use scroll that summons the avatar of death

@@ -8,6 +8,7 @@ public class EnemyHealth : MonoBehaviour{
     private float health;
     public GameObject healthbar;
     public GameObject sparkle;
+    public GameObject loot;
     private float healthWidth;
     private float maxWidth;
 
@@ -30,6 +31,7 @@ public class EnemyHealth : MonoBehaviour{
         if (health <= 0)
         {
             Instantiate(sparkle, new Vector3(gameObject.transform.position.x, gameObject.transform.position.y, -8f), gameObject.transform.rotation);
+            Instantiate(loot, new Vector3(gameObject.transform.position.x, gameObject.transform.position.y, -8f), gameObject.transform.rotation);
             Destroy(gameObject);
         }
         float ratio = maxWidth / maxHealth;
