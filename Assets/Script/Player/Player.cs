@@ -25,6 +25,14 @@ public class Player : MonoBehaviour
     private Slider healthbar;
     private float healthWidth;
     private float maxWidth;
+	public float currentXP;
+	public float maxXP;
+	public Slider xpbar;
+	public int gold;
+	private Text goldpanel;
+
+	public int level;
+	private Text levelpanel;
 
     public GameObject deathCanvas;
     public GameObject deathVisual;
@@ -96,6 +104,9 @@ public class Player : MonoBehaviour
         rb = this.GetComponent<Rigidbody2D>();
 
         healthbar = GameObject.Find("Canvas/HealthBar").GetComponent<Slider>();
+		xpbar     = GameObject.Find("Canvas/Inventory/CharacterPanel/StatsPanel/XP Slider").GetComponent<Slider>();
+		levelpanel= GameObject.Find("Canvas/Inventory/CharacterPanel/StatsPanel/Level").GetComponent<Text>();
+		goldpanel = GameObject.Find("Canvas/Inventory/CharacterPanel/StatsPanel/GoldText").GetComponent<Text>();
         arm = GameObject.Find("Arm");
         arm.SetActive(false);
         armPos = arm.transform.localPosition.x;
@@ -108,6 +119,18 @@ public class Player : MonoBehaviour
         maxWidth = healthbar.maxValue;
         healthWidth = maxWidth;
         healthbar.value = healthWidth;
+		
+		currentXP = 0;//change
+		maxXP     = 100;//change to some variable later
+		xpbar.wholeNumbers = true;//can remove if changing the editor flag
+		xpbar.maxValue     = maxXP;
+		xpbar.value        = currentXP;
+
+		level = 1;//load level from save
+		levelpanel.text = level+"";
+
+		gold = 0;//load from save
+		goldpanel.text = gold+"";
 
         colliders = GetComponents<Collider2D>();
         
@@ -527,4 +550,42 @@ public class Player : MonoBehaviour
         float width = healthbar.value;
         healthbar.value = width;
     }
+
+	//call this to give the player experience, note only add
+	public void AddXP(int amount) {
+		
+		//dont do this
+		if(amount<0) {
+			Debug.LogError("Create another method to decrement xp");
+		}
+		
+		currentXP += amount;
+	
+		if(currentXP<maxXP) {//no level occurs just readjust the slider
+			xpbar.value+=currentXP;
+		} else  { //levelup is occuring adjust values
+			currentXP = 0 + (currentXP-maxXP); //if extra xp is gained count toward next level
+			
+			LevelUp();
+
+			maxXP=100;//can change at some point to a variable
+			xpbar.value=currentXP;
+		}
+	}
+	
+	public void LevelUp() {
+		level++;
+		levelpanel.text=level+"";
+		//do other things like adjust stats
+	}
+
+	public void GoldTransact(int amount) {
+		if(gold+amount < 0 ) {
+			Debug.LogWarning("You cannot afford this");
+			return;
+		}
+		gold += amount;
+		goldpanel.text=gold+"";
+	}
+
 }
