@@ -11,7 +11,7 @@ public class ReadIn : MonoBehaviour
     public List<Sprite> images = new List<Sprite>();
     void Start()
     {
-        string filepath = System.IO.Path.GetFullPath("Assets/Loot_Spreadsheet.tsv");
+        string filepath = System.IO.Path.GetFullPath("Assets/Loot_Table.tsv");
         System.IO.StreamReader file = new System.IO.StreamReader(filepath);
         string line = file.ReadLine();
         Item item = new Item();
