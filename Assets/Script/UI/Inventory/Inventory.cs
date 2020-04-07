@@ -147,23 +147,7 @@ public class Inventory : MonoBehaviour
             // if empty slot is found
             if (slot[i].GetComponent<Slot>().isEmpty())
             {
-                
-                // pick up game object and call acquired from Items script, set to true
-                //itemObject.GetComponent<Items>().acquired = true;
-
                 slot[i].GetComponent<Slot>().addItem(id);
-                /*
-                // call item from Slot script and set it to the itemObject that was picked up
-                slot[i].GetComponent<Slot>().item = itemObject;
-                // call the ReadIn script and pass it the reference number
-                slot[i].GetComponent<ReadIn>().getItem(id);
-
-                // moves item object to correct slot and sets object to inactive
-                itemObject.transform.parent = slot[i].transform;
-                itemObject.SetActive(false);*/
-                /*
-                slot[i].GetComponent<Slot>().UpdateSlot();
-                slot[i].GetComponent<Slot>().empty = false;*/
                 return;
             }
             else
@@ -172,5 +156,9 @@ public class Inventory : MonoBehaviour
             }
             
         }
+    }
+    public void AddGold(int amount)
+    {
+        Debug.Log("Adding " + amount + " gold to inv");
     }
 }
