@@ -14,6 +14,7 @@ public class EquipmentWatcher : MonoBehaviour, IPointerEnterHandler, IPointerExi
     private GameObject inventory;
     private Sprite emptyIcon;//The image of the empty slot
     public Watching typeOfInv;
+    public Player player;
 
     void Start()
     {
@@ -22,6 +23,7 @@ public class EquipmentWatcher : MonoBehaviour, IPointerEnterHandler, IPointerExi
         location = this.GetComponent<RectTransform>().anchoredPosition;
         //Slot starts out empty so...
         emptyIcon = GetComponent<Image>().sprite;
+        player = GameObject.Find("Character").GetComponent<Player>();
     }
     public void setItem(int id)
     {
@@ -57,6 +59,7 @@ public class EquipmentWatcher : MonoBehaviour, IPointerEnterHandler, IPointerExi
                 overlord.GetComponent<InvEventHandling>().ShieldEmpty = false;
                 break;
         }
+        player.updateStats();
     }
     public bool empty()
     {
@@ -123,5 +126,6 @@ public class EquipmentWatcher : MonoBehaviour, IPointerEnterHandler, IPointerExi
     {
         inventory.GetComponent<Inventory>().AddItem(item.getId());
         clearItem();
+        player.updateStats();
     }
 }

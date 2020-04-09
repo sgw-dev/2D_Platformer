@@ -71,6 +71,13 @@ public class Player : MonoBehaviour
 
     public float defaultMaxHP = 10f;
 
+    public int attackDamage;
+    public int defence;
+    public int defaultAttackDamage;
+    public Inventory inventory;
+    private Text attackText;
+    private Text defenceText;
+
     
     private void Awake()
     {
@@ -136,8 +143,50 @@ public class Player : MonoBehaviour
 		goldpanel.text = gold+"";
 
         colliders = GetComponents<Collider2D>();
-        
-
+        inventory = GetComponentInChildren<Inventory>();
+        attackText = GameObject.Find("Canvas/Inventory/CharacterPanel/StatsPanel/Attack").GetComponent<Text>();
+        attackDamage = defaultAttackDamage;
+        attackText.text = attackDamage.ToString();
+        defenceText = GameObject.Find("Canvas/Inventory/CharacterPanel/StatsPanel/Defence").GetComponent<Text>();
+        defence = 0;
+        defenceText.text = defence.ToString();
+        updateStats();
+    }
+    public void updateStats()
+    {
+        //Get Weapon Damage
+        Item temp = inventory.getEquiped(4);
+        if (temp != null && temp.getId()!= 0)
+        {
+            attackDamage = temp.getValue();
+            weapon.GetComponent<SpriteRenderer>().sprite = temp.getIcon();
+        }
+        else
+        {
+            attackDamage = defaultAttackDamage;
+            weapon.GetComponent<SpriteRenderer>().sprite = null;
+        }
+        attackText.text = attackDamage.ToString();
+        //Get Helmet Defence
+        temp = inventory.getEquiped(0);
+        defence = 0;
+        if (temp != null)
+        {
+            defence += temp.getValue();
+        }
+        //Get Chest Defence
+        temp = inventory.getEquiped(1);
+        if (temp != null)
+        {
+            defence += temp.getValue();
+        }
+        //Get Boot Defence
+        temp = inventory.getEquiped(2);
+        if (temp != null)
+        {
+            defence += temp.getValue();
+        }
+        defenceText.text = defence.ToString();
     }
 
     public void ToggleFrozen()
@@ -332,19 +381,6 @@ public class Player : MonoBehaviour
             }
         }
     }
-
-    private void flipArm(bool faceRight) {
-        //flip arm
-        if (faceRight)
-        {
-            arm.transform.localPosition = new Vector3(armPos, arm.transform.localPosition.y, arm.transform.localPosition.z);
-            arm.transform.localScale = new Vector3(-arm.transform.localScale.x, arm.transform.localScale.y, arm.transform.localScale.z);
-        }
-        else {
-            arm.transform.localPosition = new Vector3(0.0f, arm.transform.localPosition.y, arm.transform.localPosition.z);
-            arm.transform.localScale = new Vector3(-arm.transform.localScale.x, arm.transform.localScale.y, arm.transform.localScale.z);
-        }
-    }
     private void attack()
     {
         //start animation
@@ -364,9 +400,9 @@ public class Player : MonoBehaviour
         {
             if (colliders[i] != null)
             {
-                if (colliders[i].tag.CompareTo("Enemy") == 0 || colliders[i].tag.CompareTo("Owl")==0)
+                if (colliders[i].tag.CompareTo("Enemy") == 0 || colliders[i].tag.CompareTo("Owl") == 0)
                 {
-                    
+
                     if (!names.Contains(colliders[i].name))
                     {
                         colliders[i].SendMessage("applyDamage", 1.0f);
@@ -378,102 +414,6 @@ public class Player : MonoBehaviour
             }
         }
     }
-    IEnumerator attackAnimation()
-    {
-        playerAnim.speed = 0;
-        this.gameObject.GetComponent<Renderer>().enabled = false;
-        body.GetComponent<Renderer>().enabled = true;
-        arm.SetActive(true);
-        weapon.GetComponent<SpriteRenderer>().sprite = dagger;
-        shieldHolder.SetActive(false);
-        if (facingRight)
-        {
-            arm.transform.Rotate(new Vector3(0, 0, 135));
-            yield return new WaitForSeconds(.1f);
-            float step = 45;
-            for (float i = 135; i >= 45f; i -= step)
-            {
-                arm.transform.Rotate(new Vector3(0, 0, -step));
-                yield return new WaitForSeconds(armSpeed);
-            }
-        }
-        else {
-            arm.transform.Rotate(new Vector3(0, 0, -135));
-            yield return new WaitForSeconds(.1f);
-            float step = 45;
-            for (float i = -135; i <= -45f; i += step)
-            {
-                arm.transform.Rotate(new Vector3(0, 0, step));
-                yield return new WaitForSeconds(armSpeed);
-            }
-        }
-        
-        arm.SetActive(false);
-        body.GetComponent<Renderer>().enabled = false;
-        arm.transform.eulerAngles = new Vector3(0, 0, 0);
-        this.gameObject.GetComponent<Renderer>().enabled = true;
-        playerAnim.speed = 1;
-        attacking = false;
-        shieldHolder.SetActive(true);
-        StopCoroutine(attackAnimation());
-    }
-
-    public void blockUpAnimation()
-    {
-        
-        //old animation code
-        /*playerAnim.speed = 0;
-        frozen = true;
-        blocking = true;
-        this.gameObject.GetComponent<Renderer>().enabled = false;
-        body.GetComponent<Renderer>().enabled = true;
-        arm.SetActive(true);
-        shieldHolder.GetComponent<SpriteRenderer>().sprite = shield;
-        weapon.SetActive(false);
-        if (facingRight)
-        {
-            arm.transform.Rotate(new Vector3(0, 0, 100));
-        }
-        else
-        {
-            arm.transform.Rotate(new Vector3(0, 0, -100));
-            
-        }*/
-    }
-    IEnumerator blockDownAnimation()
-    {
-        
-        
-        if (facingRight)
-        {
-            float step = 45;
-            for (float i = 100; i >= 45f; i -= step)
-            {
-                arm.transform.Rotate(new Vector3(0, 0, -step));
-                yield return new WaitForSeconds(armSpeed);
-            }
-        }
-        else
-        {
-            float step = 45;
-            for (float i = -100; i <= -45f; i += step)
-            {
-                arm.transform.Rotate(new Vector3(0, 0, step));
-                yield return new WaitForSeconds(armSpeed);
-            }
-        }
-
-        arm.SetActive(false);
-        body.GetComponent<Renderer>().enabled = false;
-        arm.transform.eulerAngles = new Vector3(0, 0, 0);
-        this.gameObject.GetComponent<Renderer>().enabled = true;
-        playerAnim.speed = 1;
-        blocking = false;
-        frozen = false;
-        weapon.SetActive(true);
-        StopCoroutine(blockDownAnimation());
-    }
-
     public bool checkRight()
     {
         RaycastHit2D hit = Physics2D.Raycast(rightT.transform.position, Vector2.right, checkDistance, collisionMask);

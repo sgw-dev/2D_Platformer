@@ -578,6 +578,7 @@ Transform:
   m_LocalScale: {x: 0.44, y: 1, z: 1}
   m_Children:
   - {fileID: 645263516}
+  - {fileID: 4284535762260747544}
   m_Father: {fileID: 137991008}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 22.575}
@@ -2000,7 +2001,6 @@ Transform:
   m_LocalScale: {x: 0.7142857, y: 0.7142857, z: 2}
   m_Children:
   - {fileID: 4284535763009101144}
-  - {fileID: 4284535762260747544}
   m_Father: {fileID: 4284535762900608380}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2028,11 +2028,11 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4284535762260747543}
-  m_LocalRotation: {x: 0, y: 0, z: -0.83595103, w: 0.548804}
-  m_LocalPosition: {x: 0.063, y: -1.022, z: 0}
-  m_LocalScale: {x: 3, y: 3, z: 2}
+  m_LocalRotation: {x: -0, y: -0, z: 0.33425498, w: -0.9424827}
+  m_LocalPosition: {x: 1.5895903, y: 0.0088871345, z: 0}
+  m_LocalScale: {x: 6.3491836, y: 4.8140182, z: 2}
   m_Children: []
-  m_Father: {fileID: 4284535762187328180}
+  m_Father: {fileID: 574140561}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: -113.43}
 --- !u!212 &4284535762260747545
@@ -2394,6 +2394,10 @@ MonoBehaviour:
   shieldHolder: {fileID: 645263515}
   blocking: 0
   defaultMaxHP: 10
+  attackDamage: 0
+  defence: 0
+  defaultAttackDamage: 0
+  inventory: {fileID: 0}
 --- !u!114 &4284535761811045965
 MonoBehaviour:
   m_ObjectHideFlags: 0

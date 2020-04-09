@@ -74,9 +74,9 @@ public class SaveUtility : MonoBehaviour {
 	public void SaveGame() {
 		PlayerPrefs.SetFloat(MAXHP,playerscript.maxHealth);
 		PlayerPrefs.SetFloat(CURHP,playerscript.health);
-		
-		//try is here until item system and inventory is set
-		try {
+        PlayerPrefs.SetInt(GOLD, inventoryscript.Gold);
+        //try is here until item system and inventory is set
+        try {
             
 			for(int i = 0 ; i < inventoryscript.slot.Length ; i++) {
                 
@@ -97,6 +97,7 @@ public class SaveUtility : MonoBehaviour {
     {
         PlayerPrefs.DeleteKey(MAXHP);
         PlayerPrefs.DeleteKey(CURHP);
+        PlayerPrefs.DeleteKey(GOLD);
         for (int i = 0; i < inventoryscript.slot.Length; i++)
         {
             PlayerPrefs.DeleteKey(INV + i);
@@ -118,9 +119,16 @@ public class SaveUtility : MonoBehaviour {
         {
             playerscript.health = playerscript.defaultMaxHP;
         }
-		//try is here until item system and inventory is set
-		try {
-            //~~~~~Hard Fix, Sometimes it thinks there are 0 slots in the inventory
+        if (PlayerPrefs.HasKey(GOLD))
+        {
+            inventoryscript.Gold = PlayerPrefs.GetInt(GOLD);
+        }
+        else
+        {
+            inventoryscript.Gold = 0;
+        }
+        //try is here until item system and inventory is set
+        try {
             //Trigger on a late start?
             for (int i = 0 ; i < inventoryscript.slot.Length; i++) {
 				if(PlayerPrefs.HasKey(INV+i)) {
@@ -129,9 +137,6 @@ public class SaveUtility : MonoBehaviour {
 			}
 		} catch(Exception e) {
 			Debug.LogError(e.Message);
-		}
-		if(PlayerPrefs.HasKey(GOLD)) {
-			//code to set gold
 		}
 	}
 

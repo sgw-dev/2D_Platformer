@@ -40,31 +40,14 @@ public class Inventory : MonoBehaviour
     }
     void Update()
     {
-        // pulls up the inventory if I is pressed
-        if (Input.GetKeyDown(KeyCode.I))
-        {
-            // sets inventory active or inactive
-            if (inventoryEnabled == true)
-            {
-                //inventory.SetActive(true);
-                /*showInventory();
-                inventoryEnabled = true;
-                Time.timeScale = 0f;*/
-            }
-            else
-            {
-                //inventory.SetActive(false);
-                /*hideInventory();
-                inventoryEnabled = false;
-                Time.timeScale = 1f;*/
-            }
-        }
-            
-        
-        if (Input.GetKeyDown(KeyCode.E))
+        /*if (Input.GetKeyDown(KeyCode.E))
         {
             pickUp();
-        }
+        }*/
+    }
+    public Item getEquiped(int index)
+    {
+        return equips[index].GetComponent<EquipmentWatcher>().item;
     }
     public GameObject[] getSlots()
     {
@@ -143,7 +126,7 @@ public class Inventory : MonoBehaviour
 
     public void AddItem(int id)
     {
-        
+        Debug.Log("Adding " + id + " item");
         // goes through inventory to find a free slot
         for (int i = 0; i < inventorySize; i++)
         {
@@ -162,7 +145,20 @@ public class Inventory : MonoBehaviour
     }
     public void AddGold(int amount)
     {
+        Debug.Log("Adding " + amount + " gold");
         gold += amount;
         goldText.text = gold.ToString();
+    }
+    public int Gold
+    {
+        get
+        {
+            return gold;
+        }
+        set
+        {
+            gold = value;
+            goldText.text = gold.ToString();
+        }
     }
 }

@@ -89,4 +89,8 @@ public class Item
     {
         return type;
     }
+    public int getValue()
+    {
+        return (int)value;
+    }
 }

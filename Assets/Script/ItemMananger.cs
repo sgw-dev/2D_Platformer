@@ -13,6 +13,8 @@ public class ItemMananger : MonoBehaviour
     public int goldMax = 100;
     private bool bossLoot;
 
+    private bool canPickup;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -29,6 +31,7 @@ public class ItemMananger : MonoBehaviour
         //Debug.Log(id);
         item = calcItem();
         this.GetComponent<SpriteRenderer>().sprite = read.getSprite(id);
+        canPickup = true;
     }
     public Item getItem()
     {
@@ -156,11 +159,12 @@ public class ItemMananger : MonoBehaviour
             }
         }
     }
-    public void OnTriggerEnter2D(Collider2D other)
+    public void OnTriggerStay2D(Collider2D other)
     {
         
-        if(other.tag == "Inv")
+        if(other.tag == "Inv" && canPickup)
         {
+            
             if (gold)
             {
                 other.SendMessage("AddGold", goldAmount);
@@ -173,4 +177,5 @@ public class ItemMananger : MonoBehaviour
             }
         }
     }
+
 }
