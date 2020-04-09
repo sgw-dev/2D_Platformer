@@ -34,5 +34,6 @@ public class BossHealth : MonoBehaviour
         GameObject temp = Instantiate(loot);
         temp.transform.position = new Vector3(transform.position.x, transform.position.y + 5, transform.position.z);
         temp.GetComponent<Rigidbody2D>().velocity = new Vector3(Random.Range(-1f, 1f), 4f, 0);
+        temp.GetComponent<ItemMananger>().bossOverride();
     }
 }
