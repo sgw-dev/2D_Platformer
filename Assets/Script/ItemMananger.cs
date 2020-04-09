@@ -12,6 +12,7 @@ public class ItemMananger : MonoBehaviour
     private int goldAmount;
     public int goldMax = 100;
 
+
     // Start is called before the first frame update
     void Start()
     {
@@ -32,6 +33,11 @@ public class ItemMananger : MonoBehaviour
     public Item getItem()
     {
         return item;
+    }
+
+    public void bossOverride()
+    {
+
     }
 
     private Item calcItem()

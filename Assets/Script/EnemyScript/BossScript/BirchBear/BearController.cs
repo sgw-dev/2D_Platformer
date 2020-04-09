@@ -102,6 +102,11 @@ public class BearController : MonoBehaviour
         bossAnimationController.AddPriorityAction(flop1);
         bossAnimationController.AddPriorityAction(flop2);
     }
+    //Spencer
+    public void AddFlopPriority()
+    {
+        bossAnimationController.AddPriorityAction(jump2);
+    }
 
     public void AddLeafAttackPriority()
     {

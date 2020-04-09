@@ -14,6 +14,8 @@ public class BearMovement : BossMovement
     public GameObject leafPrefab;
 
     private BearController bearController;
+    //Spencer
+    private bool dead;
 
     private void Start()
     {
@@ -28,35 +30,50 @@ public class BearMovement : BossMovement
 
     private void FixedUpdate()
     {
-        if (GetCharacterMovement().sides.bot)
+        if (!dead)//Spencer
         {
-            SetDirection(bossPathing.GetPoint());
-        }
-        ResetState();
-        CalculateMoveType(bossPathing.myBounds.xhalf);
-        HorizontalMovment();
-        VerticalMovement();
+            if (GetCharacterMovement().sides.bot)
+            {
+                SetDirection(bossPathing.GetPoint());
+            }
+            ResetState();
+            CalculateMoveType(bossPathing.myBounds.xhalf);
+            HorizontalMovment();
+            VerticalMovement();
 
-        Vector3 temp = GetVelocity();
-        //transform.Translate(temp);
-        transform.Translate(new Vector3(Mathf.Abs(temp.x) * -1, temp.y));
+            Vector3 temp = GetVelocity();
+            //transform.Translate(temp);
+            transform.Translate(new Vector3(Mathf.Abs(temp.x) * -1, temp.y));
+
+        }
+        else
+        {
+            //Spencer, need to get him to stop running
+            
+            bearController.AddFlopPriority();
+
+        }
     }
 
     public void Update()
     {
-        if (bossPathing.FindDestination(direction.x))
+        if (!dead)//Spencer
         {
-            bossPathing.FindPath();
-            bossPathing.NextPoint();
-        }
+            if (bossPathing.FindDestination(direction.x))
+            {
+                bossPathing.FindPath();
+                bossPathing.NextPoint();
+            }
 
-        bossPathing.DebugPoint();
-        bossPathing.DebugPoints();
-        DebugDirection();
+            bossPathing.DebugPoint();
+            bossPathing.DebugPoints();
+            DebugDirection();
 
-        if (canAttack)
-        {
-            TryAttacking();
+            if (canAttack)
+            {
+                TryAttacking();
+            }
+
         }
     }
 
@@ -135,5 +152,9 @@ public class BearMovement : BossMovement
         basicAttack = new BossAttack(biteCollider, 0, .1f, 2);
         slamAttack = new BossAttack(slamCollider, 0, 1.1f, 7);
         leafAttack = new BossAttack(20, 0, 1f, 14);
+    }
+    public void die()
+    {
+        dead = true;
     }
 }
