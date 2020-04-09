@@ -87,11 +87,10 @@ public class BearMovement : BossMovement
         StartCoroutine(slamAttack.StartCooldown());
         bearController.AddSlamAttackPriority();
         yield return new WaitForSeconds(slamAttack.delay);
-
         Player temp = GetPlayerInCollider(slamCollider);
         if (temp != null)
         {
-            Debug.Log("hit");
+            temp.applyDamage(3);
         }
     }
 
@@ -105,7 +104,7 @@ public class BearMovement : BossMovement
         Player temp = GetPlayerInCollider(biteCollider);
         if (temp != null)
         {
-            Debug.Log("hit");
+            temp.applyDamage(2);
         }
     }
 

@@ -85,7 +85,7 @@ public class Player : MonoBehaviour
         speed = 400;
         maxSpeed = 5.5f;
         sprint = 3;
-        verticalSpeed = 10;
+        verticalSpeed = 11;
         //attackSpeed = .5f;
         checkDistance = .11f;
         numJumps = 2;
@@ -107,6 +107,9 @@ public class Player : MonoBehaviour
 		xpbar     = GameObject.Find("Canvas/Inventory/CharacterPanel/StatsPanel/XP Slider").GetComponent<Slider>();
 		levelpanel= GameObject.Find("Canvas/Inventory/CharacterPanel/StatsPanel/Level").GetComponent<Text>();
 		goldpanel = GameObject.Find("Canvas/Inventory/CharacterPanel/StatsPanel/GoldText").GetComponent<Text>();
+
+        shieldHolder.SetActive(false);
+
         arm = GameObject.Find("Arm");
         arm.SetActive(false);
         armPos = arm.transform.localPosition.x;
@@ -278,11 +281,19 @@ public class Player : MonoBehaviour
             if (Input.GetButtonDown("Fire2"))
             {
                 playerAnim.SetTrigger("blockup");
+                blocking = true;
+                shieldHolder.SetActive(true);
+                weapon.SetActive(false);
+                frozen = true;
                 //blockUpAnimation();
             }
             if (Input.GetButtonUp("Fire2"))
             {
                 playerAnim.SetTrigger("blockdown");
+                blocking = false;
+                shieldHolder.SetActive(false);
+                weapon.SetActive(true);
+                frozen = false;
                 //StartCoroutine(blockDownAnimation());
             }
 

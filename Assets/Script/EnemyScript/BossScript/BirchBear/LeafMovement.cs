@@ -52,9 +52,14 @@ public class LeafMovement : MonoBehaviour
     //destroy on contact with wall or player;
     public void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.transform.CompareTag("Player") || collision.transform.CompareTag("Stage"))
+        if (collision.transform.CompareTag("Player"))
         {
+            collision.transform.SendMessage("applyDamage", 1);
             Destroy(this.gameObject);       //detroy this
+        }
+        if (collision.transform.CompareTag("Stage"))
+        {
+            Destroy(this.gameObject);
         }
     }
 }
