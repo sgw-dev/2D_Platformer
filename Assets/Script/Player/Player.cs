@@ -49,21 +49,16 @@ public class Player : MonoBehaviour
     private int numJumps;
     private float horizSpeed;
 
-    private float armSpeed;
-    public GameObject arm;
-    public GameObject body;
     private bool facingRight = true;
-    private float armPos;
 
-    public bool attacking = false;
-    public bool dead = false;
+    private bool attacking = false;
+    private bool dead = false;
 
-    public Collider2D[] colliders;
-    public Sprite dagger;
+    private Collider2D[] colliders;
     public Sprite shield;
     public GameObject weapon;
     public GameObject shieldHolder;
-    public bool blocking = false;
+    private bool blocking = false;
 
     private float jumpDelay = .1f;//This is to prevent spaming the jump key;
     private float jumpTimer;
@@ -71,9 +66,9 @@ public class Player : MonoBehaviour
 
     public float defaultMaxHP = 10f;
 
-    public int attackDamage;
-    public int defence;
-    public int defaultAttackDamage;
+    private int attackDamage;
+    private int defence;
+    private int defaultAttackDamage = 1;
     public Inventory inventory;
     private Text attackText;
     private Text defenceText;
@@ -97,7 +92,6 @@ public class Player : MonoBehaviour
         checkDistance = .11f;
         numJumps = 2;
         horizSpeed = 7;
-        armSpeed = .02f;
 
         attackCollider = GameObject.Find("Character/Attack").GetComponent<CapsuleCollider2D>();
         playerAnim = GameObject.Find("Character/PlayerBody").GetComponent<Animator>();
@@ -116,14 +110,6 @@ public class Player : MonoBehaviour
 		goldpanel = GameObject.Find("Canvas/Inventory/CharacterPanel/StatsPanel/GoldText").GetComponent<Text>();
 
         shieldHolder.SetActive(false);
-
-        arm = GameObject.Find("Arm");
-        arm.SetActive(false);
-        armPos = arm.transform.localPosition.x;
-        body = GameObject.Find("Character/Body");
-        body.GetComponent<Renderer>().enabled = false;
-        //this.gameObject.GetComponent<Renderer>().enabled = true;
-        //deathVisual.GetComponent<Renderer>().enabled = false;
 
         health = maxHealth;
         maxWidth = healthbar.maxValue;
@@ -289,10 +275,6 @@ public class Player : MonoBehaviour
                 //flip the sprite to face left
                 //this.GetComponent<SpriteRenderer>().flipX = true;
                 flip(true);
-                if (body == null)
-                {
-                    Start();
-                }
                 //body.GetComponent<SpriteRenderer>().flipX = true;
                 if (facingRight)
                 {
@@ -405,8 +387,7 @@ public class Player : MonoBehaviour
 
                     if (!names.Contains(colliders[i].name))
                     {
-                        colliders[i].SendMessage("applyDamage", 1.0f);
-                        Debug.Log("Hit: " + colliders[i].name);
+                        colliders[i].SendMessage("applyDamage", (float)attackDamage);
                         names.Add(colliders[i].name);
                     }
                 }
@@ -464,7 +445,8 @@ public class Player : MonoBehaviour
         if (!blocking)
         {
             playerAnim.SetTrigger("hit");
-            health -= damage;
+
+            health -= damage/((float)defence + 1f);
             if (health <= 0 && !dead)
             {
                 die();
