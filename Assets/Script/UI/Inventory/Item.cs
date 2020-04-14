@@ -18,6 +18,7 @@ public class Item
     private float secValue;
     [SerializeField]
     private Sprite icon;
+    private Sprite image;
 
 
     public Item()
@@ -79,11 +80,19 @@ public class Item
     }
     public void setIcon()
     {
-        icon = GameObject.Find("OverLord").GetComponent<ReadIn>().getSprite(ID);
+        icon = GameObject.Find("OverLord").GetComponent<ReadIn>().getIcon(ID);
+    }
+    public void setImage()
+    {
+        image = GameObject.Find("OverLord").GetComponent<ReadIn>().getSprite(ID);
     }
     public Sprite getIcon()
     {
         return icon;
+    }
+    public Sprite getImage()
+    {
+        return image;
     }
     public ItemType getType()
     {

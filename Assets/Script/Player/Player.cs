@@ -51,8 +51,8 @@ public class Player : MonoBehaviour
 
     private bool facingRight = true;
 
-    private bool attacking = false;
-    private bool dead = false;
+    public bool attacking = false;
+    public bool dead = false;
 
     private Collider2D[] colliders;
     public Sprite shield;
@@ -145,7 +145,7 @@ public class Player : MonoBehaviour
         if (temp != null && temp.getId()!= 0)
         {
             attackDamage = temp.getValue();
-            weapon.GetComponent<SpriteRenderer>().sprite = temp.getIcon();
+            weapon.GetComponent<SpriteRenderer>().sprite = temp.getImage();
         }
         else
         {

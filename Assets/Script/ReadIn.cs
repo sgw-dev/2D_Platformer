@@ -9,6 +9,7 @@ public class ReadIn : MonoBehaviour
     public List<Item> items = new List<Item>();
     // Start is called before the first frame update
     public List<Sprite> images = new List<Sprite>();
+    public List<Sprite> icons = new List<Sprite>();
     void Start()
     {
         string filepath = System.IO.Path.GetFullPath("Assets/Loot_Table.tsv");
@@ -21,6 +22,7 @@ public class ReadIn : MonoBehaviour
             item = new Item();
             item.newItems(line);
             item.setIcon();
+            item.setImage();
             items.Add(item);
             //print("Added Item" + item.getId());
         }
@@ -36,6 +38,10 @@ public class ReadIn : MonoBehaviour
     public Sprite getSprite(int id)
     {
         return images[id];
+    }
+    public Sprite getIcon(int id)
+    {
+        return icons[id];
     }
     public Item getItem(int i) {
         //Debug.Log("Overlord ReadIn " + i);

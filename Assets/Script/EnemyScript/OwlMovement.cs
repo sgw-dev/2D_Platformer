@@ -152,6 +152,7 @@ public class OwlMovement : FlyingEnemyPathing
             other.SendMessage("applyDamage", 2f);
             attackFlag = false;
         }
+
     }
     void OnTriggerStay2D(Collider2D other)
     {
