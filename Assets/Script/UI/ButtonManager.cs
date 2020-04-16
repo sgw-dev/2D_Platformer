@@ -17,7 +17,7 @@ public class ButtonManager : MonoBehaviour
     }
     public void resume()
     {
-        SceneManager.LoadScene("Level1", LoadSceneMode.Single);
+        SceneManager.LoadScene("Town", LoadSceneMode.Single);
     }
     public void quit()
     {
@@ -30,7 +30,7 @@ public class ButtonManager : MonoBehaviour
     public void newGame()
     {
         reset();
-        SceneManager.LoadScene("Level1", LoadSceneMode.Single);
+        SceneManager.LoadScene("Tutorial", LoadSceneMode.Single);
     }
     public void reset()
     {

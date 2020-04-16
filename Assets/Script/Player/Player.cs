@@ -186,6 +186,10 @@ public class Player : MonoBehaviour
         {
             Movement();
         }
+        else
+        {
+            playerAnim.SetBool("running", false);
+        }
     }
     void flip(bool left)
     {
@@ -295,7 +299,7 @@ public class Player : MonoBehaviour
             jumpTimer += Time.deltaTime;
         
             //if Fire1 pressed
-            if (Input.GetButtonDown("Fire1"))
+            if (Input.GetButtonDown("Fire1") & !frozen)
             {
                 if (attackTimer > attackSpeed)
                 {
