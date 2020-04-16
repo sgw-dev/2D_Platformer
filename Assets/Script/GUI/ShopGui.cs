@@ -22,6 +22,7 @@ public class ShopGui : MonoBehaviour
         ShopManager.main.onItemsUpdate += OnShopUpdate;
         ShopManager.main.onToggleGui += ToggleShop;
         ToggleShop();
+        UpdateCurrentMoney();//Spencer
     }
 
     void OnShopUpdate()
@@ -100,7 +101,7 @@ public class ShopGui : MonoBehaviour
                 else if (field.FieldType == typeof(Sprite))
                 {
                     //Update SpriteRenderer component
-                    SpriteRenderer renderer = obj.transform.GetChild(i).GetComponent<SpriteRenderer>();
+                    Image renderer = obj.transform.GetChild(i).GetComponent<Image>();
                     if(renderer != null)
                     {
                         renderer.sprite = (Sprite)field.GetValue(item);

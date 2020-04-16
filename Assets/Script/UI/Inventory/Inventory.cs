@@ -17,7 +17,7 @@ public class Inventory : MonoBehaviour
     public GameObject[] equips;
     Item item;
     public LayerMask hitMask;
-    private int gold;
+    public int gold;
 
     void Start()
     {
@@ -28,9 +28,6 @@ public class Inventory : MonoBehaviour
         for (int i = 0; i < inventorySize; i++)
         {
             slot[i] = boxPanels.transform.GetChild(i).gameObject;
-            // checks if slot is empty
-            /*if (slot[i].GetComponent<Slot>().Item != null)
-                slot[i].GetComponent<Slot>().empty = false;*/
         }
         equips = new GameObject[5];
         for(int i=0; i<equips.Length; i++)
@@ -40,10 +37,7 @@ public class Inventory : MonoBehaviour
     }
     void Update()
     {
-        /*if (Input.GetKeyDown(KeyCode.E))
-        {
-            pickUp();
-        }*/
+
     }
     public Item getEquiped(int index)
     {
@@ -160,5 +154,15 @@ public class Inventory : MonoBehaviour
             gold = value;
             goldText.text = gold.ToString();
         }
+    }
+    public void GoldTransact(int amount)
+    {
+        if (gold + amount < 0)
+        {
+            Debug.LogWarning("You cannot afford this");
+            return;
+        }
+        gold += amount;
+        //goldpanel.text = gold + "";
     }
 }
