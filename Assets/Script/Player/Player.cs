@@ -209,9 +209,8 @@ public class Player : MonoBehaviour
             {
                 //add force to the object to the right
                 rb.AddForce(new Vector2(speed, 0.0f));
+                playerAnim.SetFloat("speed", 1.3f);
                 //flip the sprite to face right
-                //this.GetComponent<SpriteRenderer>().flipX = false;
-                //body.GetComponent<SpriteRenderer>().flipX = false;
                 flip(false);
                 if (!facingRight) {
                     //flipArm(true);
@@ -228,9 +227,8 @@ public class Player : MonoBehaviour
             {
                 //add force to the object to the right
                 rb.AddForce(new Vector2(speed, 0.0f));
+                playerAnim.SetFloat("speed", 1.0f);
                 //flip the sprite to face right
-                //this.GetComponent<SpriteRenderer>().flipX = false;
-                //body.GetComponent<SpriteRenderer>().flipX = false;
                 flip(false);
                 if (!facingRight)
                 {
@@ -251,8 +249,7 @@ public class Player : MonoBehaviour
                 //add force to the object to the left
                 rb.AddForce(new Vector2(-speed, 0.0f));
                 //flip the sprite to face left
-                //this.GetComponent<SpriteRenderer>().flipX = true;
-                //body.GetComponent<SpriteRenderer>().flipX = true;
+                playerAnim.SetFloat("speed", 1.3f);
                 flip(true);
                 if (facingRight)
                 {
@@ -273,9 +270,8 @@ public class Player : MonoBehaviour
                 //add force on the object to the left
                 rb.AddForce(new Vector2(-speed, 0.0f));
                 //flip the sprite to face left
-                //this.GetComponent<SpriteRenderer>().flipX = true;
+                playerAnim.SetFloat("speed", 1.0f);
                 flip(true);
-                //body.GetComponent<SpriteRenderer>().flipX = true;
                 if (facingRight)
                 {
                     //flipArm(false);
