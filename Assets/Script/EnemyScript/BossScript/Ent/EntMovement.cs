@@ -19,13 +19,14 @@ public class EntMovement : BossPathing
     private EntController entController;
 
     //Spencer
-    private bool dead;
+    public bool dead;
 
     private void Start()
     {
         entController = GetComponent<EntController>();
         SetAttacks();
         BossStart();
+        die();
     }
 
     private void Update()
@@ -133,5 +134,6 @@ public class EntMovement : BossPathing
         dead = true;
         Debug.Log("Ent dead");
         this.transform.GetChild(3).gameObject.SetActive(false);
+        entController.AddDeathPrioity();
     }
 }

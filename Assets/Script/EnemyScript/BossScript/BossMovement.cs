@@ -27,7 +27,7 @@ public class BossMovement : MonoBehaviour
     public Vector3 direction;       //direction
     public Vector3 velocity;        //velocity
 
-    [HideInInspector] public bool walking, sprinting, jumping, falling;   //state of object
+    [HideInInspector] public bool walking, sprinting, jumping, falling, dead;   //state of object
     [HideInInspector] public int moveType;                                //int to tell how object should move
     //0 = stop  1 = move on ground  2 or more = jump
 

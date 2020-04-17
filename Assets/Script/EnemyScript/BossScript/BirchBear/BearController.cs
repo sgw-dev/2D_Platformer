@@ -116,7 +116,11 @@ public class BearController : MonoBehaviour
 
     public void SetInterruptableActionToState(BearMovement bm)
     {
-        if (bm.jumping)
+        if (bm.dead)
+        {
+            bossAnimationController.SetInterruptableActions(new BossAnimation[] { flop2 });
+        }
+        else if (bm.jumping)
         {
             bossAnimationController.SetInterruptableActions(jump);
         }

@@ -10,12 +10,11 @@ public class BearMovement : BossMovement
     private float distanceToBite;
 
     public BossAttack basicAttack, slamAttack, leafAttack;
+    private bool stop;
 
     public GameObject leafPrefab;
 
     private BearController bearController;
-    //Spencer
-    private bool dead;
 
     private void Start()
     {
@@ -32,7 +31,7 @@ public class BearMovement : BossMovement
     {
         if (!dead)//Spencer
         {
-            if (GetCharacterMovement().sides.bot)
+            if (GetCharacterMovement().sides.bot && ! stop)
             {
                 SetDirection(bossPathing.GetPoint());
             }
@@ -100,6 +99,7 @@ public class BearMovement : BossMovement
 
     IEnumerator StartSlamAttack()
     {
+        stop = true;
         StartCoroutine(AttackCooldown(1.4f));
         StartCoroutine(slamAttack.StartCooldown());
         bearController.AddSlamAttackPriority();
@@ -109,6 +109,7 @@ public class BearMovement : BossMovement
         {
             temp.applyDamage(3);
         }
+        stop = false;
     }
 
     IEnumerator StartBasicAttack()
@@ -127,6 +128,7 @@ public class BearMovement : BossMovement
 
     IEnumerator StartLeafAttack()
     {
+        stop = true;
         StartCoroutine(AttackCooldown(2.5f));
         StartCoroutine(leafAttack.StartCooldown());
         bearController.AddLeafAttackPriority();
@@ -145,6 +147,7 @@ public class BearMovement : BossMovement
             temp.transform.rotation = Quaternion.Euler(0,0, (direction.x == 1) ? 0 : 180);
             yield return new WaitForSeconds(.2f);
         }
+        stop = false;
     }
 
     private void SetAttacks()
@@ -153,6 +156,7 @@ public class BearMovement : BossMovement
         slamAttack = new BossAttack(slamCollider, 0, 1.1f, 7);
         leafAttack = new BossAttack(20, 0, 1f, 14);
     }
+
     public void die()
     {
         dead = true;

@@ -992,6 +992,11 @@ PrefabInstance:
       propertyPath: playerPosition
       value: 
       objectReference: {fileID: 1729787850}
+    - target: {fileID: 5472477977496835755, guid: b3c3fadd0f30f7441b9f9a2a89c9bcc9,
+        type: 3}
+      propertyPath: dead
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5472477977223924834, guid: b3c3fadd0f30f7441b9f9a2a89c9bcc9,
         type: 3}
       propertyPath: m_SortingLayerID
@@ -1131,6 +1136,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_SortingLayer
       value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 5472477976655291157, guid: b3c3fadd0f30f7441b9f9a2a89c9bcc9,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b3c3fadd0f30f7441b9f9a2a89c9bcc9, type: 3}
@@ -5322,6 +5332,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Canvas
+      objectReference: {fileID: 0}
+    - target: {fileID: 626821428155966707, guid: e11e4c5e9625fef43bfa014c2c429324,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 626821428155966479, guid: e11e4c5e9625fef43bfa014c2c429324,
         type: 3}

@@ -34,6 +34,7 @@ public class EntController : MonoBehaviour
     private BossAnimation basicAttack1, basicAttack2;
     private BossAnimation seedAttack1, seedAttack2;
     private BossAnimation spikeAttack1, spikeAttack2, spikeAttack3;
+    private BossAnimation death1, death2, death3, death4, death5;
 
     private BossAnimationController bossAnimationController;
     private EntMovement entMovement;
@@ -51,6 +52,7 @@ public class EntController : MonoBehaviour
         SetBasicAttackAnimation();
         SetSeedAttackAnimation();
         SetSpikeAttackAnimation();
+        SetDeathAnimation();
         bossAnimationController.SetInterruptableActions(idle);
     }
 
@@ -58,7 +60,7 @@ public class EntController : MonoBehaviour
     {
         if (bossAnimationController.EmptyPriority())
         {
-            
+            //AddDeathPrioity();
         }
         bool isFlip = (entMovement.direction == Vector3.left) ? true : false;
         bossAnimationController.DoAction(skeleton, isFlip);
@@ -81,6 +83,15 @@ public class EntController : MonoBehaviour
         bossAnimationController.AddPriorityAction(spikeAttack1);
         bossAnimationController.AddPriorityAction(spikeAttack2);
         bossAnimationController.AddPriorityAction(spikeAttack3);
+    }
+
+    public void AddDeathPrioity()
+    {
+        bossAnimationController.AddPriorityAction(death1);
+        bossAnimationController.AddPriorityAction(death2);
+        bossAnimationController.AddPriorityAction(death3);
+        bossAnimationController.AddPriorityAction(death4);
+        bossAnimationController.SetInterruptableActions(new BossAnimation[] { death5 });
     }
 
     private void SetIdleAnimation()
@@ -120,5 +131,20 @@ public class EntController : MonoBehaviour
         spikeAttack1 = new BossAnimation(angle1, 1f);
         spikeAttack2 = new BossAnimation(angle2, .3f);
         spikeAttack3 = new BossAnimation(angle2, 1f);
+    }
+
+    private void SetDeathAnimation()
+    {
+        float[] angle1 = new float[] {-10, 0, -30,    -30, -50, -30,    -30,    -10, -60, -20};
+        float[] angle2 = new float[] {80, -60, 10,    -90, -10, -30,    -10,    -20, 10, -90};
+        float[] angle3 = new float[] {80, 50, -100,    -140, 90, -30,    40,    70, -70, -90};
+        float[] angle4 = new float[] {80, 50, -90,    -160, 100, 0,    50,    60, -70, -90};
+        float[] angle5 = new float[] {80, 30, -50,    -30, -70, -30,    -30,    -10, -60, -20};
+
+        death1 = new BossAnimation(angle1, .3f);
+        death2 = new BossAnimation(angle2, .7f);
+        death3 = new BossAnimation(angle3, 1f);
+        death4 = new BossAnimation(angle4, .5f);
+        death5 = new BossAnimation(angle4, 2f);
     }
 }
