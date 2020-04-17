@@ -9,16 +9,16 @@ public enum ItemType { Weapon, Helmet, Chest, Boots, Gun, Accessory, Spell, Poti
 public class Item 
 {
     [SerializeField]
-    private int ID;
-    private string description;
-    private string itemName;
-    private ItemType type;
-    private string subType;
-    private float value;
-    private float secValue;
+    public int ID;
+    public string description;
+    public string itemName;
+    public ItemType type;
+    public string subType;
+    public float value;
+    public float secValue;
     [SerializeField]
-    private Sprite icon;
-    private Sprite image;
+    public Sprite icon;
+    public Sprite image;
 
 
     public Item()

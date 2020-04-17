@@ -28,8 +28,9 @@ public class SaveUtility : MonoBehaviour {
 	static readonly string GOLD  = "playergold";
 	//location of gameobject and script subject to change
 	static readonly string INV   = "inventoryslot_";
-	//not sure where this gameobject/script is yet
-	static readonly string EQUIP = "playerequipslot_";
+    static readonly string EQU = "equipslot_";
+    //not sure where this gameobject/script is yet
+    static readonly string EQUIP = "playerequipslot_";
 
 	[Tooltip("Make Sure the instance attached to the player is here")]
 	public GameObject      player;
@@ -77,16 +78,23 @@ public class SaveUtility : MonoBehaviour {
         PlayerPrefs.SetInt(GOLD, inventoryscript.Gold);
         //try is here until item system and inventory is set
         try {
-            
+            //Inventoy
 			for(int i = 0 ; i < inventoryscript.slot.Length ; i++) {
-                
                 if (!inventoryscript.slot[i].GetComponent<Slot>().isEmpty())
                 {
                     PlayerPrefs.SetInt(INV+i,inventoryscript.slot[i].GetComponent<Slot>().getItem());
                 }
-				
 			}
-		} catch(Exception e) {
+            //Equipment Slots
+            for (int i = 0; i < inventoryscript.equips.Length; i++)
+            {
+                if (inventoryscript.equips[i].GetComponent<EquipmentWatcher>().item != null)
+                {
+                    PlayerPrefs.SetInt(EQU + i, inventoryscript.equips[i].GetComponent<EquipmentWatcher>().item.getId());
+                    Debug.Log("Saving Equip Slot " + i + " . It has item "+inventoryscript.equips[i].GetComponent<EquipmentWatcher>().item.getId());
+                }
+            }
+        } catch(Exception e) {
 			Debug.LogError(e.Message);
 		}
 		//PlayerPrefs.SetFloat(GOLD,-1);
@@ -101,6 +109,10 @@ public class SaveUtility : MonoBehaviour {
         for (int i = 0; i < inventoryscript.slot.Length; i++)
         {
             PlayerPrefs.DeleteKey(INV + i);
+        }
+        for (int i = 0; i < inventoryscript.equips.Length; i++)
+        {
+            PlayerPrefs.DeleteKey(EQU + i);
         }
     }
 
@@ -135,7 +147,14 @@ public class SaveUtility : MonoBehaviour {
                     inventoryscript.slot[i].GetComponent<Slot>().addItem(PlayerPrefs.GetInt(INV + i));
 				}
 			}
-		} catch(Exception e) {
+            for (int i = 0; i < inventoryscript.equips.Length; i++)
+            {
+                if (PlayerPrefs.HasKey(EQU + i))
+                {
+                    inventoryscript.equips[i].GetComponent<EquipmentWatcher>().setItem(PlayerPrefs.GetInt(EQU + i));
+                }
+            }
+        } catch(Exception e) {
 			Debug.LogError(e.Message);
 		}
 	}

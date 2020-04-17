@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class ItemMananger : MonoBehaviour
 {
+    public bool itemOverride;
+    public int overrideID;
     private int id;
     private Item item;
     private GameObject overLord;
@@ -28,8 +30,13 @@ public class ItemMananger : MonoBehaviour
     {
         yield return new WaitForSeconds(waitTime);
         //Your Function You Want to Call
-        //Debug.Log(id);
-        item = calcItem();
+        if (!itemOverride){
+            item = calcItem();
+        }else{
+            
+            item = read.getItem(overrideID);
+            id = overrideID;
+        }
         this.GetComponent<SpriteRenderer>().sprite = read.getSprite(id);
         canPickup = true;
     }
@@ -41,8 +48,10 @@ public class ItemMananger : MonoBehaviour
     public void bossOverride()
     {
         bossLoot = true;
-        item = calcItem();
-        this.GetComponent<SpriteRenderer>().sprite = read.getSprite(id);
+        if(item == null)
+        {
+
+        }
     }
 
     private Item calcItem()

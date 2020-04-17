@@ -112,9 +112,8 @@ public class Player : MonoBehaviour
         shieldHolder.SetActive(false);
 
         health = maxHealth;
-        maxWidth = healthbar.maxValue;
-        healthWidth = maxWidth;
-        healthbar.value = healthWidth;
+        healthbar.maxValue = maxHealth;
+        healthbar.value = health;
 		
 		currentXP = 0;//change
 		maxXP     = 100;//change to some variable later
@@ -185,6 +184,10 @@ public class Player : MonoBehaviour
         if(!frozen)
         {
             Movement();
+        }
+        else
+        {
+            playerAnim.SetBool("running", false);
         }
     }
     void flip(bool left)
@@ -295,7 +298,7 @@ public class Player : MonoBehaviour
             jumpTimer += Time.deltaTime;
         
             //if Fire1 pressed
-            if (Input.GetButtonDown("Fire1"))
+            if (Input.GetButtonDown("Fire1") & !frozen)
             {
                 if (attackTimer > attackSpeed)
                 {
@@ -380,7 +383,7 @@ public class Player : MonoBehaviour
             {
                 if (colliders[i].tag.CompareTo("Enemy") == 0 || colliders[i].tag.CompareTo("Owl") == 0)
                 {
-
+                    Debug.Log("Hit " + colliders[i].name);
                     if (!names.Contains(colliders[i].name))
                     {
                         colliders[i].SendMessage("applyDamage", (float)attackDamage);
@@ -443,14 +446,13 @@ public class Player : MonoBehaviour
             playerAnim.SetTrigger("hit");
 
             health -= damage/((float)defence + 1f);
+            Debug.Log("Damage = " + (damage / ((float)defence + 1f)));
             if (health <= 0 && !dead)
             {
                 die();
                 dead = true;
             }
-            float ratio = maxWidth / maxHealth;
-            float width = healthbar.value;
-            healthbar.value = width - (ratio * damage);
+            healthbar.value = health;
         }
        
         

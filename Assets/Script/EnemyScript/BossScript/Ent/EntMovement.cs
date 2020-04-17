@@ -18,6 +18,9 @@ public class EntMovement : BossPathing
 
     private EntController entController;
 
+    //Spencer
+    private bool dead;
+
     private void Start()
     {
         entController = GetComponent<EntController>();
@@ -27,7 +30,7 @@ public class EntMovement : BossPathing
 
     private void Update()
     {
-        if (canAttack)
+        if (canAttack && !dead)
         {
             SetDirectionOnPlayer();
             shield.SetActive(true);
@@ -123,5 +126,12 @@ public class EntMovement : BossPathing
         basicAttack = new BossAttack(basicAttackCollider, 0, 1.3f, 3);
         seedAttack = new BossAttack(searchDistance, 0, 1.5f, 30);
         spikeAttack = new BossAttack(searchDistance, 0, 1.5f, 20);
+    }
+    public void die()
+    {
+        //Ent Death
+        dead = true;
+        Debug.Log("Ent dead");
+        this.transform.GetChild(3).gameObject.SetActive(false);
     }
 }

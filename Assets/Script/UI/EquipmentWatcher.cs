@@ -27,6 +27,11 @@ public class EquipmentWatcher : MonoBehaviour, IPointerEnterHandler, IPointerExi
     }
     public void setItem(int id)
     {
+        if(id == 0)
+        {
+            clearItem();
+            return;
+        }
         
         if(item == null || item.getId() == 0)
         {

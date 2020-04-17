@@ -43,9 +43,14 @@ public class FlowerLaserMovement : MonoBehaviour
     //destroy on contact with wall or player;
     public void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.transform.CompareTag("Player") || collision.transform.CompareTag("Stage"))
+        if (collision.transform.CompareTag("Player"))
         {
+            collision.gameObject.SendMessage("applyDamage", 1.0f);
             Destroy(this.gameObject);       //detroy this
+        }else if (collision.transform.CompareTag("Stage"))
+        {
+            Destroy(this.gameObject);
         }
     }
+    
 }
