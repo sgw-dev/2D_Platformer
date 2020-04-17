@@ -271,7 +271,7 @@ public class BossPathing : MonoBehaviour
         Collider2D pc = GetPlayerColliderInCollider(ba.collider);
         if (pc != null)
         {
-            //Debug.Log("hit");
+            pc.SendMessage("applyDamage", 3.0f);
         }
     }
 

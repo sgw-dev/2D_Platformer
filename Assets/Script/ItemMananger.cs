@@ -33,10 +33,11 @@ public class ItemMananger : MonoBehaviour
         if (!itemOverride){
             item = calcItem();
         }else{
+            
             item = read.getItem(overrideID);
             id = overrideID;
         }
-        this.GetComponent<SpriteRenderer>().sprite = read.getSprite(overrideID);
+        this.GetComponent<SpriteRenderer>().sprite = read.getSprite(id);
         canPickup = true;
     }
     public Item getItem()
@@ -47,8 +48,10 @@ public class ItemMananger : MonoBehaviour
     public void bossOverride()
     {
         bossLoot = true;
-        item = calcItem();
-        this.GetComponent<SpriteRenderer>().sprite = read.getSprite(id);
+        if(item == null)
+        {
+
+        }
     }
 
     private Item calcItem()

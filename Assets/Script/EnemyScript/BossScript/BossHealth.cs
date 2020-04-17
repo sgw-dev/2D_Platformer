@@ -9,6 +9,7 @@ public class BossHealth : MonoBehaviour
     public int maxHealth;
     public GameObject loot;
     private int health;
+    public bool ent;
 
     // Start is called before the first frame update
     void Start()
@@ -23,7 +24,16 @@ public class BossHealth : MonoBehaviour
         health -= d;
         if(health <= 0)
         {
-            this.transform.SendMessage("die");
+            if (ent)
+            {
+                this.transform.parent.SendMessage("die");
+            }
+            else
+            {
+                this.transform.SendMessage("die");
+            }
+            
+            
             health = 0;
             deathLoot();
         }
@@ -32,6 +42,11 @@ public class BossHealth : MonoBehaviour
     private void deathLoot()
     {
         GameObject temp = Instantiate(loot);
+        temp.transform.position = new Vector3(transform.position.x, transform.position.y + 5, transform.position.z);
+        temp.GetComponent<Rigidbody2D>().velocity = new Vector3(Random.Range(-1f, 1f), 4f, 0);
+        temp.GetComponent<ItemMananger>().bossOverride();
+
+        temp = Instantiate(loot);
         temp.transform.position = new Vector3(transform.position.x, transform.position.y + 5, transform.position.z);
         temp.GetComponent<Rigidbody2D>().velocity = new Vector3(Random.Range(-1f, 1f), 4f, 0);
         temp.GetComponent<ItemMananger>().bossOverride();

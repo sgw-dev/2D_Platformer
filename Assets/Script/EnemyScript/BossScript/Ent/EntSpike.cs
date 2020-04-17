@@ -47,4 +47,11 @@ public class EntSpike : MonoBehaviour
         animator.SetBool("Out", true);          //do out animation
         StopCoroutine(Animate());               //stop coroutine
     }
+    public void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.transform.CompareTag("Player"))
+        {
+            collision.gameObject.SendMessage("applyDamage", 1.0f);
+        }
+    }
 }
